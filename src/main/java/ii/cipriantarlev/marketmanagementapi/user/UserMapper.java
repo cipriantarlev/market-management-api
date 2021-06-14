@@ -32,10 +32,30 @@ public class UserMapper {
 
 		return modelMapper.map(user, UserDTO.class);
 	}
+	
+	public User mapUserDTOToUser(UserDTO user) {
+		
+		modelMapper.typeMap(UserDTO.class, User.class).addMappings(mapper -> {
+			mapper.map(UserDTO::getId, User::setId);
+			mapper.map(UserDTO::getUsername, User::setUsername);
+			mapper.map(UserDTO::getPassword, User::setPassword);
+			mapper.map(UserDTO::getEmail, User::setEmail);
+			mapper.map(userMapper -> mapRoleDTOToRole(user.getRoles()), User::setRoles);
+		});
+
+		return modelMapper.map(user, User.class);
+		
+	}
 
 	private List<RoleDTO> mapRoleToRoleDTO(List<Role> roles) {
 		return roles.stream()
 				.map(role -> roleMapper.mapRoleToRoleDTO(role))
+					.collect(Collectors.toList());
+	}
+	
+	private List<Role> mapRoleDTOToRole(List<RoleDTO> roles) {
+		return roles.stream()
+				.map(role -> roleMapper.mapRoleDTOToRole(role))
 					.collect(Collectors.toList());
 	}
 }

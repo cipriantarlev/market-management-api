@@ -37,7 +37,7 @@ public class Role {
 	private String roleName;
 	
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.EAGER,
+	@ManyToMany(fetch = FetchType.LAZY,
 				cascade= {CascadeType.DETACH, CascadeType.MERGE, 
 						CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinTable(name = "users-roles",
