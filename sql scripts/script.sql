@@ -21,12 +21,12 @@ CREATE TABLE IF NOT EXISTS public.roles
 
 --------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS public."user-roles"
+CREATE TABLE IF NOT EXISTS public."user_roles"
 (
     user_id smallint NOT NULL,
     role_id smallint NOT NULL,
     CONSTRAINT "user-roles_pkey" PRIMARY KEY (user_id, role_id),
-    CONSTRAINT "role_id to public.roles id" FOREIGN KEY (user_id)
+    CONSTRAINT "role_id to public.roles id" FOREIGN KEY (role_id)
         REFERENCES public.roles (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
