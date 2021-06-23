@@ -18,10 +18,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<UserDTO> findAll() {
-		return userRepository.findAll()
-							 .stream()
-							 .map(user -> userMapper.mapUserToUserDTO(user))
-							 .collect(Collectors.toList());
+		return userRepository.findAll().stream().map(user -> userMapper.mapUserToUserDTO(user))
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -30,9 +28,8 @@ public class UserServiceImpl implements UserService {
 
 		if (user.isPresent()) {
 			return userMapper.mapUserToUserDTO(user.get());
-		} else {
-			throw new UserNotFoundException("User not found - " + id);
 		}
+		return null;
 	}
 
 	@Override
@@ -41,27 +38,19 @@ public class UserServiceImpl implements UserService {
 
 		if (user != null) {
 			return userMapper.mapUserToUserDTO(user);
-		} else {
-			throw new UserNotFoundException("User not found - " + username);
 		}
+
+		return null;
 	}
 
 	@Override
-	public void save(UserDTO userDTO) {
+	public User save(UserDTO userDTO) {
 		var user = userMapper.mapUserDTOToUser(userDTO);
-		userRepository.save(user);
-
+		return userRepository.save(user);
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		Optional<User> user = userRepository.findById(id);
-
-		if (user.isPresent()) {
-			userRepository.delete(user.get());
-		} else {
-			throw new UserNotFoundException("User not found - " + id);
-		}
-
+		userRepository.deleteById(id);
 	}
 }
