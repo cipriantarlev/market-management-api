@@ -10,7 +10,7 @@ public interface UserService {
 
 	UserDTO findByUsername(String username);
 
-	void save(UserDTO userDTO);
+	User save(UserDTO userDTO);
 
 	void deleteById(Integer id);
 }
