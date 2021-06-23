@@ -18,7 +18,7 @@ public class LoginController {
 		login.setTimestamp(LocalDateTime.now().toString());
 		login.setMessage("Successfully authenticated");
 		login.setStatus(HttpStatus.OK.value());
-		login.setPath("/api/loing");
+		login.setPath("/api/login");
 		return new ResponseEntity<>(login, HttpStatus.OK);
 	}
 }
