@@ -14,7 +14,7 @@ public class RoleMapper {
 
 		modelMapper.typeMap(Role.class, RoleDTO.class).addMappings(mapper -> {
 			mapper.map(Role::getId, RoleDTO::setId);
-			mapper.map(Role::getRoleName, RoleDTO::setRoleName);
+			mapper.map(Role::getRoleName, RoleDTO::setRole);
 		});
 
 		return modelMapper.map(role, RoleDTO.class);
@@ -24,7 +24,7 @@ public class RoleMapper {
 
 		modelMapper.typeMap(RoleDTO.class, Role.class).addMappings(mapper -> {
 			mapper.map(RoleDTO::getId, Role::setId);
-			mapper.map(RoleDTO::getRoleName, Role::setRoleName);
+			mapper.map(RoleDTO::getRole, Role::setRoleName);
 		});
 
 		return modelMapper.map(role, Role.class);
