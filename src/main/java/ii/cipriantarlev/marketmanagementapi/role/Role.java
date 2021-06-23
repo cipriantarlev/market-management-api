@@ -37,10 +37,8 @@ public class Role {
 	private String roleName;
 	
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.LAZY,
-				cascade= {CascadeType.DETACH, CascadeType.MERGE, 
-						CascadeType.PERSIST, CascadeType.REFRESH})
-	@JoinTable(name = "users-roles",
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH })
+	@JoinTable(name = "users_roles",
 				joinColumns=@JoinColumn(name="role_id"),
 				inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> users;

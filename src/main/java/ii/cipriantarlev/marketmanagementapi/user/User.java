@@ -44,9 +44,7 @@ public class User {
 	private String email;
 
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.EAGER,
-				cascade= {CascadeType.DETACH, CascadeType.MERGE, 
-						CascadeType.PERSIST, CascadeType.REFRESH})
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.REFRESH })
 	@JoinTable(name = "users_roles",
 				joinColumns=@JoinColumn(name="user_id"),
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
