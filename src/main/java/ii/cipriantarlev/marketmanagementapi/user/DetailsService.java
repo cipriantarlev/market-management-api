@@ -30,7 +30,7 @@ public class DetailsService implements UserDetailsService {
 
 	private String[] mapRoleDTOToStringArray(List<RoleDTO> roles) {
 		List<String> roleList = roles.stream()
-									 .map(RoleDTO::getRoleName)
+									 .map(RoleDTO::getRole)
 									 .collect(Collectors.toList());
 
 		var array = new String[roleList.size()];
