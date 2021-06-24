@@ -18,7 +18,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<UserDTO> findAll() {
-		return userRepository.findAll().stream().map(user -> userMapper.mapUserToUserDTO(user))
+		return userRepository.findAll().stream()
+				.map(user -> hideUserPassword(user))
 				.collect(Collectors.toList());
 	}
 
@@ -52,5 +53,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteById(Integer id) {
 		userRepository.deleteById(id);
+	}
+
+	public UserDTO hideUserPassword(User user) {
+		user.setPassword("");
+		return userMapper.mapUserToUserDTO(user);
 	}
 }
