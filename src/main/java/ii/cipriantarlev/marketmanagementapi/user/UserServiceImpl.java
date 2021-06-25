@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 		Optional<User> user = userRepository.findById(id);
 
 		if (user.isPresent()) {
-			return userMapper.mapUserToUserDTO(user.get());
+			return hideUserPassword(user.get());
 		}
 		return null;
 	}
