@@ -11,21 +11,6 @@
 				{
 					"name": "Get My Organizations",
 					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "!@#Tpro1",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "ciprian",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
