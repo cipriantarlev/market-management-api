@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS public.users
     CONSTRAINT users_pkey PRIMARY KEY (id),
     CONSTRAINT "unique email" UNIQUE (email),
     CONSTRAINT "unique username" UNIQUE (username)
-)
+);
 
 --------------------------------------------------
 
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS public.roles
     role character varying(50) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT roles_pkey PRIMARY KEY (id),
     CONSTRAINT "unique role" UNIQUE (role)
-)
+);
 
 --------------------------------------------------
 
@@ -36,4 +36,21 @@ CREATE TABLE IF NOT EXISTS public."user_roles"
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
         NOT VALID
-)
+);
+
+-----------------------------------------------------------
+CREATE TABLE IF NOT EXISTS public.my_organizations
+(
+    id smallserial NOT NULL,
+    name character varying(150) NOT NULL,
+    bank character varying(200) NOT NULL,
+    fiscal_code numeric(20) NOT NULL,
+    bank_account numeric(50) NOT NULL,
+    vat_code numeric(50) NOT NULL,
+    city character varying(150) NOT NULL,
+    phone_number character varying(100),
+    email character varying(150),
+    note character varying(500),
+    PRIMARY KEY (id),
+    CONSTRAINT "unique" UNIQUE (name, fiscal_code, bank_account, vat_code)
+);
