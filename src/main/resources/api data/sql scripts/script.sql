@@ -54,3 +54,41 @@ CREATE TABLE IF NOT EXISTS public.my_organizations
     PRIMARY KEY (id),
     CONSTRAINT "unique" UNIQUE (name, fiscal_code, bank_account, vat_code)
 );
+
+------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS public.regions
+(
+    id smallserial NOT NULL,
+    region_name character varying(100) NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT region UNIQUE (region_name)
+)
+
+------------------------------------------------------
+CREATE TABLE IF NOT EXISTS public.vendors
+(
+    id serial NOT NULL,
+    name character varying(200) NOT NULL,
+    bank character varying(250) NOT NULL,
+    fiscal_code character varying(100) NOT NULL,
+    bank_account character varying(100) NOT NULL,
+    currency character varying(10) NOT NULL,
+    vat_code character varying(50) NOT NULL,
+    city character varying(100) NOT NULL,
+    region_id integer NOT NULL,
+    phone_number character varying(50) NOT NULL,
+    postal_code character varying(10) NOT NULL,
+    business_address character varying(250) NOT NULL,
+    vendor_type character varying(100) NOT NULL,
+    vendor_legal_type character varying(150) NOT NULL,
+    note character varying(250),
+    CONSTRAINT id PRIMARY KEY (id),
+    UNIQUE (name, fiscal_code, bank_account, vat_code),
+    CONSTRAINT vendor_region FOREIGN KEY (region_id)
+        REFERENCES public.regions (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+------------------------------------------------------------

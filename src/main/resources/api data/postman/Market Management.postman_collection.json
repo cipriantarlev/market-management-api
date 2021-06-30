@@ -319,6 +319,151 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Vendors",
+			"item": [
+				{
+					"name": "Get Regions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/regions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"regions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vendors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/vendors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"vendors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vendor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/vendors/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"vendors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Vendor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"SRL Mizelini\",\r\n    \"bank\": \"BC VictoriaBank SRL\",\r\n    \"fiscalCode\": \"1002602004566\",\r\n    \"bankAccount\": \"1002602054217\",\r\n    \"currency\": \"MDL\",\r\n    \"vatCode\": \"3216145\",\r\n    \"city\": \"Chisinau\",\r\n    \"region\": {\r\n        \"id\": 1,\r\n        \"name\": \"Municipiul Chisinau\"\r\n    },\r\n    \"phoneNumber\": \"022-21-55-75\",\r\n    \"postalCode\": \"MD-2000\",\r\n    \"businessAddress\": \"Strada Pușkin 50, Chișinău, Republica Moldova\",\r\n    \"vendorType\": \"Supplier\",\r\n    \"vendorLegalType\": \"Legal entity\",\r\n    \"note\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/vendors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"vendors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Vendor",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"name\": \"SRL Mizelini\",\r\n    \"bank\": \"BC VictoriaBank SRL\",\r\n    \"fiscalCode\": \"1002602004566\",\r\n    \"bankAccount\": \"1002602054217\",\r\n    \"currency\": \"MDL\",\r\n    \"vatCode\": \"3216145\",\r\n    \"city\": \"Chisinau\",\r\n    \"region\": {\r\n        \"id\": 2,\r\n        \"name\": \"Municipiul Balti\"\r\n    },\r\n    \"phoneNumber\": \"022-21-55-75\",\r\n    \"postalCode\": \"MD-2000\",\r\n    \"businessAddress\": \"Strada Pușkin 50, Chișinău, Republica Moldova\",\r\n    \"vendorType\": \"Supplier\",\r\n    \"vendorLegalType\": \"Legal entity\",\r\n    \"note\": \"Salam\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/vendors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"vendors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Vendor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/vendors/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"vendors",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
