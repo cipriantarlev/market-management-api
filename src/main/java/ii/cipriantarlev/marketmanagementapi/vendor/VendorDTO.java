@@ -1,6 +1,6 @@
 package ii.cipriantarlev.marketmanagementapi.vendor;
 
-import ii.cipriantarlev.marketmanagementapi.regions.RegionDTO;
+import ii.cipriantarlev.marketmanagementapi.region.RegionDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

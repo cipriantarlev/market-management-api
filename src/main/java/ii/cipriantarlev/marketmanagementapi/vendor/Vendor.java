@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import ii.cipriantarlev.marketmanagementapi.regions.Region;
+import ii.cipriantarlev.marketmanagementapi.region.Region;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

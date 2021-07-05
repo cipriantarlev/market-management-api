@@ -1,4 +1,4 @@
-package ii.cipriantarlev.marketmanagementapi.regions;
+package ii.cipriantarlev.marketmanagementapi.region;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
