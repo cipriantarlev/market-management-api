@@ -17,9 +17,9 @@ public class VendorServiceImpl implements VendorService {
 	private VendorMapper vendorMapper;
 
 	@Override
-	public List<VendorDTO> findAll() {
+	public List<VendorDTONoRegions> findAll() {
 		return vendorRepository.findAllByOrderByIdAsc().stream()
-				.map(vendor -> vendorMapper.mapVendorToVendorDTO(vendor))
+				.map(vendor -> vendorMapper.mapVendorToVendorDTONoRegions(vendor))
 				.collect(Collectors.toList());
 	}
 

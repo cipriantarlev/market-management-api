@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface VendorService {
 
-	List<VendorDTO> findAll();
+	List<VendorDTONoRegions> findAll();
 
 	VendorDTO findById(Integer id);
 

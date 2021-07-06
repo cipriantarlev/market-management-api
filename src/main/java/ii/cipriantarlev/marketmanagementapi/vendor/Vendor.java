@@ -49,7 +49,7 @@ public class Vendor {
 	@Column(name = "city")
 	private String city;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.REFRESH })
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH })
 	@JoinColumn(name = "region_id")
 	private Region region;
 

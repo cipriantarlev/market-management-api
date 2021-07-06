@@ -56,4 +56,25 @@ public class VendorMapper {
 		return modelMapper.map(vendorDTO, Vendor.class);
 	}
 
+	public VendorDTONoRegions mapVendorToVendorDTONoRegions(Vendor vendor) {
+
+		modelMapper.typeMap(Vendor.class, VendorDTONoRegions.class).addMappings(mapper -> {
+			mapper.map(Vendor::getId, VendorDTONoRegions::setId);
+			mapper.map(Vendor::getName, VendorDTONoRegions::setName);
+			mapper.map(Vendor::getBank, VendorDTONoRegions::setBank);
+			mapper.map(Vendor::getFiscalCode, VendorDTONoRegions::setFiscalCode);
+			mapper.map(Vendor::getBankAccount, VendorDTONoRegions::setBankAccount);
+			mapper.map(Vendor::getCurrency, VendorDTONoRegions::setCurrency);
+			mapper.map(Vendor::getVatCode, VendorDTONoRegions::setVatCode);
+			mapper.map(Vendor::getCity, VendorDTONoRegions::setCity);
+			mapper.map(Vendor::getPhoneNumber, VendorDTONoRegions::setPhoneNumber);
+			mapper.map(Vendor::getPostalCode, VendorDTONoRegions::setPostalCode);
+			mapper.map(Vendor::getBusinessAddress, VendorDTONoRegions::setBusinessAddress);
+			mapper.map(Vendor::getVendorType, VendorDTONoRegions::setVendorType);
+			mapper.map(Vendor::getVendorLegalType, VendorDTONoRegions::setVendorLegalType);
+			mapper.map(Vendor::getNote, VendorDTONoRegions::setNote);
+		});
+
+		return modelMapper.map(vendor, VendorDTONoRegions.class);
+	}
 }
