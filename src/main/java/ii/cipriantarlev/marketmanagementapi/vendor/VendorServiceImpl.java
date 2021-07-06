@@ -18,7 +18,7 @@ public class VendorServiceImpl implements VendorService {
 
 	@Override
 	public List<VendorDTO> findAll() {
-		return vendorRepository.findAll().stream()
+		return vendorRepository.findAllByOrderByIdAsc().stream()
 				.map(vendor -> vendorMapper.mapVendorToVendorDTO(vendor))
 				.collect(Collectors.toList());
 	}
