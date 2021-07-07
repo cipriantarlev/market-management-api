@@ -92,3 +92,27 @@ CREATE TABLE IF NOT EXISTS public.vendors
 );
 
 ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS public.categories
+(
+    id smallserial NOT NULL,
+    name character varying(150) NOT NULL,
+    CONSTRAINT category_id PRIMARY KEY (id),
+    CONSTRAINT name UNIQUE (name)
+);
+
+-------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS public.subcategories
+(
+    id smallserial NOT NULL,
+    name character varying(150) NOT NULL,
+    category_id integer NOT NULL,
+    CONSTRAINT subcategory_id PRIMARY KEY (id),
+    CONSTRAINT "category_id - id public.categories" FOREIGN KEY (category_id)
+        REFERENCES public.categories (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+----------------------------------------------------------------

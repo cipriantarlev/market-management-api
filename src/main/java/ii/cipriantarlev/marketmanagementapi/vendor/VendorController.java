@@ -29,8 +29,8 @@ public class VendorController {
 	private VendorMapper vendorMapper;
 
 	@GetMapping
-	public ResponseEntity<List<VendorDTO>> getVendors() {
-		List<VendorDTO> vendors = vendorService.findAll();
+	public ResponseEntity<List<VendorDTONoRegions>> getVendors() {
+		List<VendorDTONoRegions> vendors = vendorService.findAll();
 
 		if (vendors == null || vendors.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
