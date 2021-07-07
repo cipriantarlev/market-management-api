@@ -1,5 +1,6 @@
 package ii.cipriantarlev.marketmanagementapi.subcategory;
 
+import ii.cipriantarlev.marketmanagementapi.category.CategoryDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,5 +17,7 @@ public class SubcategoryDTO {
 	private Integer id;
 
 	private String name;
+
+	private CategoryDTO category;
 }
 
