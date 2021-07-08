@@ -116,3 +116,14 @@ CREATE TABLE IF NOT EXISTS public.subcategories
 );
 
 ----------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS public.vat
+(
+    id smallserial NOT NULL,
+    value integer NOT NULL,
+    name character varying(100) NOT NULL,
+    CONSTRAINT id PRIMARY KEY (id),
+    CONSTRAINT "value-name" UNIQUE (value, name)
+);
+
+----------------------------------------------------------------
