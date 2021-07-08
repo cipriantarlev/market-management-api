@@ -449,7 +449,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/categories/8",
+							"raw": "http://localhost:8080/api/categories/22",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -458,7 +458,7 @@
 							"path": [
 								"api",
 								"categories",
-								"8"
+								"22"
 							]
 						}
 					},
@@ -528,7 +528,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/categories/8",
+							"raw": "http://localhost:8080/api/categories/22",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -537,7 +537,7 @@
 							"path": [
 								"api",
 								"categories",
-								"8"
+								"22"
 							]
 						}
 					},
@@ -685,6 +685,131 @@
 								"api",
 								"subcategories",
 								"133333"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vat",
+			"item": [
+				{
+					"name": "Get VatList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/vat",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"vat"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vat By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/vat/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"vat",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Vat",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"value\": 13,\r\n    \"name\": \"13%\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/vat",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"vat"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Vat",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": 5,\r\n        \"value\": 17,\r\n        \"name\": \"17%\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/vat",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"vat"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Vat",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/vat/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"vat",
+								"5"
 							]
 						}
 					},
