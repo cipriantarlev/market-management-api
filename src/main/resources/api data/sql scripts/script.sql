@@ -137,3 +137,13 @@ CREATE TABLE IF NOT EXISTS public.plu
 );
 
 ----------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS public.measuring_units
+(
+    id smallserial NOT NULL,
+    name character varying(50) NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE (name)
+);
+
+----------------------------------------------------------------
