@@ -127,3 +127,13 @@ CREATE TABLE IF NOT EXISTS public.vat
 );
 
 ----------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS public.plu
+(
+    id serial NOT NULL,
+    value integer NOT NULL,
+    CONSTRAINT id PRIMARY KEY (id),
+    CONSTRAINT value UNIQUE (value)
+);
+
+----------------------------------------------------------------
