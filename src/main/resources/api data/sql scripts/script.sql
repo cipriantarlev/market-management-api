@@ -147,3 +147,18 @@ CREATE TABLE IF NOT EXISTS public.measuring_units
 );
 
 ----------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS public.barcodes
+(
+    id bigserial NOT NULL,
+    value character varying(50) NOT NULL,
+    product_id bigint,
+    PRIMARY KEY (id),
+    FOREIGN KEY (product_id)
+        REFERENCES public.products (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+-----------------------------------------------------------------
