@@ -1,5 +1,6 @@
-package ii.cipriantarlev.marketmanagementapi.plu;
+package ii.cipriantarlev.marketmanagementapi.barcode;
 
+import ii.cipriantarlev.marketmanagementapi.product.ProductDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,9 +12,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class PluDTO {
+public class BarcodeDTO {
 
-	private Integer id;
+	private Long id;
 
-	private Integer value;
+	private String value;
+
+	private ProductDTO product;
 }
