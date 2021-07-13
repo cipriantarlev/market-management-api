@@ -187,6 +187,7 @@ CREATE TABLE IF NOT EXISTS public.products
     vat_id integer NOT NULL,
     plu_id bigint NOT NULL,
     product_code bigint NOT NULL,
+    stock numeric(8,4) NOT NULL,
     CONSTRAINT products_pkey PRIMARY KEY (id),
     CONSTRAINT products_name_rom_name_rus_key UNIQUE (name_rom, name_rus),
     CONSTRAINT products_category_id_fkey FOREIGN KEY (category_id)
