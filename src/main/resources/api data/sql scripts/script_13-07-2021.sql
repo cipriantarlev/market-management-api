@@ -150,14 +150,14 @@ CREATE TABLE IF NOT EXISTS public.measuring_units
 
 CREATE TABLE IF NOT EXISTS public.barcodes
 (
-    id bigserial NOT NULL,
-    value character varying(50) NOT NULL,
+    id bigint NOT NULL DEFAULT nextval('barcodes_id_seq'::regclass),
+    value character varying(50) COLLATE pg_catalog."default" NOT NULL,
     product_id bigint,
-    PRIMARY KEY (id),
-    FOREIGN KEY (product_id)
+    CONSTRAINT barcodes_pkey PRIMARY KEY (id),
+    CONSTRAINT barcodes_product_id_fkey FOREIGN KEY (product_id)
         REFERENCES public.products (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
         NOT VALID
 );
 
@@ -185,8 +185,8 @@ CREATE TABLE IF NOT EXISTS public.products
     trade_margin numeric(4,2) NOT NULL,
     measuring_unit_id integer NOT NULL,
     vat_id integer NOT NULL,
-    plu_id bigint NOT NULL,
-    product_code bigint NOT NULL,
+    plu_id bigint,
+    product_code_id bigint NOT NULL,
     stock numeric(8,4) NOT NULL,
     CONSTRAINT products_pkey PRIMARY KEY (id),
     CONSTRAINT products_name_rom_name_rus_key UNIQUE (name_rom, name_rus),
@@ -202,13 +202,13 @@ CREATE TABLE IF NOT EXISTS public.products
         NOT VALID,
     CONSTRAINT products_plu_id_fkey FOREIGN KEY (plu_id)
         REFERENCES public.plu (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
         NOT VALID,
-    CONSTRAINT products_product_code_fkey FOREIGN KEY (product_code)
+    CONSTRAINT products_product_code_id_fkey FOREIGN KEY (product_code_id)
         REFERENCES public.products_code (id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        ON DELETE CASCADE
         NOT VALID,
     CONSTRAINT products_subcategory_id_fkey FOREIGN KEY (subcategory_id)
         REFERENCES public.subcategories (id) MATCH SIMPLE
