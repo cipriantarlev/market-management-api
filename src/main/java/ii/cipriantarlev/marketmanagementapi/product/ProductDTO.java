@@ -3,12 +3,12 @@ package ii.cipriantarlev.marketmanagementapi.product;
 import java.math.BigDecimal;
 import java.util.List;
 
-import ii.cipriantarlev.marketmanagementapi.barcode.BarcodeDTO;
+import ii.cipriantarlev.marketmanagementapi.barcode.BarcodeDTONoProduct;
 import ii.cipriantarlev.marketmanagementapi.category.CategoryDTO;
 import ii.cipriantarlev.marketmanagementapi.measuringunit.MeasuringUnitDTO;
 import ii.cipriantarlev.marketmanagementapi.plu.PluDTO;
 import ii.cipriantarlev.marketmanagementapi.productscode.ProductCodeDTO;
-import ii.cipriantarlev.marketmanagementapi.subcategory.SubcategoryDTO;
+import ii.cipriantarlev.marketmanagementapi.subcategory.SubcategoryDTONoCategory;
 import ii.cipriantarlev.marketmanagementapi.vat.VatDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,7 +31,7 @@ public class ProductDTO {
 
 	private CategoryDTO category;
 
-	private SubcategoryDTO subcategory;
+	private SubcategoryDTONoCategory subcategory;
 
 	private BigDecimal discrountPrice;
 
@@ -43,7 +43,7 @@ public class ProductDTO {
 
 	private VatDTO vat;
 
-	private List<BarcodeDTO> barCodes;
+	private List<BarcodeDTONoProduct> barCodes;
 
 	private PluDTO plu;
 

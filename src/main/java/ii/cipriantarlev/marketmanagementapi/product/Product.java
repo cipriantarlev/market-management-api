@@ -70,11 +70,10 @@ public class Product {
 	private Vat vat;
 
 	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, 
-			cascade = {CascadeType.DETACH, CascadeType.MERGE, 
-					CascadeType.PERSIST, CascadeType.REFRESH})
+			cascade = CascadeType.ALL)
 	private List<Barcode> barCodes;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "plu_id")
 	private Plu plu;
 
