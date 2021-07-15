@@ -6,8 +6,6 @@ public interface BarcodeService {
 
 	List<BarcodeDTO> findAll();
 
-	List<BarcodeDTO> findAllByProductId(Long productId);
-
 	BarcodeDTO findById(Long id);
 
 	BarcodeDTO generateNewBarcode(BarcodeDTO barcodeDTO);

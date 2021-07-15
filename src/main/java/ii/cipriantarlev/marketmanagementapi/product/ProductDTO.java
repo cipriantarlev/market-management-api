@@ -3,7 +3,7 @@ package ii.cipriantarlev.marketmanagementapi.product;
 import java.math.BigDecimal;
 import java.util.List;
 
-import ii.cipriantarlev.marketmanagementapi.barcode.BarcodeDTONoProduct;
+import ii.cipriantarlev.marketmanagementapi.barcode.BarcodeDTO;
 import ii.cipriantarlev.marketmanagementapi.category.CategoryDTO;
 import ii.cipriantarlev.marketmanagementapi.measuringunit.MeasuringUnitDTO;
 import ii.cipriantarlev.marketmanagementapi.plu.PluDTO;
@@ -43,7 +43,7 @@ public class ProductDTO {
 
 	private VatDTO vat;
 
-	private List<BarcodeDTONoProduct> barCodes;
+	private List<BarcodeDTO> barCodes;
 
 	private PluDTO plu;
 
