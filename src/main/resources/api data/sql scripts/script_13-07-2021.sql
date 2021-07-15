@@ -130,9 +130,9 @@ CREATE TABLE IF NOT EXISTS public.vat
 
 CREATE TABLE IF NOT EXISTS public.plu
 (
-    id serial NOT NULL,
+    id integer NOT NULL,
     value integer NOT NULL,
-    CONSTRAINT id PRIMARY KEY (id),
+    CONSTRAINT plu_pkey PRIMARY KEY (id),
     CONSTRAINT value UNIQUE (value)
 );
 
@@ -140,24 +140,24 @@ CREATE TABLE IF NOT EXISTS public.plu
 
 CREATE TABLE IF NOT EXISTS public.measuring_units
 (
-    id smallserial NOT NULL,
-    name character varying(50) NOT NULL,
-    PRIMARY KEY (id),
-    UNIQUE (name)
+    id smallint NOT NULL,
+    name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT measuring_units_pkey PRIMARY KEY (id),
+    CONSTRAINT measuring_units_name_key UNIQUE (name)
 );
 
 ----------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS public.barcodes
 (
-    id bigint NOT NULL DEFAULT nextval('barcodes_id_seq'::regclass),
+    id bigint NOT NULL DEFAULT,
     value character varying(50) COLLATE pg_catalog."default" NOT NULL,
     product_id bigint,
     CONSTRAINT barcodes_pkey PRIMARY KEY (id),
     CONSTRAINT barcodes_product_id_fkey FOREIGN KEY (product_id)
         REFERENCES public.products (id) MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
         NOT VALID
 );
 
@@ -165,17 +165,17 @@ CREATE TABLE IF NOT EXISTS public.barcodes
 
 CREATE TABLE IF NOT EXISTS public.products_code
 (
-    id bigserial NOT NULL,
-    value character varying(50) NOT NULL,
-    PRIMARY KEY (id),
-    UNIQUE (value)
+    id bigint NOT NULL DEFAULT,
+    value character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT products_code_pkey PRIMARY KEY (id),
+    CONSTRAINT products_code_value_key UNIQUE (value)
 );
 
 ------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS public.products
 (
-    id bigint NOT NULL DEFAULT nextval('products_id_seq'::regclass),
+    id bigint NOT NULL DEFAULT,
     name_rom character varying(300) COLLATE pg_catalog."default",
     name_rus character varying(300) COLLATE pg_catalog."default",
     category_id integer NOT NULL,

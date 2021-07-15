@@ -1,6 +1,5 @@
 package ii.cipriantarlev.marketmanagementapi.barcode;
 
-import ii.cipriantarlev.marketmanagementapi.product.ProductDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,5 +17,7 @@ public class BarcodeDTO {
 
 	private String value;
 
-	private ProductDTO product;
+	public BarcodeDTO(String value) {
+		this.value = value;
+	}
 }

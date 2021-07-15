@@ -33,16 +33,16 @@ public class BarcodeController {
 		return new ResponseEntity<>(barcodes, HttpStatus.OK);
 	}
 
-	@GetMapping("/product/{id}")
-	public ResponseEntity<List<BarcodeDTO>> getAllBarcodesByProductId(@PathVariable Long id) {
-		List<BarcodeDTO> barcodes = barcodeService.findAllByProductId(id);
-
-		if (barcodes == null || barcodes.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
-		return new ResponseEntity<>(barcodes, HttpStatus.OK);
-	}
+//	@GetMapping("/product/{id}")
+//	public ResponseEntity<List<BarcodeDTO>> getAllBarcodesByProductId(@PathVariable Long id) {
+//		List<BarcodeDTO> barcodes = barcodeService.findAllByProductId(id);
+//
+//		if (barcodes == null || barcodes.isEmpty()) {
+//			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//		}
+//
+//		return new ResponseEntity<>(barcodes, HttpStatus.OK);
+//	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<BarcodeDTO> getBarcode(@PathVariable Long id) {

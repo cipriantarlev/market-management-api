@@ -69,18 +69,18 @@ public class Product {
 	@JoinColumn(name = "vat_id")
 	private Vat vat;
 
-	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY, 
-			cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "product_id")
 	private List<Barcode> barCodes;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE })
 	@JoinColumn(name = "plu_id")
 	private Plu plu;
 
 	@Column(name = "stock")
 	private BigDecimal stock;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE })
 	@JoinColumn(name = "product_code_id")
 	private ProductCode productCode;
 

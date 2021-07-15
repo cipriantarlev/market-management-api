@@ -24,13 +24,6 @@ public class BarcodeServiceImpl implements BarcodeService {
 	}
 
 	@Override
-	public List<BarcodeDTO> findAllByProductId(Long productId) {
-		return barcodeRepository.findAllByProductId(productId).stream()
-				.map(barcode -> barcodeMapper.mapEntityToDTO(barcode))
-				.collect(Collectors.toList());
-	}
-
-	@Override
 	public BarcodeDTO findById(Long id) {
 		Optional<Barcode> barcode = barcodeRepository.findById(id);
 
@@ -51,8 +44,7 @@ public class BarcodeServiceImpl implements BarcodeService {
 			return getGeneratedBarcode(barcodeDTO, "2200000000000");
 		}
 
-		var barcode = barcodeRepository.save(barcodeMapper.mapDTOToEntity(barcodeDTO));
-		return barcodeMapper.mapEntityToDTO(barcode);
+		return barcodeDTO;
 	}
 
 	@Override
@@ -63,12 +55,10 @@ public class BarcodeServiceImpl implements BarcodeService {
 	private BarcodeDTO getGeneratedBarcode(BarcodeDTO barcodeDTO, String generatedBarcodeValue) {
 		var lastBarcode = barcodeRepository.findFirst1ByValueStartingWithOrderByValueDesc(barcodeDTO.getValue());
 		if (lastBarcode == null) {
-			var firstBarcode = barcodeRepository.save(new Barcode(generatedBarcodeValue));
-			return barcodeMapper.mapEntityToDTO(firstBarcode);
+			return new BarcodeDTO(generatedBarcodeValue);
 		} else {
 			Long generatedValue = Long.parseLong(lastBarcode.getValue()) + 1;
-			var generatedBarcode = barcodeRepository.save(new Barcode(generatedValue.toString()));
-			return barcodeMapper.mapEntityToDTO(generatedBarcode);
+			return new BarcodeDTO(generatedValue.toString());
 		}
 	}
 
