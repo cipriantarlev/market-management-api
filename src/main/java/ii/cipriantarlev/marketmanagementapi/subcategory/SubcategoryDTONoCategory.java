@@ -1,4 +1,4 @@
-package ii.cipriantarlev.marketmanagementapi.barcode;
+package ii.cipriantarlev.marketmanagementapi.subcategory;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,13 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class BarcodeDTO {
+public class SubcategoryDTONoCategory {
 
-	private Long id;
+	private Integer id;
 
-	private String value;
-
-	public BarcodeDTO(String value) {
-		this.value = value;
-	}
+	private String name;
 }

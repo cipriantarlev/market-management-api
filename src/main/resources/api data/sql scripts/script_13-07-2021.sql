@@ -130,9 +130,9 @@ CREATE TABLE IF NOT EXISTS public.vat
 
 CREATE TABLE IF NOT EXISTS public.plu
 (
-    id serial NOT NULL,
+    id integer NOT NULL,
     value integer NOT NULL,
-    CONSTRAINT id PRIMARY KEY (id),
+    CONSTRAINT plu_pkey PRIMARY KEY (id),
     CONSTRAINT value UNIQUE (value)
 );
 
@@ -140,24 +140,24 @@ CREATE TABLE IF NOT EXISTS public.plu
 
 CREATE TABLE IF NOT EXISTS public.measuring_units
 (
-    id smallserial NOT NULL,
-    name character varying(50) NOT NULL,
-    PRIMARY KEY (id),
-    UNIQUE (name)
+    id smallint NOT NULL,
+    name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT measuring_units_pkey PRIMARY KEY (id),
+    CONSTRAINT measuring_units_name_key UNIQUE (name)
 );
 
 ----------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS public.barcodes
 (
-    id bigserial NOT NULL,
-    value character varying(50) NOT NULL,
+    id bigint NOT NULL DEFAULT,
+    value character varying(50) COLLATE pg_catalog."default" NOT NULL,
     product_id bigint,
-    PRIMARY KEY (id),
-    FOREIGN KEY (product_id)
+    CONSTRAINT barcodes_pkey PRIMARY KEY (id),
+    CONSTRAINT barcodes_product_id_fkey FOREIGN KEY (product_id)
         REFERENCES public.products (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
         NOT VALID
 );
 
@@ -165,17 +165,17 @@ CREATE TABLE IF NOT EXISTS public.barcodes
 
 CREATE TABLE IF NOT EXISTS public.products_code
 (
-    id bigserial NOT NULL,
-    value character varying(50) NOT NULL,
-    PRIMARY KEY (id),
-    UNIQUE (value)
+    id bigint NOT NULL DEFAULT,
+    value character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT products_code_pkey PRIMARY KEY (id),
+    CONSTRAINT products_code_value_key UNIQUE (value)
 );
 
 ------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS public.products
 (
-    id bigint NOT NULL DEFAULT nextval('products_id_seq'::regclass),
+    id bigint NOT NULL DEFAULT,
     name_rom character varying(300) COLLATE pg_catalog."default",
     name_rus character varying(300) COLLATE pg_catalog."default",
     category_id integer NOT NULL,
@@ -185,8 +185,9 @@ CREATE TABLE IF NOT EXISTS public.products
     trade_margin numeric(4,2) NOT NULL,
     measuring_unit_id integer NOT NULL,
     vat_id integer NOT NULL,
-    plu_id bigint NOT NULL,
-    product_code bigint NOT NULL,
+    plu_id bigint,
+    product_code_id bigint NOT NULL,
+    stock numeric(8,4) NOT NULL,
     CONSTRAINT products_pkey PRIMARY KEY (id),
     CONSTRAINT products_name_rom_name_rus_key UNIQUE (name_rom, name_rus),
     CONSTRAINT products_category_id_fkey FOREIGN KEY (category_id)
@@ -201,13 +202,13 @@ CREATE TABLE IF NOT EXISTS public.products
         NOT VALID,
     CONSTRAINT products_plu_id_fkey FOREIGN KEY (plu_id)
         REFERENCES public.plu (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
         NOT VALID,
-    CONSTRAINT products_product_code_fkey FOREIGN KEY (product_code)
+    CONSTRAINT products_product_code_id_fkey FOREIGN KEY (product_code_id)
         REFERENCES public.products_code (id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        ON DELETE CASCADE
         NOT VALID,
     CONSTRAINT products_subcategory_id_fkey FOREIGN KEY (subcategory_id)
         REFERENCES public.subcategories (id) MATCH SIMPLE
