@@ -16,9 +16,9 @@ public class ProductServiceImpl implements ProductService {
 	private ProductMapper productMapper;
 
 	@Override
-	public List<ProductDTO> findAll() {
+	public List<ProductDTOForList> findAll() {
 		return productRepository.findAll().stream()
-				.map(product -> productMapper.mapEntityToDTO(product))
+				.map(product -> productMapper.mapEntityToDTOForList(product))
 				.collect(Collectors.toList());
 	}
 
