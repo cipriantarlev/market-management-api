@@ -43,7 +43,7 @@ public class ProductDTO {
 
 	private VatDTO vat;
 
-	private List<BarcodeDTO> barCodes;
+	private List<BarcodeDTO> barcodes;
 
 	private PluDTO plu;
 
