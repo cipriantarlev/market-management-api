@@ -6,7 +6,7 @@ public interface SubcategoryService {
 
 	List<SubcategoryDTO> findAll();
 
-	List<SubcategoryDTO> findAllByCategoryId(Integer id);
+	List<SubcategoryDTONoCategory> findAllByCategoryId(Integer id);
 
 	SubcategoryDTO findById(Integer id);
 

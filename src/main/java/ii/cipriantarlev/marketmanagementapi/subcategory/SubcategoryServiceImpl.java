@@ -24,9 +24,9 @@ public class SubcategoryServiceImpl implements SubcategoryService {
 	}
 
 	@Override
-	public List<SubcategoryDTO> findAllByCategoryId(Integer id) {
+	public List<SubcategoryDTONoCategory> findAllByCategoryId(Integer id) {
 		return subcategoryRepository.findAllByCategoryId(id).stream()
-				.map(subcategory -> subcategoryMapper.mapEntityToDTO(subcategory))
+				.map(subcategory -> subcategoryMapper.mapEntityToNoCategoryDTO(subcategory))
 				.collect(Collectors.toList());
 	}
 

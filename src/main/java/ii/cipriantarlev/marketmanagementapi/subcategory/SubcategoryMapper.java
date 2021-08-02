@@ -17,4 +17,8 @@ public class SubcategoryMapper {
 	public Subcategory mapDTOToEntity(SubcategoryDTO subcategoryDTO) {
 		return modelMapper.map(subcategoryDTO, Subcategory.class);
 	}
+
+	public SubcategoryDTONoCategory mapEntityToNoCategoryDTO(Subcategory subcategory) {
+		return modelMapper.map(subcategory, SubcategoryDTONoCategory.class);
+	}
 }
