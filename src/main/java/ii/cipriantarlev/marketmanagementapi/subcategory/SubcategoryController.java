@@ -37,8 +37,8 @@ public class SubcategoryController {
 	}
 
 	@GetMapping("/category/{categoryId}")
-	public ResponseEntity<List<SubcategoryDTO>> getSubcategoriesByCategoryId(@PathVariable Integer categoryId) {
-		List<SubcategoryDTO> subcategories = subcategoryService.findAllByCategoryId(categoryId);
+	public ResponseEntity<List<SubcategoryDTONoCategory>> getSubcategoriesByCategoryId(@PathVariable Integer categoryId) {
+		List<SubcategoryDTONoCategory> subcategories = subcategoryService.findAllByCategoryId(categoryId);
 
 		if (subcategories == null || subcategories.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -26,7 +26,7 @@ public class ProductController {
 	private ProductService productService;
 
 	@GetMapping
-	public ResponseEntity<List<ProductDTO>> getProducts() {
+	public ResponseEntity<List<ProductDTOForList>> getProducts() {
 		var products = productService.findAll();
 
 		if (products == null || products.isEmpty()) {
