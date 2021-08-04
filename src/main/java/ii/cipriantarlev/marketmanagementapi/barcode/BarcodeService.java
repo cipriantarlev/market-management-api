@@ -11,4 +11,6 @@ public interface BarcodeService {
 	BarcodeDTO generateNewBarcode(BarcodeDTO barcodeDTO);
 
 	void deleteById(Long id);
+
+	void deleteBarcodeWithNullProductId();
 }

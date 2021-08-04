@@ -150,10 +150,11 @@ CREATE TABLE IF NOT EXISTS public.measuring_units
 
 CREATE TABLE IF NOT EXISTS public.barcodes
 (
-    id bigint NOT NULL DEFAULT,
+    id bigint NOT NULL DEFAULT nextval('barcodes_id_seq'::regclass),
     value character varying(50) COLLATE pg_catalog."default" NOT NULL,
     product_id bigint,
     CONSTRAINT barcodes_pkey PRIMARY KEY (id),
+    CONSTRAINT barcodes_value_key UNIQUE (value),
     CONSTRAINT barcodes_product_id_fkey FOREIGN KEY (product_id)
         REFERENCES public.products (id) MATCH SIMPLE
         ON UPDATE RESTRICT
@@ -175,19 +176,19 @@ CREATE TABLE IF NOT EXISTS public.products_code
 
 CREATE TABLE IF NOT EXISTS public.products
 (
-    id bigint NOT NULL DEFAULT,
-    name_rom character varying(300) COLLATE pg_catalog."default",
-    name_rus character varying(300) COLLATE pg_catalog."default",
+    id bigint NOT NULL DEFAULT nextval('products_id_seq'::regclass),
+    name_rom character varying(300) COLLATE pg_catalog."default" NOT NULL,
+    name_rus character varying(300) COLLATE pg_catalog."default" NOT NULL,
     category_id integer NOT NULL,
     subcategory_id integer NOT NULL,
-    discount_price numeric(7,2) NOT NULL,
-    retail_price numeric(7,2) NOT NULL,
-    trade_margin numeric(4,2) NOT NULL,
+    discount_price numeric(7,2),
+    retail_price numeric(7,2),
+    trade_margin numeric(4,2),
     measuring_unit_id integer NOT NULL,
     vat_id integer NOT NULL,
     plu_id bigint,
     product_code_id bigint NOT NULL,
-    stock numeric(8,4) NOT NULL,
+    stock numeric(8,4),
     CONSTRAINT products_pkey PRIMARY KEY (id),
     CONSTRAINT products_name_rom_name_rus_key UNIQUE (name_rom, name_rus),
     CONSTRAINT products_category_id_fkey FOREIGN KEY (category_id)
