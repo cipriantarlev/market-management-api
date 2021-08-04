@@ -62,4 +62,9 @@ public class BarcodeServiceImpl implements BarcodeService {
 		}
 	}
 
+	@Override
+	public void deleteBarcodeWithNullProductId() {
+		barcodeRepository.deleteAll(barcodeRepository.findAllByProductIdNull());
+	}
+
 }

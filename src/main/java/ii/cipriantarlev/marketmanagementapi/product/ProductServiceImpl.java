@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ii.cipriantarlev.marketmanagementapi.barcode.BarcodeService;
+
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -14,6 +16,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductMapper productMapper;
+
+	@Autowired
+	private BarcodeService barcodeService;
 
 	@Override
 	public List<ProductDTOForList> findAll() {
@@ -35,6 +40,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public ProductDTO save(ProductDTO productDTO) {
 		var product = productRepository.save(productMapper.mapDTOToEntity(productDTO));
+		barcodeService.deleteBarcodeWithNullProductId();
 		return productMapper.mapEntityToDTO(product);
 	}
 
