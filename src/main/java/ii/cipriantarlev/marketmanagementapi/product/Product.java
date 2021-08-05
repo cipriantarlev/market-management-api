@@ -62,7 +62,7 @@ public class Product {
 	private BigDecimal tradeMargin;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "measuringUnit_id")
+	@JoinColumn(name = "measuring_unit_id")
 	private MeasuringUnit measuringUnit;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
