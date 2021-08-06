@@ -44,4 +44,11 @@ public class VendorServiceImpl implements VendorService {
 	public void deleteById(Integer id) {
 		vendorRepository.deleteById(id);
 	}
+
+	@Override
+	public List<VendorDTOOnlyName> findAllVendorDTOOnlyName() {
+		return vendorRepository.findAllByOrderByIdAsc().stream()
+				.map(vendor -> vendorMapper.mapEntityToVendorDTOOnlyName(vendor))
+				.collect(Collectors.toList());
+	}
 }

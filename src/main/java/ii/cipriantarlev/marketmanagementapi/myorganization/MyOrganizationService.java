@@ -6,6 +6,8 @@ public interface MyOrganizationService {
 
 	List<MyOrganizationDTO> findAll();
 
+	List<MyOrganizationDTOOnlyName> findAllMyOrganizationDTOOnlyName();
+
 	MyOrganizationDTO findById(Integer id);
 
 	MyOrganization save(MyOrganizationDTO userDTO);

@@ -6,6 +6,8 @@ public interface VendorService {
 
 	List<VendorDTONoRegions> findAll();
 
+	List<VendorDTOOnlyName> findAllVendorDTOOnlyName();
+
 	VendorDTO findById(Integer id);
 
 	Vendor save(VendorDTO vendorDTO);
