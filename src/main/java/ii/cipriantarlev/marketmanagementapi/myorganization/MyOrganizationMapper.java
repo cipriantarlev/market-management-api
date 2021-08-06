@@ -45,4 +45,8 @@ public class MyOrganizationMapper {
 
 		return modelMapper.map(myOrganization, MyOrganization.class);
 	}
+
+	public MyOrganizationDTOOnlyName mapEntityToMyOrganizationDTOOnlyName(MyOrganization myOrganization) {
+		return modelMapper.map(myOrganization, MyOrganizationDTOOnlyName.class);
+	}
 }

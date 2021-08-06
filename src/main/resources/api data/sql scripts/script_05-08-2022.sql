@@ -234,3 +234,35 @@ CREATE TABLE IF NOT EXISTS public.document_types
 );
 
 ----------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS public.invoices
+(
+    id bigint NOT NULL DEFAULT nextval('invoices_id_seq'::regclass),
+    document_type_id integer NOT NULL,
+    my_organization_id integer NOT NULL,
+    vendor_id integer NOT NULL,
+    date_created date NOT NULL,
+    invoice_number character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    invoice_date date NOT NULL,
+    note character varying(250) COLLATE pg_catalog."default",
+    total_discount_price numeric(8,2),
+    total_retail_price numeric(8,2),
+    total_trade_margin numeric(8,2),
+    trade_margin numeric(4,2),
+    vat_sum numeric(8,2),
+    CONSTRAINT invoices_pkey PRIMARY KEY (id),
+    CONSTRAINT invoices_id_fkey FOREIGN KEY (id)
+        REFERENCES public.document_types (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT invoices_my_organization_id_fkey FOREIGN KEY (my_organization_id)
+        REFERENCES public.my_organizations (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT invoices_vendor_id_fkey FOREIGN KEY (vendor_id)
+        REFERENCES public.vendors (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+-------------------------------------------------------------------------
