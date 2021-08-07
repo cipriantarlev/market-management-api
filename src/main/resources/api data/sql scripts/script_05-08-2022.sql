@@ -251,10 +251,11 @@ CREATE TABLE IF NOT EXISTS public.invoices
     trade_margin numeric(4,2),
     vat_sum numeric(8,2),
     CONSTRAINT invoices_pkey PRIMARY KEY (id),
-    CONSTRAINT invoices_id_fkey FOREIGN KEY (id)
+    CONSTRAINT invoices_document_type_id_fkey FOREIGN KEY (document_type_id)
         REFERENCES public.document_types (id) MATCH SIMPLE
         ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
+        ON DELETE NO ACTION
+        NOT VALID,
     CONSTRAINT invoices_my_organization_id_fkey FOREIGN KEY (my_organization_id)
         REFERENCES public.my_organizations (id) MATCH SIMPLE
         ON UPDATE NO ACTION
