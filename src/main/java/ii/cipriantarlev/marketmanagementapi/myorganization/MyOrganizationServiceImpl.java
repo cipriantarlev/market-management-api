@@ -45,4 +45,10 @@ public class MyOrganizationServiceImpl implements MyOrganizationService {
 		myOrganizationRepository.deleteById(id);
 	}
 
+	@Override
+	public List<MyOrganizationDTOOnlyName> findAllMyOrganizationDTOOnlyName() {
+		return myOrganizationRepository.findAll().stream()
+				.map(myOrganization -> myOrganizationMapper.mapEntityToMyOrganizationDTOOnlyName(myOrganization))
+				.collect(Collectors.toList());
+	}
 }
