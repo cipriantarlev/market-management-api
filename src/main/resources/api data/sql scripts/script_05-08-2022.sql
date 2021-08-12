@@ -267,3 +267,27 @@ CREATE TABLE IF NOT EXISTS public.invoices
 );
 
 -------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS public.invoice_products
+(
+    id bigserial NOT NULL,
+    invoice_id bigint NOT NULL,
+    product_id bigint NOT NULL,
+    quantity numeric(10, 4) NOT NULL DEFAULT 0.0000,
+    vat_sum numeric(4, 2) NOT NULL DEFAULT 0.00,
+    total_discount_price numeric(8, 2) NOT NULL DEFAULT 0.00,
+    total_retail_price numeric(8, 2) NOT NULL DEFAULT 0.00,
+    PRIMARY KEY (id),
+    FOREIGN KEY (invoice_id)
+        REFERENCES public.invoices (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    FOREIGN KEY (product_id)
+        REFERENCES public.products (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+-----------------------------------------------------------------------------

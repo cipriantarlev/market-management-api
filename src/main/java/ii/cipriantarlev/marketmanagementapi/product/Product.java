@@ -17,6 +17,7 @@ import javax.persistence.Table;
 
 import ii.cipriantarlev.marketmanagementapi.barcode.Barcode;
 import ii.cipriantarlev.marketmanagementapi.category.Category;
+import ii.cipriantarlev.marketmanagementapi.invoiceproduct.InvoiceProduct;
 import ii.cipriantarlev.marketmanagementapi.measuringunit.MeasuringUnit;
 import ii.cipriantarlev.marketmanagementapi.plu.Plu;
 import ii.cipriantarlev.marketmanagementapi.productscode.ProductCode;
@@ -80,9 +81,12 @@ public class Product {
 	@Column(name = "stock")
 	private BigDecimal stock;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE })
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH, CascadeType.REMOVE })
 	@JoinColumn(name = "product_code_id")
 	private ProductCode productCode;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
+	private List<InvoiceProduct> invoiceProducts;
 
 	public Product(String nameRom, String nameRus, Category category, Subcategory subcategory,
 			BigDecimal discrountPrice, BigDecimal retailPrice, BigDecimal tradeMargin, MeasuringUnit measuringUnit,

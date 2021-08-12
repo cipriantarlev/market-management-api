@@ -2,6 +2,7 @@ package ii.cipriantarlev.marketmanagementapi.invoice;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,10 +12,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import ii.cipriantarlev.marketmanagementapi.documenttype.DocumentType;
+import ii.cipriantarlev.marketmanagementapi.invoiceproduct.InvoiceProduct;
 import ii.cipriantarlev.marketmanagementapi.myorganization.MyOrganization;
 import ii.cipriantarlev.marketmanagementapi.vendor.Vendor;
 import lombok.Getter;
@@ -71,6 +74,11 @@ public class Invoice {
 
 	@Column(name = "vat_sum")
 	private BigDecimal vatSum;
+
+	@OneToMany(fetch = FetchType.LAZY, 
+				cascade = CascadeType.ALL, 
+				mappedBy = "invoice")
+	private List<InvoiceProduct> invoiceProducts;
 
 	public Invoice(DocumentType documentType, MyOrganization myOrganization, Vendor vendor, LocalDate dateCreated,
 			String invoiceNumber, LocalDate invoiceDate, String note, BigDecimal totalDiscountPrice,

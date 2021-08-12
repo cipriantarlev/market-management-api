@@ -48,4 +48,15 @@ public class ProductServiceImpl implements ProductService {
 	public void deleteById(Long id) {
 		productRepository.deleteById(id);
 	}
+
+	@Override
+	public ProductDTO findByBarcodeValue(String barcodeValue) {
+		var product = productRepository.findByBarcodeValue(barcodeValue);
+
+		if (product != null) {
+			return productMapper.mapEntityToDTO(product);
+		}
+
+		return null;
+	}
 }
