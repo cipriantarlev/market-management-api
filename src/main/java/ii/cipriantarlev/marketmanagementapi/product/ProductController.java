@@ -47,6 +47,17 @@ public class ProductController {
 		return new ResponseEntity<>(product, HttpStatus.OK);
 	}
 
+	@GetMapping("/barcodes/{barcodeValue}")
+	public ResponseEntity<ProductDTO> getProductByBarcodeValue(@PathVariable String barcodeValue) {
+		var product = productService.findByBarcodeValue(barcodeValue);
+
+		if (product == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<>(product, HttpStatus.OK);
+	}
+
 	@PostMapping
 	public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
 		if (productDTO.getId() != null && productService.findById(productDTO.getId()) != null) {
