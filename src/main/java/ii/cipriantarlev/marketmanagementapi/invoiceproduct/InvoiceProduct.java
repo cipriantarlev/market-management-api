@@ -43,7 +43,7 @@ public class InvoiceProduct {
 	private Double quantity;
 
 	@Column(name = "vat_sum")
-	private BigDecimal vatSumt;
+	private BigDecimal vatSum;
 
 	@Column(name = "total_discount_price")
 	private BigDecimal totalDiscountPrice;
@@ -56,7 +56,7 @@ public class InvoiceProduct {
 		this.invoice = invoice;
 		this.product = product;
 		this.quantity = quantity;
-		this.vatSumt = vatSumt;
+		this.vatSum = vatSumt;
 		this.totalDiscountPrice = totalDiscountPrice;
 		this.totalRetailPrice = totalRetailPrice;
 	}
