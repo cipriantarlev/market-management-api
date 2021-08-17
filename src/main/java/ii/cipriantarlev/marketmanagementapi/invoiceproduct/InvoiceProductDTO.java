@@ -25,7 +25,7 @@ public class InvoiceProductDTO {
 
 	private Double quantity;
 
-	private BigDecimal vatSumt;
+	private BigDecimal vatSum;
 
 	private BigDecimal totalDiscountPrice;
 
