@@ -54,7 +54,7 @@ public class Product {
 	private Subcategory subcategory;
 
 	@Column(name = "discount_price")
-	private BigDecimal discrountPrice;
+	private BigDecimal discountPrice;
 
 	@Column(name = "retail_price")
 	private BigDecimal retailPrice;
@@ -89,13 +89,13 @@ public class Product {
 	private List<InvoiceProduct> invoiceProducts;
 
 	public Product(String nameRom, String nameRus, Category category, Subcategory subcategory,
-			BigDecimal discrountPrice, BigDecimal retailPrice, BigDecimal tradeMargin, MeasuringUnit measuringUnit,
+			BigDecimal discountPrice, BigDecimal retailPrice, BigDecimal tradeMargin, MeasuringUnit measuringUnit,
 			Vat vat, List<Barcode> barCodes, Plu plu, BigDecimal stock, ProductCode productCode) {
 		this.nameRom = nameRom;
 		this.nameRus = nameRus;
 		this.category = category;
 		this.subcategory = subcategory;
-		this.discrountPrice = discrountPrice;
+		this.discountPrice = discountPrice;
 		this.retailPrice = retailPrice;
 		this.tradeMargin = tradeMargin;
 		this.measuringUnit = measuringUnit;
