@@ -1,5 +1,6 @@
 package ii.cipriantarlev.marketmanagementapi.invoiceproduct;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import ii.cipriantarlev.marketmanagementapi.product.ProductService;
+
 @CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/invoice-products")
@@ -24,6 +27,9 @@ public class InvoiceProductController {
 
 	@Autowired
 	private InvoiceProductService invoiceProductService;
+
+	@Autowired
+	private ProductService productService;
 
 	@GetMapping("/{invoiceId}")
 	public ResponseEntity<List<InvoiceProductDTO>> getInvoiceProductsByInvoiceId(@PathVariable Long invoiceId) {
@@ -54,6 +60,9 @@ public class InvoiceProductController {
 		}
 
 		var invoiceProduct = invoiceProductService.save(invoiceProductDTO);
+
+		productService.save(invoiceProductDTO.getProduct());
+
 		var headers = new HttpHeaders();
 		headers.setLocation(UriComponentsBuilder.fromPath("/invoice-products/product/{productId}")
 				.buildAndExpand(invoiceProduct.getId()).toUri());
@@ -79,6 +88,10 @@ public class InvoiceProductController {
 		if (invoiceProduct == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+
+		var product = invoiceProduct.getProduct();
+		product.setStock(product.getStock().subtract(new BigDecimal(invoiceProduct.getQuantity())));
+		productService.save(product);
 
 		invoiceProductService.deleteById(productId);
 		return new ResponseEntity<>(HttpStatus.OK);

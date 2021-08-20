@@ -33,7 +33,7 @@ public class ProductDTO {
 
 	private SubcategoryDTONoCategory subcategory;
 
-	private BigDecimal discrountPrice;
+	private BigDecimal discountPrice;
 
 	private BigDecimal retailPrice;
 
