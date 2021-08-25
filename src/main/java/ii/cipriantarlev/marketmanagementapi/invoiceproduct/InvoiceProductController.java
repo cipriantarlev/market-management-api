@@ -1,6 +1,8 @@
+/*******************************************************************************
+ * © 2021 II Ciprian Tarlev. All Rights Reserved.
+ *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.invoiceproduct;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,7 +92,7 @@ public class InvoiceProductController {
 		}
 
 		var product = invoiceProduct.getProduct();
-		product.setStock(product.getStock().subtract(new BigDecimal(invoiceProduct.getQuantity())));
+		product.setStock(product.getStock().subtract(invoiceProduct.getQuantity()));
 		productService.save(product);
 
 		invoiceProductService.deleteById(productId);

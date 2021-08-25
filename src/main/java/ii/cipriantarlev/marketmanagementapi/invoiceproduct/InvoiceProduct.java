@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * © 2021 II Ciprian Tarlev. All Rights Reserved.
+ *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.invoiceproduct;
 
 import java.math.BigDecimal;
@@ -40,7 +43,7 @@ public class InvoiceProduct {
 	private Product product;
 
 	@Column(name = "quantity")
-	private Double quantity;
+	private BigDecimal quantity;
 
 	@Column(name = "vat_sum")
 	private BigDecimal vatSum;
@@ -51,7 +54,7 @@ public class InvoiceProduct {
 	@Column(name = "total_retail_price")
 	private BigDecimal totalRetailPrice;
 
-	public InvoiceProduct(Invoice invoice, Product product, Double quantity, BigDecimal vatSumt,
+	public InvoiceProduct(Invoice invoice, Product product, BigDecimal quantity, BigDecimal vatSumt,
 			BigDecimal totalDiscountPrice, BigDecimal totalRetailPrice) {
 		this.invoice = invoice;
 		this.product = product;

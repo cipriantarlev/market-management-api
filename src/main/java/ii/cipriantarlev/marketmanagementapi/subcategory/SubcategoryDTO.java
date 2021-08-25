@@ -1,4 +1,12 @@
+/*******************************************************************************
+ * © 2021 II Ciprian Tarlev. All Rights Reserved.
+ *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.subcategory;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import ii.cipriantarlev.marketmanagementapi.category.CategoryDTO;
 import lombok.AllArgsConstructor;
@@ -16,8 +24,12 @@ public class SubcategoryDTO {
 
 	private Integer id;
 
+	@NotBlank(message = "Subcategory name should not be blank")
+	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Subcategory name should contain only letters and numbers")
+	@Size(min = 1, max = 50, message = "Subcategory name length should be between {min} and {max}")
 	private String name;
 
+	@NotNull(message = "Category DTO should not be null")
 	private CategoryDTO category;
 }
 
