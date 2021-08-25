@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * © 2021 II Ciprian Tarlev. All Rights Reserved.
+ *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.plu;
 
 import javax.persistence.Column;
