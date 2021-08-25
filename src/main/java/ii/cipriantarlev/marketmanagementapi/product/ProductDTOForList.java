@@ -21,7 +21,7 @@ public class ProductDTOForList {
 
 	private String nameRom;
 
-	private BigDecimal discrountPrice;
+	private BigDecimal discountPrice;
 
 	private BigDecimal retailPrice;
 
