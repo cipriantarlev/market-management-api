@@ -22,7 +22,7 @@ public class BarcodeDTO {
 
 	private Long id;
 
-	@NotBlank(message = "Barcode value should not be blank")
+	@NotBlank(message = "Barcode value should not be blank or null")
 	@Size(min = 1, max = 13, message = "Barcode value length should be between {min} and {max}")
 	@Pattern(regexp = "^[0-9]*$", message = "Barcode value should contain only numbers")
 	private String value;
