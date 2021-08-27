@@ -22,7 +22,7 @@ public class MeasuringUnitDTO {
 
 	private Integer id;
 
-	@NotBlank(message = "Measuring Unit name should not be blank")
+	@NotBlank(message = "Measuring Unit name should not be blank or null")
 	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Measuring Unit name should contain only letters and numbers")
 	@Size(min = 1, max = 50, message = "Measuring Unit name length should be between {min} and {max}")
 	private String name;

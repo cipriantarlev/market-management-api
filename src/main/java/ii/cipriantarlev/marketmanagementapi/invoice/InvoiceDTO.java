@@ -55,7 +55,7 @@ public class InvoiceDTO {
 	private LocalDate invoiceDate;
 
 	@Size(min = 1, max = 250, message = "Note length should be between {min} and {max}")
-	@Pattern(regexp = "^[\\p{L} .'-]+$", message = "Note should contain only Unicode characters")
+	@Pattern(regexp = "^[a-zA-Z0-9\\s.,:;-]+$", message = "Note should contain alphanumeric character, space, dot, comma, colons, semicolons and dash")
 	private String note;
 
 	@DecimalMin(value = "0.0", inclusive = false, message = "Total Discount Price min value should be {value}")

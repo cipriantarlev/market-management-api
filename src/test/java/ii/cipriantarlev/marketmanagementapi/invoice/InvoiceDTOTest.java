@@ -62,8 +62,7 @@ class InvoiceDTOTest {
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
 
 		Set<String> finalSet = new HashSet<>();
-		finalSet.add(constraintViolationList.get(0).getMessage());
-		finalSet.add(constraintViolationList.get(1).getMessage());
+		constraintViolationList.forEach(constraint -> finalSet.add(constraint.getMessage()));
 
 		assertTrue(finalSet.contains("Created date should not be null"));
 		assertTrue(finalSet.contains("Created date should be in the following format: yyyy-MM-dd"));
@@ -134,6 +133,155 @@ class InvoiceDTOTest {
 				.validate(TestDataBuilder.getTooLongInvoiceNumber());
 
 		assertEquals("Invoice number length should be between 1 and 50",
+				constraintViolationSet.iterator().next().getMessage());
+		assertEquals(1, constraintViolationSet.size());
+	}
+
+	@Test
+	void testWhenInvoiceDateIsNull() throws Exception {
+
+		Set<ConstraintViolation<InvoiceDTO>> constraintViolationSet = validator
+				.validate(TestDataBuilder.getNullInvoiceDate());
+
+		List<ConstraintViolation<InvoiceDTO>> constraintViolationList = new ArrayList<>();
+		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
+
+		Set<String> finalSet = new HashSet<>();
+		constraintViolationList.forEach(constraint -> finalSet.add(constraint.getMessage()));
+
+		assertTrue(finalSet.contains("Invoice date should not be null"));
+		assertTrue(finalSet.contains("Invoice date should be in the following format: yyyy-MM-dd"));
+		assertEquals(2, constraintViolationSet.size());
+	}
+
+	@Test
+	void testWhenNoteIsEmpty() throws Exception {
+
+		Set<ConstraintViolation<InvoiceDTO>> constraintViolationSet = validator
+				.validate(TestDataBuilder.getEmptyNote());
+
+		assertEquals("Note should contain alphanumeric character, space, dot, comma, colons, semicolons and dash",
+				constraintViolationSet.iterator().next().getMessage());
+		assertEquals(1, constraintViolationSet.size());
+	}
+
+	@Test
+	void testWhenNoteIsTooLong() throws Exception {
+
+		Set<ConstraintViolation<InvoiceDTO>> constraintViolationSet = validator
+				.validate(TestDataBuilder.getTooLongNote());
+
+		assertEquals("Note length should be between 1 and 250",
+				constraintViolationSet.iterator().next().getMessage());
+		assertEquals(1, constraintViolationSet.size());
+	}
+	
+	@Test
+	void testWhenTotalDiscountPriceIsNegative() throws Exception {
+
+		Set<ConstraintViolation<InvoiceDTO>> constraintViolationSet = validator
+				.validate(TestDataBuilder.getNegativeTotalDiscountPrice());
+
+		assertEquals("Total Discount Price min value should be 0.0",
+				constraintViolationSet.iterator().next().getMessage());
+		assertEquals(1, constraintViolationSet.size());
+	}
+
+	@Test
+	void testWhenTotalDiscountPriceWrongRange() throws Exception {
+
+		Set<ConstraintViolation<InvoiceDTO>> constraintViolationSet = validator
+				.validate(TestDataBuilder.getWorngRangeTotalDiscountPrice());
+
+		assertEquals("Total Discount Price fromat should have 6 integer digits and 2 digits",
+				constraintViolationSet.iterator().next().getMessage());
+		assertEquals(1, constraintViolationSet.size());
+	}
+
+	@Test
+	void testWhenTotalRetailPriceIsNegative() throws Exception {
+
+		Set<ConstraintViolation<InvoiceDTO>> constraintViolationSet = validator
+				.validate(TestDataBuilder.getNegativeTotalRetailPrice());
+
+		assertEquals("Total Retail Price min value should be 0.0",
+				constraintViolationSet.iterator().next().getMessage());
+		assertEquals(1, constraintViolationSet.size());
+	}
+
+	@Test
+	void testWhenTotalRetailPriceWrongRange() throws Exception {
+
+		Set<ConstraintViolation<InvoiceDTO>> constraintViolationSet = validator
+				.validate(TestDataBuilder.getWorngRangeTotalRetailPrice());
+
+		assertEquals("Total Retail Price fromat should have 6 integer digits and 2 digits",
+				constraintViolationSet.iterator().next().getMessage());
+		assertEquals(1, constraintViolationSet.size());
+	}
+
+	@Test
+	void testWhenTotalTradeMarginIsNegative() throws Exception {
+
+		Set<ConstraintViolation<InvoiceDTO>> constraintViolationSet = validator
+				.validate(TestDataBuilder.getNegativeTotalTradeMargin());
+
+		assertEquals("Total Trade Margin min value should be 0.0",
+				constraintViolationSet.iterator().next().getMessage());
+		assertEquals(1, constraintViolationSet.size());
+	}
+
+	@Test
+	void testWhenTotalTradeMarginWrongRange() throws Exception {
+
+		Set<ConstraintViolation<InvoiceDTO>> constraintViolationSet = validator
+				.validate(TestDataBuilder.getWorngRangeTotalTradeMargin());
+
+		assertEquals("Total Trade Margin fromat should have 6 integer digits and 2 digits",
+				constraintViolationSet.iterator().next().getMessage());
+		assertEquals(1, constraintViolationSet.size());
+	}
+
+	@Test
+	void testWhenTradeMarginIsNegative() throws Exception {
+
+		Set<ConstraintViolation<InvoiceDTO>> constraintViolationSet = validator
+				.validate(TestDataBuilder.getNegativeTradeMargin());
+
+		assertEquals("Trade Margin min value should be 0.0",
+				constraintViolationSet.iterator().next().getMessage());
+		assertEquals(1, constraintViolationSet.size());
+	}
+
+	@Test
+	void testWhenTradeMarginWrongRange() throws Exception {
+
+		Set<ConstraintViolation<InvoiceDTO>> constraintViolationSet = validator
+				.validate(TestDataBuilder.getWorngRangeTradeMargin());
+
+		assertEquals("Trade Margin fromat should have 4 integer digits and 2 digits",
+				constraintViolationSet.iterator().next().getMessage());
+		assertEquals(1, constraintViolationSet.size());
+	}
+	
+	@Test
+	void testWhenVatSumIsNegative() throws Exception {
+
+		Set<ConstraintViolation<InvoiceDTO>> constraintViolationSet = validator
+				.validate(TestDataBuilder.getNegativeVatSum());
+
+		assertEquals("Vat sum value should be 0.0",
+				constraintViolationSet.iterator().next().getMessage());
+		assertEquals(1, constraintViolationSet.size());
+	}
+
+	@Test
+	void testWhenVatSumWrongRange() throws Exception {
+
+		Set<ConstraintViolation<InvoiceDTO>> constraintViolationSet = validator
+				.validate(TestDataBuilder.getWorngRangeVatSum());
+
+		assertEquals("Vat sum fromat should have 6 integer digits and 2 digits",
 				constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
 	}
