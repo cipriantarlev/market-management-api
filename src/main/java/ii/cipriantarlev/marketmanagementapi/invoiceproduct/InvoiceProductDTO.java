@@ -43,7 +43,7 @@ public class InvoiceProductDTO {
 	private BigDecimal vatSum;
 
 	@NotNull(message = "Total Discount Price should not be null")
-	@DecimalMin(value = "0.0", inclusive = false, message = "Total Retail Price min value should be {value}")
+	@DecimalMin(value = "0.0", inclusive = false, message = "Total Discount Price min value should be {value}")
 	@Digits(integer = 6, fraction = 2, message = "Total Discount Price fromat should have {integer} integer digits and {fraction} digits")
 	private BigDecimal totalDiscountPrice;
 
