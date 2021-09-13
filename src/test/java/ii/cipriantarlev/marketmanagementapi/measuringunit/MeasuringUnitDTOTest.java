@@ -22,7 +22,7 @@ class MeasuringUnitDTOTest {
 	private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
 	@Test
-	void testWhenValueIsNull() throws Exception {
+	void testWhenNameIsNull() throws Exception {
 
 		Set<ConstraintViolation<MeasuringUnitDTO>> constraintViolationSet = validator
 				.validate(TestDataBuilder.getNullValueMeasuringUnitDTO());
@@ -33,7 +33,7 @@ class MeasuringUnitDTOTest {
 	}
 
 	@Test
-	void testWhenValueIsBlank() throws Exception {
+	void testWhenNameIsBlank() throws Exception {
 
 		Set<ConstraintViolation<MeasuringUnitDTO>> constraintViolationSet = validator
 				.validate(TestDataBuilder.getBlankValueMeasuringUnitDTOO());
@@ -50,7 +50,7 @@ class MeasuringUnitDTOTest {
 	}
 
 	@Test
-	void testWhenValueIsEmpty() throws Exception {
+	void testWhenNameIsEmpty() throws Exception {
 
 		Set<ConstraintViolation<MeasuringUnitDTO>> constraintViolationSet = validator
 				.validate(TestDataBuilder.getEmptyValueMeasuringUnitDTO());
@@ -68,7 +68,7 @@ class MeasuringUnitDTOTest {
 	}
 
 	@Test
-	void testWhenValueIsInvalid() throws Exception {
+	void testWhenManeIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<MeasuringUnitDTO>> constraintViolationSet = validator
 				.validate(TestDataBuilder.getInvalidCharactersValueMeasuringUnitDTO());
@@ -79,7 +79,7 @@ class MeasuringUnitDTOTest {
 	}
 
 	@Test
-	void testWhenValueIsToLong() throws Exception {
+	void testWhenNameIsToLong() throws Exception {
 
 		Set<ConstraintViolation<MeasuringUnitDTO>> constraintViolationSet = validator
 				.validate(TestDataBuilder.getToManyCharactersValueMeasuringUnitDTO());
