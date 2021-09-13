@@ -12,6 +12,7 @@ import ii.cipriantarlev.marketmanagementapi.documenttype.DocumentTypeDTO;
 import ii.cipriantarlev.marketmanagementapi.invoice.InvoiceDTO;
 import ii.cipriantarlev.marketmanagementapi.invoiceproduct.InvoiceProductDTO;
 import ii.cipriantarlev.marketmanagementapi.measuringunit.MeasuringUnitDTO;
+import ii.cipriantarlev.marketmanagementapi.myorganization.MyOrganizationDTO;
 import ii.cipriantarlev.marketmanagementapi.myorganization.MyOrganizationDTOOnlyName;
 import ii.cipriantarlev.marketmanagementapi.product.ProductDTO;
 import ii.cipriantarlev.marketmanagementapi.vendor.VendorDTOOnlyName;
@@ -510,5 +511,467 @@ public class TestDataBuilder {
 
 	public MeasuringUnitDTO getToManyCharactersValueMeasuringUnitDTO() {
 		return MeasuringUnitDTO.builder().id(1).name("taAsttestesttest".repeat(6)).build();
+	}
+
+	public MyOrganizationDTO getNullNameMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.bank("Ad2")
+				.fiscalCode("01254")
+				.bankAccount("6554")
+				.vatCode("21254")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getBlankNameMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name(" ")
+				.bank("Ad2")
+				.fiscalCode("01254")
+				.bankAccount("6554")
+				.vatCode("21254")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getEmptyNameMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("")
+				.bank("Ad2")
+				.fiscalCode("01254")
+				.bankAccount("6554")
+				.vatCode("21254")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getInvalidCharactersNameMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Asjfd ndjd @")
+				.bank("Ad2")
+				.fiscalCode("01254")
+				.bankAccount("6554")
+				.vatCode("21254")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getToManyCharactersNameMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Asjfd ndjdd3d2 d3ds".repeat(10))
+				.bank("Ad2")
+				.fiscalCode("01254")
+				.bankAccount("6554")
+				.vatCode("21254")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+	
+	public MyOrganizationDTO getNullBankMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Ad2")
+				.fiscalCode("01254")
+				.bankAccount("6554")
+				.vatCode("21254")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getBlankBankMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Ad2")
+				.bank(" ")
+				.fiscalCode("01254")
+				.bankAccount("6554")
+				.vatCode("21254")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getEmptyBankMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Ad2")
+				.bank("")
+				.fiscalCode("01254")
+				.bankAccount("6554")
+				.vatCode("21254")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getInvalidCharactersBankMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Asjfd ndjd")
+				.bank("Ad2  @")
+				.fiscalCode("01254")
+				.bankAccount("6554")
+				.vatCode("21254")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getToManyCharactersBankMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("dfA")
+				.bank("Asjfd ndjdd3d2 d3ds".repeat(15))
+				.fiscalCode("01254")
+				.bankAccount("6554")
+				.vatCode("21254")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+	
+	public MyOrganizationDTO getNullFiscalCodeMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Ad2")
+				.bank("01254")
+				.bankAccount("6554")
+				.vatCode("21254")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getBlankFiscalCodeMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Ad2")
+				.bank("01254")
+				.fiscalCode(" ")
+				.bankAccount("6554")
+				.vatCode("21254")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getEmptyFiscalCodeMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Ad2")
+				.bank("01254")
+				.fiscalCode("")
+				.bankAccount("6554")
+				.vatCode("21254")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getInvalidCharactersFiscalCodeMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Asjfd ndjd")
+				.bank("Ad2 f")
+				.fiscalCode("01254A")
+				.bankAccount("6554")
+				.vatCode("21254")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getToManyCharactersFiscalCodeMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("dfA")
+				.bank("Asjfd ndjdd3d2 d3ds")
+				.fiscalCode("012545643".repeat(4))
+				.bankAccount("6554")
+				.vatCode("21254")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+	
+	public MyOrganizationDTO getNullBankAccountMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Ad2")
+				.bank("01254")
+				.fiscalCode("6554")
+				.vatCode("21254")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getBlankBankAccountMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Ad2")
+				.bank("01254")
+				.fiscalCode("6554")
+				.bankAccount(" ")
+				.vatCode("21254")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getEmptyBankAccountMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Ad2")
+				.bank("01254")
+				.fiscalCode("6554")
+				.bankAccount("")
+				.vatCode("21254")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getInvalidCharactersBankAccountMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Asjfd ndjd")
+				.bank("Ad2 f")
+				.fiscalCode("01254")
+				.bankAccount("6554A")
+				.vatCode("21254")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getToManyCharactersBankAccountMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("dfA")
+				.bank("Asjfd ndjdd3d2 d3ds")
+				.fiscalCode("012545643")
+				.bankAccount("012545643".repeat(12))
+				.vatCode("21254")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+	
+	public MyOrganizationDTO getNullVatCodeMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Ad2")
+				.bank("01254")
+				.fiscalCode("6554")
+				.bankAccount("21254")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getBlankVatCodeMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Ad2")
+				.bank("01254")
+				.fiscalCode("6554")
+				.bankAccount("21254")
+				.vatCode(" ")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getEmptyVatCodeMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Ad2")
+				.bank("01254")
+				.fiscalCode("6554")
+				.bankAccount("21254")
+				.vatCode("")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getInvalidCharactersVatCodeMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Asjfd ndjd")
+				.bank("Ad2 f")
+				.fiscalCode("01254")
+				.bankAccount("6554")
+				.vatCode("6554A")
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getToManyCharactersVatCodeMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("dfA")
+				.bank("Asjfd ndjdd3d2 d3ds")
+				.fiscalCode("012545643")
+				.bankAccount("012545643")
+				.vatCode("012545643".repeat(12))
+				.city("BS")
+				.phoneNumber("064-54")
+				.build();
+	}
+	
+	public MyOrganizationDTO getNullCityMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Ad2")
+				.bank("01254")
+				.fiscalCode("6554")
+				.bankAccount("21254")
+				.vatCode("554")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getBlankCityMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Ad2")
+				.bank("01254")
+				.fiscalCode("6554")
+				.bankAccount("21254")
+				.vatCode("5124")
+				.city(" ")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getEmptyCityMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Ad2")
+				.bank("01254")
+				.fiscalCode("6554")
+				.bankAccount("21254")
+				.vatCode("545121")
+				.city("")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getInvalidCharactersCityMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Asjfd ndjd")
+				.bank("Ad2 f")
+				.fiscalCode("01254")
+				.bankAccount("6554")
+				.vatCode("6554")
+				.city("BSA#")
+				.phoneNumber("064-54")
+				.build();
+	}
+
+	public MyOrganizationDTO getToManyCharactersCityMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("dfA")
+				.bank("Asjfd ndjdd3d2 d3ds")
+				.fiscalCode("012545643")
+				.bankAccount("012545643")
+				.vatCode("012545643")
+				.city("BSffd ds4f dsdsds".repeat(12))
+				.phoneNumber("064-54")
+				.build();
+	}
+	
+	public MyOrganizationDTO getInvalidCharactersPhoneNumberMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Asjfd ndjd")
+				.bank("Ad2 f")
+				.fiscalCode("01254")
+				.bankAccount("6554")
+				.vatCode("6554")
+				.city("BSA")
+				.phoneNumber("064-54 ")
+				.build();
+	}
+
+	public MyOrganizationDTO getToManyCharactersPhoneNumberMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("dfA")
+				.bank("Asjfd ndjdd3d2 d3ds")
+				.fiscalCode("012545643")
+				.bankAccount("012545643")
+				.vatCode("012545643")
+				.city("BSffd ds4f dsdsds")
+				.phoneNumber("064-54-545454-5454".repeat(12))
+				.build();
+	}
+	
+	public MyOrganizationDTO getInvalidCharactersEmailMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Asjfd ndjd")
+				.bank("Ad2 f")
+				.fiscalCode("01254")
+				.bankAccount("6554")
+				.vatCode("6554")
+				.city("BSA")
+				.email("ffff@ffff")
+				.build();
+	}
+
+	public MyOrganizationDTO getToManyCharactersEmailMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("dfA")
+				.bank("Asjfd ndjdd3d2 d3ds")
+				.fiscalCode("012545643")
+				.bankAccount("012545643")
+				.vatCode("012545643")
+				.city("BSffd ds4f dsdsds")
+				.email("064fdf54545df4545454".repeat(12) + "@email.com")
+				.build();
+	}
+	
+	public MyOrganizationDTO getInvalidCharactersNoteMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("Asjfd ndjd")
+				.bank("Ad2 f")
+				.fiscalCode("01254")
+				.bankAccount("6554")
+				.vatCode("6554")
+				.city("BSA")
+				.note("ffff@ffff")
+				.build();
+	}
+
+	public MyOrganizationDTO getToManyCharactersNoteMyOrganizationDTO() {
+		return MyOrganizationDTO.builder()
+				.id(1)
+				.name("dfA")
+				.bank("Asjfd ndjdd3d2 d3ds")
+				.fiscalCode("012545643")
+				.bankAccount("012545643")
+				.vatCode("012545643")
+				.city("BSffd ds4f dsdsds")
+				.note("064fdf54545df4545454 fd sds 064fdf54545df4545454 fd sds".repeat(20))
+				.build();
 	}
 }
