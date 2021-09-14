@@ -1,2 +1,2 @@
 # market-management-api
-# Hellloo
+# This is the rest api for market management application
