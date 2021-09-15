@@ -35,20 +35,20 @@ public class ProductDTO {
 
 	private Long id;
 
-	@NotBlank(message = "Romanian Name should not be blank")
-	@Pattern(regexp = "^[a-zA-Z0-9-]+$", message = "Romanian Name should contain only letters, numbers and dash")
+	@NotBlank(message = "Romanian Name should not be blank or null")
+	@Pattern(regexp = "^[a-zA-Z0-9-\\s]+$", message = "Romanian Name should contain only letters, numbers and dash")
 	@Size(min = 1, max = 300, message = "Romanian Name length should be between {min} and {max}")
 	private String nameRom;
 
-	@NotBlank(message = "Russian Name should not be blank")
-	@Pattern(regexp = "^[a-zA-ZА-Яа-я0-9-]+$", message = "Russian Name should contain only letters, numbers and dash")
+	@NotBlank(message = "Russian Name should not be blank or null")
+	@Pattern(regexp = "^[a-zA-ZА-Яа-я0-9-\\s]+$", message = "Russian Name should contain only letters, numbers and dash")
 	@Size(min = 1, max = 300, message = "Russian Name length should be between {min} and {max}")
 	private String nameRus;
 
-	@NotNull(message = "Document Type DTO should not be null")
+	@NotNull(message = "CategoryDTO should not be null")
 	private CategoryDTO category;
 
-	@NotNull(message = "Document Type DTO should not be null")
+	@NotNull(message = "SubcategoryDTO should not be null")
 	private SubcategoryDTONoCategory subcategory;
 
 	@DecimalMin(value = "0.0", inclusive = false, message = "Discount Price min value should be {value}")
@@ -63,22 +63,21 @@ public class ProductDTO {
 	@Digits(integer = 2, fraction = 2, message = "Trade margin fromat should have {integer} integer digits and {fraction} digits")
 	private BigDecimal tradeMargin;
 
-	@NotNull(message = "Document Type DTO should not be null")
+	@NotNull(message = "MeasuringUnitDTO should not be null")
 	private MeasuringUnitDTO measuringUnit;
 
-	@NotNull(message = "Document Type DTO should not be null")
+	@NotNull(message = "VatDTO should not be null")
 	private VatDTO vat;
 
 	@NotNull(message = "Barcode list should not be null")
 	private List<BarcodeDTO> barcodes;
 
-	@NotNull(message = "Document Type DTO should not be null")
 	private PluDTO plu;
 
 	@DecimalMin(value = "0.0", inclusive = false, message = "Stock min value should be {value}")
 	@Digits(integer = 6, fraction = 2, message = "Stock fromat should have {integer} integer digits and {fraction} digits")
 	private BigDecimal stock;
 
-	@NotNull(message = "Document Type DTO should not be null")
+	@NotNull(message = "ProductCodeDTO should not be null")
 	private ProductCodeDTO productCode;
 }

@@ -22,8 +22,8 @@ public class RegionDTO {
 
 	private Integer id;
 
-	@NotBlank(message = "Region name should not be blank")
-	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Region name should contain only letters and numbers")
+	@NotBlank(message = "Region name should not be blank or null")
+	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "Region name should contain only letters and numbers")
 	@Size(min = 1, max = 100, message = "Region name length should be between {min} and {max}")
 	private String name;
 

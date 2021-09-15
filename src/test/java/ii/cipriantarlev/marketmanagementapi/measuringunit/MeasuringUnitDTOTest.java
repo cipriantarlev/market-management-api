@@ -36,7 +36,7 @@ class MeasuringUnitDTOTest {
 	void testWhenNameIsBlank() throws Exception {
 
 		Set<ConstraintViolation<MeasuringUnitDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getBlankValueMeasuringUnitDTOO());
+				.validate(TestDataBuilder.getBlankValueMeasuringUnitDTO());
 
 		List<ConstraintViolation<MeasuringUnitDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -68,7 +68,7 @@ class MeasuringUnitDTOTest {
 	}
 
 	@Test
-	void testWhenManeIsInvalid() throws Exception {
+	void testWhenNameIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<MeasuringUnitDTO>> constraintViolationSet = validator
 				.validate(TestDataBuilder.getInvalidCharactersValueMeasuringUnitDTO());

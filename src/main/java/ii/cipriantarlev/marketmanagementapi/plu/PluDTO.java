@@ -23,7 +23,7 @@ public class PluDTO {
 	private Integer id;
 
 	@NotNull(message = "PLU value should not be null")
-	@Max(value = 9, message = "PLU value max value is {value}.")
-	@Positive(message = "PLU value should be positive.")
+	@Max(value = 9, message = "PLU value max value is {value}")
+	@Positive(message = "PLU value should be positive")
 	private Integer value;
 }
