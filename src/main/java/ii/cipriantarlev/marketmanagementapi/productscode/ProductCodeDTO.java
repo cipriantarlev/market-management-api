@@ -22,7 +22,7 @@ public class ProductCodeDTO {
 
 	private Long id;
 
-	@NotBlank(message = "Product Code value should not be blank")
+	@NotBlank(message = "Product Code value should not be blank or null")
 	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Product Code value should contain only letters and numbers")
 	@Size(min = 1, max = 50, message = "Product Code value length should be between {min} and {max}")
 	private String value;

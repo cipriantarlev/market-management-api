@@ -22,7 +22,7 @@ public class RoleDTO {
 
 	private Integer id;
 
-	@NotBlank(message = "Role name should not be blank")
+	@NotBlank(message = "Role name should not be blank or null")
 	@Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Role name should contain only letters, numbers and underline")
 	@Size(min = 1, max = 50, message = "Role name length should be between {min} and {max}")
 	private String role;

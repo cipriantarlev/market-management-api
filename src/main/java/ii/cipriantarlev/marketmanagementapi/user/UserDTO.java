@@ -27,22 +27,22 @@ public class UserDTO {
 
 	private Integer id;
 
-	@NotBlank(message = "Username should not be blank")
+	@NotBlank(message = "Username should not be blank or null")
 	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Username should contain only letters and numbers")
 	@Size(min = 1, max = 100, message = "Username length should be between {min} and {max}")
 	private String username;
 
-	@NotBlank(message = "Password should not be blank")
+	@NotBlank(message = "Password should not be blank or null")
 	@Size(min = 1, max = 100, message = "Password length should be between {min} and {max}")
 	private String password;
 
-	@NotBlank(message = "Email should not be blank")
+	@NotBlank(message = "Email should not be blank or null")
 	@Email(message = "Email should be valid")
-	@Pattern(regexp = "^(.+)@(.+)$", message = "Email should respect the patter: email@email.com")
-	@Size(min = 1, max = 100, message = "Email length should be between {min} and {max}")
+	@Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$", message = "Email should respect the patter: email@email.com")
+	@Size(min = 5, max = 100, message = "Email length should be between {min} and {max}")
 	private String email;
 
-	@NotNull(message = "Document Type DTO should not be null")
+	@NotNull(message = "Roles should not be null")
 	private List<RoleDTO> roles;
 
 }
