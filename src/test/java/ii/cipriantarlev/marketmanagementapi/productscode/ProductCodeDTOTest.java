@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * © 2021 II Ciprian Tarlev. All Rights Reserved.
+ *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.productscode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,7 +18,7 @@ import javax.validation.Validator;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
 
-import ii.cipriantarlev.marketmanagementapi.data.TestDataBuilder;
+import ii.cipriantarlev.marketmanagementapi.data.TestDataDTOBuilder;
 
 class ProductCodeDTOTest {
 
@@ -25,7 +28,7 @@ class ProductCodeDTOTest {
 	void testWhenValueIsNull() throws Exception {
 
 		Set<ConstraintViolation<ProductCodeDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullValueProductCodeDTO());
+				.validate(TestDataDTOBuilder.getNullValueProductCodeDTO());
 
 		assertEquals("Product Code value should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -36,7 +39,7 @@ class ProductCodeDTOTest {
 	void testWhenValueIsBlank() throws Exception {
 
 		Set<ConstraintViolation<ProductCodeDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getBlankValueProductCodeDTO());
+				.validate(TestDataDTOBuilder.getBlankValueProductCodeDTO());
 
 		List<ConstraintViolation<ProductCodeDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -53,7 +56,7 @@ class ProductCodeDTOTest {
 	void testWhenValueIsEmpty() throws Exception {
 
 		Set<ConstraintViolation<ProductCodeDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getEmptyValueProductCodeDTO());
+				.validate(TestDataDTOBuilder.getEmptyValueProductCodeDTO());
 
 		List<ConstraintViolation<ProductCodeDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -71,7 +74,7 @@ class ProductCodeDTOTest {
 	void testWhenValueIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<ProductCodeDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersValueProductCodeDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersValueProductCodeDTO());
 
 		assertEquals("Product Code value should contain only letters and numbers",
 				constraintViolationSet.iterator().next().getMessage());
@@ -82,7 +85,7 @@ class ProductCodeDTOTest {
 	void testWhenValueIsToLong() throws Exception {
 
 		Set<ConstraintViolation<ProductCodeDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersValueProductCodeDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersValueProductCodeDTO());
 
 		assertEquals("Product Code value length should be between 1 and 50",
 				constraintViolationSet.iterator().next().getMessage());

@@ -1,6 +1,9 @@
 /*******************************************************************************
  * © 2021 II Ciprian Tarlev. All Rights Reserved.
  *******************************************************************************/
+/*******************************************************************************
+ * © 2021 II Ciprian Tarlev. All Rights Reserved.
+ *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.barcode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,7 +21,7 @@ import javax.validation.Validator;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
 
-import ii.cipriantarlev.marketmanagementapi.data.TestDataBuilder;
+import ii.cipriantarlev.marketmanagementapi.data.TestDataDTOBuilder;
 
 class BarcodeDTOTest {
 
@@ -28,7 +31,7 @@ class BarcodeDTOTest {
 	void testWhenValueIsNull() throws Exception {
 
 		Set<ConstraintViolation<BarcodeDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullValueBarcodeDTO());
+				.validate(TestDataDTOBuilder.getNullValueBarcodeDTO());
 
 		assertEquals("Barcode value should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -39,7 +42,7 @@ class BarcodeDTOTest {
 	void testWhenValueIsBlank() throws Exception {
 
 		Set<ConstraintViolation<BarcodeDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getBlankValueBarcodeDTO());
+				.validate(TestDataDTOBuilder.getBlankValueBarcodeDTO());
 
 		List<ConstraintViolation<BarcodeDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -57,7 +60,7 @@ class BarcodeDTOTest {
 	void testWhenValueIsEmpty() throws Exception {
 
 		Set<ConstraintViolation<BarcodeDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getEmptyValueBarcodeDTO());
+				.validate(TestDataDTOBuilder.getEmptyValueBarcodeDTO());
 
 		List<ConstraintViolation<BarcodeDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -75,7 +78,7 @@ class BarcodeDTOTest {
 	void testWhenValueIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<BarcodeDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersValueBarcodeDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersValueBarcodeDTO());
 
 		assertEquals("Barcode value should contain only numbers",
 				constraintViolationSet.iterator().next().getMessage());
@@ -86,7 +89,7 @@ class BarcodeDTOTest {
 	void testWhenValueIsToLong() throws Exception {
 
 		Set<ConstraintViolation<BarcodeDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersValueBarcodeDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersValueBarcodeDTO());
 
 		assertEquals("Barcode value length should be between 1 and 13",
 				constraintViolationSet.iterator().next().getMessage());

@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * © 2021 II Ciprian Tarlev. All Rights Reserved.
+ *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.vat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,7 +18,7 @@ import javax.validation.Validator;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
 
-import ii.cipriantarlev.marketmanagementapi.data.TestDataBuilder;
+import ii.cipriantarlev.marketmanagementapi.data.TestDataDTOBuilder;
 
 class VatDTOTest {
 
@@ -25,7 +28,7 @@ class VatDTOTest {
 	void testWhenValueIsNull() throws Exception {
 
 		Set<ConstraintViolation<VatDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullValueVatDTO());
+				.validate(TestDataDTOBuilder.getNullValueVatDTO());
 
 		assertEquals("Vat value should not be null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -36,7 +39,7 @@ class VatDTOTest {
 	void testWhenValueIsNegative() throws Exception {
 
 		Set<ConstraintViolation<VatDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNegativeValueVatDTO());
+				.validate(TestDataDTOBuilder.getNegativeValueVatDTO());
 
 		assertEquals("Vat value min value is 0",
 				constraintViolationSet.iterator().next().getMessage());
@@ -47,7 +50,7 @@ class VatDTOTest {
 	void testWhenValueWrongRange() throws Exception {
 
 		Set<ConstraintViolation<VatDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getWorngRangeValueVatDTO());
+				.validate(TestDataDTOBuilder.getWorngRangeValueVatDTO());
 
 		assertEquals("Vat value max value is 99",
 				constraintViolationSet.iterator().next().getMessage());
@@ -58,7 +61,7 @@ class VatDTOTest {
 	void testWhenNameIsNull() throws Exception {
 
 		Set<ConstraintViolation<VatDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullNameVatDTO());
+				.validate(TestDataDTOBuilder.getNullNameVatDTO());
 
 		assertEquals("Vat name should not be blank or null", constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
@@ -68,7 +71,7 @@ class VatDTOTest {
 	void testWhenNameIsBlank() throws Exception {
 
 		Set<ConstraintViolation<VatDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getBlankNameVatDTO());
+				.validate(TestDataDTOBuilder.getBlankNameVatDTO());
 
 		List<ConstraintViolation<VatDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -85,7 +88,7 @@ class VatDTOTest {
 	void testWhenNameIsEmpty() throws Exception {
 
 		Set<ConstraintViolation<VatDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getEmptyNameVatDTO());
+				.validate(TestDataDTOBuilder.getEmptyNameVatDTO());
 
 		List<ConstraintViolation<VatDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -103,7 +106,7 @@ class VatDTOTest {
 	void testWhenNameIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<VatDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersNameVatDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersNameVatDTO());
 
 		assertEquals("Vat name should contain only letters, numbers, () or %",
 				constraintViolationSet.iterator().next().getMessage());
@@ -114,7 +117,7 @@ class VatDTOTest {
 	void testWhenNameIsToLong() throws Exception {
 
 		Set<ConstraintViolation<VatDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersNameVatDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersNameVatDTO());
 
 		assertEquals("Vat name length should be between 1 and 100",
 				constraintViolationSet.iterator().next().getMessage());

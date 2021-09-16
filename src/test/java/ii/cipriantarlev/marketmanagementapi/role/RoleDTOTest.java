@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * © 2021 II Ciprian Tarlev. All Rights Reserved.
+ *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.role;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,7 +18,7 @@ import javax.validation.Validator;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
 
-import ii.cipriantarlev.marketmanagementapi.data.TestDataBuilder;
+import ii.cipriantarlev.marketmanagementapi.data.TestDataDTOBuilder;
 
 class RoleDTOTest {
 
@@ -25,7 +28,7 @@ class RoleDTOTest {
 	void testWhenRoleIsNull() throws Exception {
 
 		Set<ConstraintViolation<RoleDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullRoleRoleDTO());
+				.validate(TestDataDTOBuilder.getNullRoleRoleDTO());
 
 		assertEquals("Role name should not be blank or null", constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
@@ -35,7 +38,7 @@ class RoleDTOTest {
 	void testWhenRoleIsBlank() throws Exception {
 
 		Set<ConstraintViolation<RoleDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getBlankRoleRoleDTO());
+				.validate(TestDataDTOBuilder.getBlankRoleRoleDTO());
 
 		List<ConstraintViolation<RoleDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -52,7 +55,7 @@ class RoleDTOTest {
 	void testWhenRoleIsEmpty() throws Exception {
 
 		Set<ConstraintViolation<RoleDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getEmptyRoleRoleDTO());
+				.validate(TestDataDTOBuilder.getEmptyRoleRoleDTO());
 
 		List<ConstraintViolation<RoleDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -70,7 +73,7 @@ class RoleDTOTest {
 	void testWhenRoleIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<RoleDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersRoleRoleDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersRoleRoleDTO());
 
 		assertEquals("Role name should contain only letters, numbers and underline",
 				constraintViolationSet.iterator().next().getMessage());
@@ -81,7 +84,7 @@ class RoleDTOTest {
 	void testWhenRoleIsToLong() throws Exception {
 
 		Set<ConstraintViolation<RoleDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersRoleRoleDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersRoleRoleDTO());
 
 		assertEquals("Role name length should be between 1 and 50",
 				constraintViolationSet.iterator().next().getMessage());

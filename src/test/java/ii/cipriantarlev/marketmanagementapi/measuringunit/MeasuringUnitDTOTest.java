@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * © 2021 II Ciprian Tarlev. All Rights Reserved.
+ *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.measuringunit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,7 +18,7 @@ import javax.validation.Validator;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
 
-import ii.cipriantarlev.marketmanagementapi.data.TestDataBuilder;
+import ii.cipriantarlev.marketmanagementapi.data.TestDataDTOBuilder;
 
 class MeasuringUnitDTOTest {
 
@@ -25,7 +28,7 @@ class MeasuringUnitDTOTest {
 	void testWhenNameIsNull() throws Exception {
 
 		Set<ConstraintViolation<MeasuringUnitDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullValueMeasuringUnitDTO());
+				.validate(TestDataDTOBuilder.getNullValueMeasuringUnitDTO());
 
 		assertEquals("Measuring Unit name should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -36,7 +39,7 @@ class MeasuringUnitDTOTest {
 	void testWhenNameIsBlank() throws Exception {
 
 		Set<ConstraintViolation<MeasuringUnitDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getBlankValueMeasuringUnitDTO());
+				.validate(TestDataDTOBuilder.getBlankValueMeasuringUnitDTO());
 
 		List<ConstraintViolation<MeasuringUnitDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -53,7 +56,7 @@ class MeasuringUnitDTOTest {
 	void testWhenNameIsEmpty() throws Exception {
 
 		Set<ConstraintViolation<MeasuringUnitDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getEmptyValueMeasuringUnitDTO());
+				.validate(TestDataDTOBuilder.getEmptyValueMeasuringUnitDTO());
 
 		List<ConstraintViolation<MeasuringUnitDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -71,7 +74,7 @@ class MeasuringUnitDTOTest {
 	void testWhenNameIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<MeasuringUnitDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersValueMeasuringUnitDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersValueMeasuringUnitDTO());
 
 		assertEquals("Measuring Unit name should contain only letters and numbers",
 				constraintViolationSet.iterator().next().getMessage());
@@ -82,7 +85,7 @@ class MeasuringUnitDTOTest {
 	void testWhenNameIsToLong() throws Exception {
 
 		Set<ConstraintViolation<MeasuringUnitDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersValueMeasuringUnitDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersValueMeasuringUnitDTO());
 
 		assertEquals("Measuring Unit name length should be between 1 and 50",
 				constraintViolationSet.iterator().next().getMessage());
