@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * © 2021 II Ciprian Tarlev. All Rights Reserved.
+ *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.product;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,7 +18,7 @@ import javax.validation.Validator;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
 
-import ii.cipriantarlev.marketmanagementapi.data.TestDataBuilder;
+import ii.cipriantarlev.marketmanagementapi.data.TestDataDTOBuilder;
 
 class ProductDTOTest {
 
@@ -25,7 +28,7 @@ class ProductDTOTest {
 	void testWhenNameRomIsNull() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullNameRomProductDTO());
+				.validate(TestDataDTOBuilder.getNullNameRomProductDTO());
 
 		assertEquals("Romanian Name should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -36,7 +39,7 @@ class ProductDTOTest {
 	void testWhenNameRomIsBlank() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getBlankNameRomProductDTO());
+				.validate(TestDataDTOBuilder.getBlankNameRomProductDTO());
 
 		assertEquals("Romanian Name should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -47,7 +50,7 @@ class ProductDTOTest {
 	void testWhenNameRomIsEmpty() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getEmptyNameRomProductDTO());
+				.validate(TestDataDTOBuilder.getEmptyNameRomProductDTO());
 
 		List<ConstraintViolation<ProductDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -65,7 +68,7 @@ class ProductDTOTest {
 	void testWhenNameRomIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersNameRomProductDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersNameRomProductDTO());
 
 		assertEquals("Romanian Name should contain only letters, numbers and dash",
 				constraintViolationSet.iterator().next().getMessage());
@@ -76,7 +79,7 @@ class ProductDTOTest {
 	void testWhenNameRomIsToLong() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersNameRomProductDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersNameRomProductDTO());
 
 		assertEquals("Romanian Name length should be between 1 and 300",
 				constraintViolationSet.iterator().next().getMessage());
@@ -87,7 +90,7 @@ class ProductDTOTest {
 	void testWhenNameRusIsNull() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullNameRusProductDTO());
+				.validate(TestDataDTOBuilder.getNullNameRusProductDTO());
 
 		assertEquals("Russian Name should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -98,7 +101,7 @@ class ProductDTOTest {
 	void testWhenNameRusIsBlank() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getBlankNameRusProductDTO());
+				.validate(TestDataDTOBuilder.getBlankNameRusProductDTO());
 
 		assertEquals("Russian Name should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -109,7 +112,7 @@ class ProductDTOTest {
 	void testWhenNameRusIsEmpty() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getEmptyNameRusProductDTO());
+				.validate(TestDataDTOBuilder.getEmptyNameRusProductDTO());
 
 		List<ConstraintViolation<ProductDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -127,7 +130,7 @@ class ProductDTOTest {
 	void testWhenNameRusIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersNameRusProductDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersNameRusProductDTO());
 
 		assertEquals("Russian Name should contain only letters, numbers and dash",
 				constraintViolationSet.iterator().next().getMessage());
@@ -138,7 +141,7 @@ class ProductDTOTest {
 	void testWhenNameRusIsToLong() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersNameRusProductDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersNameRusProductDTO());
 
 		assertEquals("Russian Name length should be between 1 and 300",
 				constraintViolationSet.iterator().next().getMessage());
@@ -149,7 +152,7 @@ class ProductDTOTest {
 	void testWhenCategoryDTOIsNull() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullCategoryProductDTO());
+				.validate(TestDataDTOBuilder.getNullCategoryProductDTO());
 
 		assertEquals("CategoryDTO should not be null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -160,7 +163,7 @@ class ProductDTOTest {
 	void testWhenSubcategoryDTOIsNull() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullSubcategoryProductDTO());
+				.validate(TestDataDTOBuilder.getNullSubcategoryProductDTO());
 
 		assertEquals("SubcategoryDTO should not be null", constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
@@ -170,7 +173,7 @@ class ProductDTOTest {
 	void testWhenDiscountPriceIsNegative() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNegativeDiscountPriceProductDTO());
+				.validate(TestDataDTOBuilder.getNegativeDiscountPriceProductDTO());
 
 		assertEquals("Discount Price min value should be 0.0", constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
@@ -180,7 +183,7 @@ class ProductDTOTest {
 	void testWhenDiscountPriceWrongRange() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getWrongRangeDiscountPriceProductDTO());
+				.validate(TestDataDTOBuilder.getWrongRangeDiscountPriceProductDTO());
 
 		assertEquals("Discount Price fromat should have 5 integer digits and 2 digits",
 				constraintViolationSet.iterator().next().getMessage());
@@ -191,7 +194,7 @@ class ProductDTOTest {
 	void testWhenRetailPriceIsNegative() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNegativeRetailPriceProductDTO());
+				.validate(TestDataDTOBuilder.getNegativeRetailPriceProductDTO());
 
 		assertEquals("Retail Price min value should be 0.0", constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
@@ -201,7 +204,7 @@ class ProductDTOTest {
 	void testWhenRetailPriceWrongRange() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getWrongRangeRetailPriceProductDTO());
+				.validate(TestDataDTOBuilder.getWrongRangeRetailPriceProductDTO());
 
 		assertEquals("Retail Price fromat should have 5 integer digits and 2 digits",
 				constraintViolationSet.iterator().next().getMessage());
@@ -212,7 +215,7 @@ class ProductDTOTest {
 	void testWhenTradeMarginIsNegative() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNegativeTradeMarginProductDTO());
+				.validate(TestDataDTOBuilder.getNegativeTradeMarginProductDTO());
 
 		assertEquals("Trade margin min value should be 0.0", constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
@@ -222,7 +225,7 @@ class ProductDTOTest {
 	void testWhenTradeMarginWrongRange() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getWrongRangeTradeMarginProductDTO());
+				.validate(TestDataDTOBuilder.getWrongRangeTradeMarginProductDTO());
 
 		assertEquals("Trade margin fromat should have 2 integer digits and 2 digits",
 				constraintViolationSet.iterator().next().getMessage());
@@ -233,7 +236,7 @@ class ProductDTOTest {
 	void testWhenMeasuringUnitDTOIsNull() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullMeasuringUnitProductDTO());
+				.validate(TestDataDTOBuilder.getNullMeasuringUnitProductDTO());
 
 		assertEquals("MeasuringUnitDTO should not be null", constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
@@ -243,7 +246,7 @@ class ProductDTOTest {
 	void testWhenVatDTOIsNull() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullVatProductDTO());
+				.validate(TestDataDTOBuilder.getNullVatProductDTO());
 
 		assertEquals("VatDTO should not be null", constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
@@ -253,7 +256,7 @@ class ProductDTOTest {
 	void testWhenBarcodesIsNull() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullBarcodesProductDTO());
+				.validate(TestDataDTOBuilder.getNullBarcodesProductDTO());
 
 		assertEquals("Barcode list should not be null", constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
@@ -263,7 +266,7 @@ class ProductDTOTest {
 	void testWhenProductCodeIsNull() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullProductCodeProductDTO());
+				.validate(TestDataDTOBuilder.getNullProductCodeProductDTO());
 
 		assertEquals("ProductCodeDTO should not be null", constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
@@ -273,7 +276,7 @@ class ProductDTOTest {
 	void testWhenStockIsNegative() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNegativeStockProductDTO());
+				.validate(TestDataDTOBuilder.getNegativeStockProductDTO());
 
 		assertEquals("Stock min value should be 0.0", constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
@@ -283,7 +286,7 @@ class ProductDTOTest {
 	void testWhenStockWrongRange() throws Exception {
 
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getWrongRangeStockProductDTO());
+				.validate(TestDataDTOBuilder.getWrongRangeStockProductDTO());
 
 		assertEquals("Stock fromat should have 6 integer digits and 2 digits",
 				constraintViolationSet.iterator().next().getMessage());

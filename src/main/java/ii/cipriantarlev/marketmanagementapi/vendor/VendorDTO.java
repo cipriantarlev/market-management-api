@@ -25,8 +25,8 @@ public class VendorDTO {
 	private Integer id;
 
 	@NotBlank(message = "Vendor name should not be blank or null")
-	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "Vendor nam should contain only letters and numbers")
-	@Size(min = 1, max = 200, message = "Vendor nam length should be between {min} and {max}")
+	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "Vendor name should contain only letters and numbers")
+	@Size(min = 1, max = 200, message = "Vendor name length should be between {min} and {max}")
 	private String name;
 
 	@NotBlank(message = "Bank should not be blank or null")
@@ -35,7 +35,7 @@ public class VendorDTO {
 	private String bank;
 
 	@NotBlank(message = "Fiscal code should not be blank or null")
-	@Pattern(regexp = "^[0-9]+$", message = "Fiscal coder should contain only numbers")
+	@Pattern(regexp = "^[0-9]+$", message = "Fiscal code should contain only numbers")
 	@Size(min = 1, max = 100, message = "Fiscal code length should be between {min} and {max}")
 	private String fiscalCode;
 
@@ -73,7 +73,7 @@ public class VendorDTO {
 	private String postalCode;
 
 	@NotBlank(message = "Business address should not be blank or null")
-	@Pattern(regexp = "^[a-zA-Z0-9:\"\'-]+$", message = "Business address should contain only letters, numbers, \', \", -, :")
+	@Pattern(regexp = "^[a-zA-Z0-9\\s:\"\'-]+$", message = "Business address should contain only letters, numbers, \', \", -, :")
 	@Size(min = 1, max = 250, message = "Business address length should be between {min} and {max}")
 	private String businessAddress;
 

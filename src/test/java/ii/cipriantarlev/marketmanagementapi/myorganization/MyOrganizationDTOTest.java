@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * © 2021 II Ciprian Tarlev. All Rights Reserved.
+ *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.myorganization;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,7 +18,7 @@ import javax.validation.Validator;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
 
-import ii.cipriantarlev.marketmanagementapi.data.TestDataBuilder;
+import ii.cipriantarlev.marketmanagementapi.data.TestDataDTOBuilder;
 
 class MyOrganizationDTOTest {
 
@@ -25,7 +28,7 @@ class MyOrganizationDTOTest {
 	void testWhenNameIsNull() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullNameMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getNullNameMyOrganizationDTO());
 
 		assertEquals("My Organization name should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -36,7 +39,7 @@ class MyOrganizationDTOTest {
 	void testWhenNameIsBlank() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getBlankNameMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getBlankNameMyOrganizationDTO());
 
 		assertEquals("My Organization name should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -47,7 +50,7 @@ class MyOrganizationDTOTest {
 	void testWhenNameIsEmpty() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getEmptyNameMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getEmptyNameMyOrganizationDTO());
 
 		List<ConstraintViolation<MyOrganizationDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -65,7 +68,7 @@ class MyOrganizationDTOTest {
 	void testWhenNameIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersNameMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersNameMyOrganizationDTO());
 
 		assertEquals("My Organization name should contain only letters and numbers",
 				constraintViolationSet.iterator().next().getMessage());
@@ -76,7 +79,7 @@ class MyOrganizationDTOTest {
 	void testWhenNameIsToLong() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersNameMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersNameMyOrganizationDTO());
 
 		assertEquals("My Organization name length should be between 1 and 150",
 				constraintViolationSet.iterator().next().getMessage());
@@ -87,7 +90,7 @@ class MyOrganizationDTOTest {
 	void testWhenBankIsNull() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullBankMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getNullBankMyOrganizationDTO());
 
 		assertEquals("Bank should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -98,7 +101,7 @@ class MyOrganizationDTOTest {
 	void testWhenBankIsBlank() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getBlankBankMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getBlankBankMyOrganizationDTO());
 
 		assertEquals("Bank should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -109,7 +112,7 @@ class MyOrganizationDTOTest {
 	void testWhenBankIsEmpty() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getEmptyBankMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getEmptyBankMyOrganizationDTO());
 
 		List<ConstraintViolation<MyOrganizationDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -127,7 +130,7 @@ class MyOrganizationDTOTest {
 	void testWhenBankIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersBankMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersBankMyOrganizationDTO());
 
 		assertEquals("Bank should contain only letters and numbers",
 				constraintViolationSet.iterator().next().getMessage());
@@ -138,7 +141,7 @@ class MyOrganizationDTOTest {
 	void testWhenBankIsToLong() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersBankMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersBankMyOrganizationDTO());
 
 		assertEquals("Bank length should be between 1 and 200",
 				constraintViolationSet.iterator().next().getMessage());
@@ -149,7 +152,7 @@ class MyOrganizationDTOTest {
 	void testWhenFiscalCodeIsNull() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullFiscalCodeMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getNullFiscalCodeMyOrganizationDTO());
 
 		assertEquals("Fiscal Code should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -160,7 +163,7 @@ class MyOrganizationDTOTest {
 	void testWhenFiscalCodeIsBlank() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getBlankFiscalCodeMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getBlankFiscalCodeMyOrganizationDTO());
 
 		List<ConstraintViolation<MyOrganizationDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -177,7 +180,7 @@ class MyOrganizationDTOTest {
 	void testWhenFiscalCodeIsEmpty() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getEmptyFiscalCodeMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getEmptyFiscalCodeMyOrganizationDTO());
 
 		List<ConstraintViolation<MyOrganizationDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -195,7 +198,7 @@ class MyOrganizationDTOTest {
 	void testWhenFiscalCodeIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersFiscalCodeMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersFiscalCodeMyOrganizationDTO());
 
 		assertEquals("Fiscal Code should contain only numbers",
 				constraintViolationSet.iterator().next().getMessage());
@@ -206,7 +209,7 @@ class MyOrganizationDTOTest {
 	void testWhenFiscalCodeIsToLong() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersFiscalCodeMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersFiscalCodeMyOrganizationDTO());
 
 		assertEquals("Fiscal Code length should be between 1 and 20",
 				constraintViolationSet.iterator().next().getMessage());
@@ -217,7 +220,7 @@ class MyOrganizationDTOTest {
 	void testWhenBankAccountIsNull() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullBankAccountMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getNullBankAccountMyOrganizationDTO());
 
 		assertEquals("Bank Account should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -228,7 +231,7 @@ class MyOrganizationDTOTest {
 	void testWhenBankAccountIsBlank() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getBlankBankAccountMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getBlankBankAccountMyOrganizationDTO());
 
 		List<ConstraintViolation<MyOrganizationDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -245,7 +248,7 @@ class MyOrganizationDTOTest {
 	void testWhenBankAccountIsEmpty() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getEmptyBankAccountMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getEmptyBankAccountMyOrganizationDTO());
 
 		List<ConstraintViolation<MyOrganizationDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -263,7 +266,7 @@ class MyOrganizationDTOTest {
 	void testWhenBankAccountIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersBankAccountMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersBankAccountMyOrganizationDTO());
 
 		assertEquals("Bank Account should contain only numbers",
 				constraintViolationSet.iterator().next().getMessage());
@@ -274,7 +277,7 @@ class MyOrganizationDTOTest {
 	void testWhenBankAccountIsToLong() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersBankAccountMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersBankAccountMyOrganizationDTO());
 
 		assertEquals("Bank Account length should be between 1 and 50",
 				constraintViolationSet.iterator().next().getMessage());
@@ -285,7 +288,7 @@ class MyOrganizationDTOTest {
 	void testWhenVatCodeIsNull() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullVatCodeMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getNullVatCodeMyOrganizationDTO());
 
 		assertEquals("Vat Code should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -296,7 +299,7 @@ class MyOrganizationDTOTest {
 	void testWhenVatCodeIsBlank() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getBlankVatCodeMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getBlankVatCodeMyOrganizationDTO());
 
 		List<ConstraintViolation<MyOrganizationDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -313,7 +316,7 @@ class MyOrganizationDTOTest {
 	void testWhenVatCodeIsEmpty() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getEmptyVatCodeMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getEmptyVatCodeMyOrganizationDTO());
 
 		List<ConstraintViolation<MyOrganizationDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -331,7 +334,7 @@ class MyOrganizationDTOTest {
 	void testWhenVatCodeIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersVatCodeMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersVatCodeMyOrganizationDTO());
 
 		assertEquals("Vat Code should contain only numbers",
 				constraintViolationSet.iterator().next().getMessage());
@@ -342,7 +345,7 @@ class MyOrganizationDTOTest {
 	void testWhenVatCodeIsToLong() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersVatCodeMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersVatCodeMyOrganizationDTO());
 
 		assertEquals("Vat Code length should be between 1 and 50",
 				constraintViolationSet.iterator().next().getMessage());
@@ -353,7 +356,7 @@ class MyOrganizationDTOTest {
 	void testWhenCityIsNull() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullCityMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getNullCityMyOrganizationDTO());
 
 		assertEquals("City should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -364,7 +367,7 @@ class MyOrganizationDTOTest {
 	void testWhenCityIsBlank() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getBlankCityMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getBlankCityMyOrganizationDTO());
 
 		assertEquals("City should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -375,7 +378,7 @@ class MyOrganizationDTOTest {
 	void testWhenCityIsEmpty() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getEmptyCityMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getEmptyCityMyOrganizationDTO());
 
 		List<ConstraintViolation<MyOrganizationDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -393,7 +396,7 @@ class MyOrganizationDTOTest {
 	void testWhenCityIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersCityMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersCityMyOrganizationDTO());
 
 		assertEquals("City should contain only letters and numbers",
 				constraintViolationSet.iterator().next().getMessage());
@@ -404,7 +407,7 @@ class MyOrganizationDTOTest {
 	void testWhenCityIsToLong() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersCityMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersCityMyOrganizationDTO());
 
 		assertEquals("City length should be between 1 and 150",
 				constraintViolationSet.iterator().next().getMessage());
@@ -415,7 +418,7 @@ class MyOrganizationDTOTest {
 	void testWhenPhoneNumberIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersPhoneNumberMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersPhoneNumberMyOrganizationDTO());
 
 		assertEquals("Phone number should contain only dash and numbers",
 				constraintViolationSet.iterator().next().getMessage());
@@ -426,7 +429,7 @@ class MyOrganizationDTOTest {
 	void testWhenPhoneNumberIsToLong() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersPhoneNumberMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersPhoneNumberMyOrganizationDTO());
 
 		assertEquals("Phone number length should be between 1 and 100",
 				constraintViolationSet.iterator().next().getMessage());
@@ -437,7 +440,7 @@ class MyOrganizationDTOTest {
 	void testWhenEmailIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersEmailMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersEmailMyOrganizationDTO());
 
 		assertEquals("Email should respect the patter: email@email.com",
 				constraintViolationSet.iterator().next().getMessage());
@@ -448,7 +451,7 @@ class MyOrganizationDTOTest {
 	void testWhenEmailIsToLong() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersEmailMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersEmailMyOrganizationDTO());
 
 		List<ConstraintViolation<MyOrganizationDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -465,7 +468,7 @@ class MyOrganizationDTOTest {
 	void testWhenNoteIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersNoteMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersNoteMyOrganizationDTO());
 
 		assertEquals("Note should contain alphanumeric character, space, dot, comma, colons, semicolons and dash",
 				constraintViolationSet.iterator().next().getMessage());
@@ -476,7 +479,7 @@ class MyOrganizationDTOTest {
 	void testWhenNoteIsToLong() throws Exception {
 
 		Set<ConstraintViolation<MyOrganizationDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersNoteMyOrganizationDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersNoteMyOrganizationDTO());
 
 		assertEquals("Note length should be between 1 and 500",
 				constraintViolationSet.iterator().next().getMessage());

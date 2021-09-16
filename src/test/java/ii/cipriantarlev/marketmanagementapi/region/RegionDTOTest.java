@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * © 2021 II Ciprian Tarlev. All Rights Reserved.
+ *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.region;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,7 +18,7 @@ import javax.validation.Validator;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
 
-import ii.cipriantarlev.marketmanagementapi.data.TestDataBuilder;
+import ii.cipriantarlev.marketmanagementapi.data.TestDataDTOBuilder;
 
 class RegionDTOTest {
 
@@ -25,7 +28,7 @@ class RegionDTOTest {
 	void testWhenNameIsNull() throws Exception {
 
 		Set<ConstraintViolation<RegionDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullNameRegionDTO());
+				.validate(TestDataDTOBuilder.getNullNameRegionDTO());
 
 		assertEquals("Region name should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -36,7 +39,7 @@ class RegionDTOTest {
 	void testWhenNameIsBlank() throws Exception {
 
 		Set<ConstraintViolation<RegionDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getBlankNameRegionDTO());
+				.validate(TestDataDTOBuilder.getBlankNameRegionDTO());
 
 		assertEquals("Region name should not be blank or null", constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
@@ -46,7 +49,7 @@ class RegionDTOTest {
 	void testWhenNameIsEmpty() throws Exception {
 
 		Set<ConstraintViolation<RegionDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getEmptyNameRegionDTO());
+				.validate(TestDataDTOBuilder.getEmptyNameRegionDTO());
 
 		List<ConstraintViolation<RegionDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -64,7 +67,7 @@ class RegionDTOTest {
 	void testWhenNameIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<RegionDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersNameRegionDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersNameRegionDTO());
 
 		assertEquals("Region name should contain only letters and numbers",
 				constraintViolationSet.iterator().next().getMessage());
@@ -75,7 +78,7 @@ class RegionDTOTest {
 	void testWhenNameIsToLong() throws Exception {
 
 		Set<ConstraintViolation<RegionDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersNameRegionDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersNameRegionDTO());
 
 		assertEquals("Region name length should be between 1 and 100",
 				constraintViolationSet.iterator().next().getMessage());

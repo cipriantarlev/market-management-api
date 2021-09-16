@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * © 2021 II Ciprian Tarlev. All Rights Reserved.
+ *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.documenttype;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,7 +18,7 @@ import javax.validation.Validator;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
 
-import ii.cipriantarlev.marketmanagementapi.data.TestDataBuilder;
+import ii.cipriantarlev.marketmanagementapi.data.TestDataDTOBuilder;
 
 class DocumentTypeDTOTest {
 
@@ -25,7 +28,7 @@ class DocumentTypeDTOTest {
 	void testWhenValueIsNull() throws Exception {
 
 		Set<ConstraintViolation<DocumentTypeDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullValueDocumentTypeDTO());
+				.validate(TestDataDTOBuilder.getNullValueDocumentTypeDTO());
 
 		assertEquals("Document type name should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -36,7 +39,7 @@ class DocumentTypeDTOTest {
 	void testWhenValueIsBlank() throws Exception {
 
 		Set<ConstraintViolation<DocumentTypeDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getBlankValueDocumentTypeDTO());
+				.validate(TestDataDTOBuilder.getBlankValueDocumentTypeDTO());
 
 		assertEquals("Document type name should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -47,7 +50,7 @@ class DocumentTypeDTOTest {
 	void testWhenValueIsEmpty() throws Exception {
 
 		Set<ConstraintViolation<DocumentTypeDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getEmptyValueDocumentTypeDTO());
+				.validate(TestDataDTOBuilder.getEmptyValueDocumentTypeDTO());
 
 		List<ConstraintViolation<DocumentTypeDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -65,7 +68,7 @@ class DocumentTypeDTOTest {
 	void testWhenValueIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<DocumentTypeDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersValueDocumentTypeDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersValueDocumentTypeDTO());
 
 		assertEquals("Document type name should contain only letters",
 				constraintViolationSet.iterator().next().getMessage());
@@ -76,7 +79,7 @@ class DocumentTypeDTOTest {
 	void testWhenValueIsToLong() throws Exception {
 
 		Set<ConstraintViolation<DocumentTypeDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersValueDocumentTypeDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersValueDocumentTypeDTO());
 
 		assertEquals("Document type name length should be between 1 and 250",
 				constraintViolationSet.iterator().next().getMessage());

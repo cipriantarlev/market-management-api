@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * © 2021 II Ciprian Tarlev. All Rights Reserved.
+ *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.user;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,7 +18,7 @@ import javax.validation.Validator;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
 
-import ii.cipriantarlev.marketmanagementapi.data.TestDataBuilder;
+import ii.cipriantarlev.marketmanagementapi.data.TestDataDTOBuilder;
 
 class UserDTOTest {
 
@@ -25,7 +28,7 @@ class UserDTOTest {
 	void testWhenUsernameIsNull() throws Exception {
 
 		Set<ConstraintViolation<UserDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullUsernameUserDTO());
+				.validate(TestDataDTOBuilder.getNullUsernameUserDTO());
 
 		assertEquals("Username should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -36,7 +39,7 @@ class UserDTOTest {
 	void testWhenUsernameIsBlank() throws Exception {
 
 		Set<ConstraintViolation<UserDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getBlankUsernameUserDTO());
+				.validate(TestDataDTOBuilder.getBlankUsernameUserDTO());
 
 		List<ConstraintViolation<UserDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -53,7 +56,7 @@ class UserDTOTest {
 	void testWhenUsernameIsEmpty() throws Exception {
 
 		Set<ConstraintViolation<UserDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getEmptyUsernameUserDTO());
+				.validate(TestDataDTOBuilder.getEmptyUsernameUserDTO());
 
 		List<ConstraintViolation<UserDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -71,7 +74,7 @@ class UserDTOTest {
 	void testWhenUsernameIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<UserDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersUsernameUserDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersUsernameUserDTO());
 
 		assertEquals("Username should contain only letters and numbers",
 				constraintViolationSet.iterator().next().getMessage());
@@ -82,7 +85,7 @@ class UserDTOTest {
 	void testWhenUsernameIsToLong() throws Exception {
 
 		Set<ConstraintViolation<UserDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersUsernameUserDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersUsernameUserDTO());
 
 		assertEquals("Username length should be between 1 and 100",
 				constraintViolationSet.iterator().next().getMessage());
@@ -93,7 +96,7 @@ class UserDTOTest {
 	void testWhenPasswordIsNull() throws Exception {
 
 		Set<ConstraintViolation<UserDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullPasswordUserDTO());
+				.validate(TestDataDTOBuilder.getNullPasswordUserDTO());
 
 		assertEquals("Password should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -104,7 +107,7 @@ class UserDTOTest {
 	void testWhenPasswordIsBlank() throws Exception {
 
 		Set<ConstraintViolation<UserDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getBlankPasswordUserDTO());
+				.validate(TestDataDTOBuilder.getBlankPasswordUserDTO());
 
 
 		assertEquals("Password should not be blank or null",
@@ -116,7 +119,7 @@ class UserDTOTest {
 	void testWhenPasswordIsEmpty() throws Exception {
 
 		Set<ConstraintViolation<UserDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getEmptyPasswordUserDTO());
+				.validate(TestDataDTOBuilder.getEmptyPasswordUserDTO());
 
 		List<ConstraintViolation<UserDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -133,7 +136,7 @@ class UserDTOTest {
 	void testWhenPasswordIsToLong() throws Exception {
 
 		Set<ConstraintViolation<UserDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersPasswordUserDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersPasswordUserDTO());
 
 		assertEquals("Password length should be between 1 and 100",
 				constraintViolationSet.iterator().next().getMessage());
@@ -144,7 +147,7 @@ class UserDTOTest {
 	void testWhenRolesIsNull() throws Exception {
 
 		Set<ConstraintViolation<UserDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullRolesUserDTO());
+				.validate(TestDataDTOBuilder.getNullRolesUserDTO());
 
 		assertEquals("Roles should not be null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -155,7 +158,7 @@ class UserDTOTest {
 	void testWhenEmailIsNull() throws Exception {
 
 		Set<ConstraintViolation<UserDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullEmailUserDTO());
+				.validate(TestDataDTOBuilder.getNullEmailUserDTO());
 
 		assertEquals("Email should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -166,7 +169,7 @@ class UserDTOTest {
 	void testWhenEmailIsBlank() throws Exception {
 
 		Set<ConstraintViolation<UserDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getBlankEmailUserDTO());
+				.validate(TestDataDTOBuilder.getBlankEmailUserDTO());
 
 		List<ConstraintViolation<UserDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -185,7 +188,7 @@ class UserDTOTest {
 	void testWhenEmailIsEmpty() throws Exception {
 
 		Set<ConstraintViolation<UserDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getEmptyEmailUserDTO());
+				.validate(TestDataDTOBuilder.getEmptyEmailUserDTO());
 
 		List<ConstraintViolation<UserDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -203,7 +206,7 @@ class UserDTOTest {
 	void testWhenEmailIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<UserDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersEmailUserDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersEmailUserDTO());
 
 		assertEquals("Email should respect the patter: email@email.com",
 				constraintViolationSet.iterator().next().getMessage());
@@ -214,7 +217,7 @@ class UserDTOTest {
 	void testWhenEmailIsToLong() throws Exception {
 
 		Set<ConstraintViolation<UserDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersEmailUserDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersEmailUserDTO());
 
 		List<ConstraintViolation<UserDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);

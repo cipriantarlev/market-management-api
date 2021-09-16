@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * © 2021 II Ciprian Tarlev. All Rights Reserved.
+ *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.category;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,7 +18,7 @@ import javax.validation.Validator;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
 
-import ii.cipriantarlev.marketmanagementapi.data.TestDataBuilder;
+import ii.cipriantarlev.marketmanagementapi.data.TestDataDTOBuilder;
 
 class CategoryDTOTest {
 
@@ -25,7 +28,7 @@ class CategoryDTOTest {
 	void testWhenValueIsNull() throws Exception {
 
 		Set<ConstraintViolation<CategoryDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullValueCategoryDTO());
+				.validate(TestDataDTOBuilder.getNullValueCategoryDTO());
 
 		assertEquals("Category name should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -36,7 +39,7 @@ class CategoryDTOTest {
 	void testWhenValueIsBlank() throws Exception {
 
 		Set<ConstraintViolation<CategoryDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getBlankValueCategoryDTO());
+				.validate(TestDataDTOBuilder.getBlankValueCategoryDTO());
 
 		assertEquals("Category name should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -47,7 +50,7 @@ class CategoryDTOTest {
 	void testWhenValueIsEmpty() throws Exception {
 
 		Set<ConstraintViolation<CategoryDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getEmptyValueCategoryDTO());
+				.validate(TestDataDTOBuilder.getEmptyValueCategoryDTO());
 
 		List<ConstraintViolation<CategoryDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -65,7 +68,7 @@ class CategoryDTOTest {
 	void testWhenValueIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<CategoryDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersValueCategoryDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersValueCategoryDTO());
 
 		assertEquals("Category name should contain only letters",
 				constraintViolationSet.iterator().next().getMessage());
@@ -76,7 +79,7 @@ class CategoryDTOTest {
 	void testWhenValueIsToLong() throws Exception {
 
 		Set<ConstraintViolation<CategoryDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersValueCategoryDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersValueCategoryDTO());
 
 		assertEquals("Category name length should be between 1 and 150",
 				constraintViolationSet.iterator().next().getMessage());

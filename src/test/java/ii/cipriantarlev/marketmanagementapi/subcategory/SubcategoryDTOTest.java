@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * © 2021 II Ciprian Tarlev. All Rights Reserved.
+ *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.subcategory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,7 +18,7 @@ import javax.validation.Validator;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
 
-import ii.cipriantarlev.marketmanagementapi.data.TestDataBuilder;
+import ii.cipriantarlev.marketmanagementapi.data.TestDataDTOBuilder;
 
 class SubcategoryDTOTest {
 
@@ -25,7 +28,7 @@ class SubcategoryDTOTest {
 	void testWhenNameIsNull() throws Exception {
 
 		Set<ConstraintViolation<SubcategoryDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullNameSubcategoryDTO());
+				.validate(TestDataDTOBuilder.getNullNameSubcategoryDTO());
 
 		assertEquals("Subcategory name should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -36,7 +39,7 @@ class SubcategoryDTOTest {
 	void testWhenNameIsBlank() throws Exception {
 
 		Set<ConstraintViolation<SubcategoryDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getBlankNameSubcategoryDTO());
+				.validate(TestDataDTOBuilder.getBlankNameSubcategoryDTO());
 
 		assertEquals("Subcategory name should not be blank or null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -47,7 +50,7 @@ class SubcategoryDTOTest {
 	void testWhenNameIsEmpty() throws Exception {
 
 		Set<ConstraintViolation<SubcategoryDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getEmptyNameSubcategoryDTO());
+				.validate(TestDataDTOBuilder.getEmptyNameSubcategoryDTO());
 
 		List<ConstraintViolation<SubcategoryDTO>> constraintViolationList = new ArrayList<>();
 		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
@@ -65,7 +68,7 @@ class SubcategoryDTOTest {
 	void testWhenNameIsInvalid() throws Exception {
 
 		Set<ConstraintViolation<SubcategoryDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getInvalidCharactersNameSubcategoryDTO());
+				.validate(TestDataDTOBuilder.getInvalidCharactersNameSubcategoryDTO());
 
 		assertEquals("Subcategory name should contain only letters and numbers",
 				constraintViolationSet.iterator().next().getMessage());
@@ -76,7 +79,7 @@ class SubcategoryDTOTest {
 	void testWhenNameIsToLong() throws Exception {
 
 		Set<ConstraintViolation<SubcategoryDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getToManyCharactersNameSubcategoryDTO());
+				.validate(TestDataDTOBuilder.getToManyCharactersNameSubcategoryDTO());
 
 		assertEquals("Subcategory name length should be between 1 and 50",
 				constraintViolationSet.iterator().next().getMessage());
@@ -87,7 +90,7 @@ class SubcategoryDTOTest {
 	void testWhenCategoryIsNull() throws Exception {
 
 		Set<ConstraintViolation<SubcategoryDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullCategorySubcategoryDTO());
+				.validate(TestDataDTOBuilder.getNullCategorySubcategoryDTO());
 
 		assertEquals("Category DTO should not be null",
 				constraintViolationSet.iterator().next().getMessage());

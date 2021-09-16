@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * © 2021 II Ciprian Tarlev. All Rights Reserved.
+ *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.invoiceproduct;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,7 +13,7 @@ import javax.validation.Validator;
 
 import org.junit.jupiter.api.Test;
 
-import ii.cipriantarlev.marketmanagementapi.data.TestDataBuilder;
+import ii.cipriantarlev.marketmanagementapi.data.TestDataDTOBuilder;
 
 class InvoiceProductDTOTest {
 
@@ -20,7 +23,7 @@ class InvoiceProductDTOTest {
 	void testWhenInvoiceIsNull() throws Exception {
 
 		Set<ConstraintViolation<InvoiceProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullInvoiceDTO());
+				.validate(TestDataDTOBuilder.getNullInvoiceDTO());
 
 		assertEquals("Invoice DTO should not be null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -31,7 +34,7 @@ class InvoiceProductDTOTest {
 	void testWhenProductIsNull() throws Exception {
 
 		Set<ConstraintViolation<InvoiceProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullProductDTO());
+				.validate(TestDataDTOBuilder.getNullProductDTO());
 
 		assertEquals("Product DTO should not be null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -42,7 +45,7 @@ class InvoiceProductDTOTest {
 	void testWhenQuantityIsNull() throws Exception {
 
 		Set<ConstraintViolation<InvoiceProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullQunatity());
+				.validate(TestDataDTOBuilder.getNullQunatity());
 
 		assertEquals("Quantity should not be null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -53,7 +56,7 @@ class InvoiceProductDTOTest {
 	void testWhenQuantityIsNegative() throws Exception {
 
 		Set<ConstraintViolation<InvoiceProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNegativeQunatity());
+				.validate(TestDataDTOBuilder.getNegativeQunatity());
 
 		assertEquals("Quantity min value should be 0.0",
 				constraintViolationSet.iterator().next().getMessage());
@@ -64,7 +67,7 @@ class InvoiceProductDTOTest {
 	void testWhenQuantityWrongRange() throws Exception {
 
 		Set<ConstraintViolation<InvoiceProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getWorngRangeQunatity());
+				.validate(TestDataDTOBuilder.getWorngRangeQunatity());
 
 		assertEquals("Quantity fromat should have 6 integer digits and 4 digits",
 				constraintViolationSet.iterator().next().getMessage());
@@ -75,7 +78,7 @@ class InvoiceProductDTOTest {
 	void testWhenVatSumIsNull() throws Exception {
 
 		Set<ConstraintViolation<InvoiceProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullVatSum());
+				.validate(TestDataDTOBuilder.getNullVatSum());
 
 		assertEquals("Vat sum should not be null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -86,7 +89,7 @@ class InvoiceProductDTOTest {
 	void testWhenVatSumIsNegative() throws Exception {
 
 		Set<ConstraintViolation<InvoiceProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNegativeVatSumInvoiceProduct());
+				.validate(TestDataDTOBuilder.getNegativeVatSumInvoiceProduct());
 
 		assertEquals("Vat sum min value should be 0.0",
 				constraintViolationSet.iterator().next().getMessage());
@@ -97,7 +100,7 @@ class InvoiceProductDTOTest {
 	void testWhenVatSumWrongRange() throws Exception {
 
 		Set<ConstraintViolation<InvoiceProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getWorngRangeVatSumInvoiceProduct());
+				.validate(TestDataDTOBuilder.getWorngRangeVatSumInvoiceProduct());
 
 		assertEquals("Vat sum fromat should have 6 integer digits and 2 digits",
 				constraintViolationSet.iterator().next().getMessage());
@@ -108,7 +111,7 @@ class InvoiceProductDTOTest {
 	void testWhenTotalDiscountPriceIsNull() throws Exception {
 
 		Set<ConstraintViolation<InvoiceProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullTotalDiscountPricem());
+				.validate(TestDataDTOBuilder.getNullTotalDiscountPricem());
 
 		assertEquals("Total Discount Price should not be null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -119,7 +122,7 @@ class InvoiceProductDTOTest {
 	void testWhenTotalDiscountPriceIsNegative() throws Exception {
 
 		Set<ConstraintViolation<InvoiceProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNegativeTotalDiscountPricemInvoiceProduct());
+				.validate(TestDataDTOBuilder.getNegativeTotalDiscountPricemInvoiceProduct());
 
 		assertEquals("Total Discount Price min value should be 0.0",
 				constraintViolationSet.iterator().next().getMessage());
@@ -130,7 +133,7 @@ class InvoiceProductDTOTest {
 	void testWhenTotalDiscountPriceWrongRange() throws Exception {
 
 		Set<ConstraintViolation<InvoiceProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getWorngRangeTotalDiscountPricemInvoiceProduct());
+				.validate(TestDataDTOBuilder.getWorngRangeTotalDiscountPricemInvoiceProduct());
 
 		assertEquals("Total Discount Price fromat should have 6 integer digits and 2 digits",
 				constraintViolationSet.iterator().next().getMessage());
@@ -141,7 +144,7 @@ class InvoiceProductDTOTest {
 	void testWhenTotalRetailPriceIsNull() throws Exception {
 
 		Set<ConstraintViolation<InvoiceProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullTotalRetailPricem());
+				.validate(TestDataDTOBuilder.getNullTotalRetailPricem());
 
 		assertEquals("Total Retail Price should not be null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -152,7 +155,7 @@ class InvoiceProductDTOTest {
 	void testWhenTotalRetailPriceIsNegative() throws Exception {
 
 		Set<ConstraintViolation<InvoiceProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNegativeTotalRetailPricemInvoiceProduct());
+				.validate(TestDataDTOBuilder.getNegativeTotalRetailPricemInvoiceProduct());
 
 		assertEquals("Total Retail Price min value should be 0.0",
 				constraintViolationSet.iterator().next().getMessage());
@@ -163,7 +166,7 @@ class InvoiceProductDTOTest {
 	void testWhenTotalRetailPriceWrongRange() throws Exception {
 
 		Set<ConstraintViolation<InvoiceProductDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getWorngRangeTotalRetailPricemInvoiceProduct());
+				.validate(TestDataDTOBuilder.getWorngRangeTotalRetailPricemInvoiceProduct());
 
 		assertEquals("Total Retail Price fromat should have 6 integer digits and 2 digits",
 				constraintViolationSet.iterator().next().getMessage());

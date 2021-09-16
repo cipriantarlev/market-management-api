@@ -1,6 +1,7 @@
 /*******************************************************************************
  * © 2021 II Ciprian Tarlev. All Rights Reserved.
  *******************************************************************************/
+
 package ii.cipriantarlev.marketmanagementapi.data;
 
 import java.math.BigDecimal;
@@ -24,11 +25,12 @@ import ii.cipriantarlev.marketmanagementapi.subcategory.SubcategoryDTO;
 import ii.cipriantarlev.marketmanagementapi.subcategory.SubcategoryDTONoCategory;
 import ii.cipriantarlev.marketmanagementapi.user.UserDTO;
 import ii.cipriantarlev.marketmanagementapi.vat.VatDTO;
+import ii.cipriantarlev.marketmanagementapi.vendor.VendorDTO;
 import ii.cipriantarlev.marketmanagementapi.vendor.VendorDTOOnlyName;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class TestDataBuilder {
+public class TestDataDTOBuilder {
 
 	public BarcodeDTO getNullValueBarcodeDTO() {
 		return BarcodeDTO.builder().id(1L).build();
@@ -1681,6 +1683,1192 @@ public class TestDataBuilder {
 				.id(1)
 				.value(6)
 				.name("20%20%20%20%20%20%20%".repeat(10))
+				.build();
+	}
+	
+	public VendorDTO getNullNameVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.bank("Bank")
+				.fiscalCode("1205")
+				.bankAccount("0051")
+				.currency("MDL")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getBlankNameVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name(" ")
+				.bank("Bank")
+				.fiscalCode("1205")
+				.bankAccount("0051")
+				.currency("MDL")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getEmptyNameVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("")
+				.bank("Bank")
+				.fiscalCode("1205")
+				.bankAccount("0051")
+				.currency("MDL")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getInvalidCharactersNameVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("dsfd#4")
+				.bank("Bank")
+				.fiscalCode("1205")
+				.bankAccount("0051")
+				.currency("MDL")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getToManyCharactersNameVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Fdfdfds fdsfFd 5 ds sdfsd s".repeat(10))
+				.bank("Bank")
+				.fiscalCode("1205")
+				.bankAccount("0051")
+				.currency("MDL")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+	
+	public VendorDTO getNullBankVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.fiscalCode("1205")
+				.bankAccount("0051")
+				.currency("MDL")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getBlankBankVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank(" ")
+				.fiscalCode("1205")
+				.bankAccount("0051")
+				.currency("MDL")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getEmptyBankVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("")
+				.fiscalCode("1205")
+				.bankAccount("0051")
+				.currency("MDL")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getInvalidCharactersBankVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("dsfd4")
+				.bank("dsfd#4")
+				.fiscalCode("1205")
+				.bankAccount("0051")
+				.currency("MDL")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getToManyCharactersBankVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.bank("Fdfdfds fdsfFd 5 ds sdfsd s".repeat(10))
+				.fiscalCode("1205")
+				.bankAccount("0051")
+				.currency("MDL")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+	
+	public VendorDTO getNullFiscalCodeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("F1205")
+				.bankAccount("0051")
+				.currency("MDL")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getBlankFiscalCodeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("1205")
+				.fiscalCode(" ")
+				.bankAccount("0051")
+				.currency("MDL")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getEmptyFiscalCodeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("1205")
+				.fiscalCode("")
+				.bankAccount("0051")
+				.currency("MDL")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getInvalidCharactersFiscalCodeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("dsfd4")
+				.bank("dsfd4")
+				.fiscalCode("dsfd#4")
+				.bankAccount("0051")
+				.currency("MDL")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getToManyCharactersFiscalCodeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.fiscalCode("12054353453453453".repeat(10))
+				.bankAccount("0051")
+				.currency("MDL")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+	
+	public VendorDTO getNullBankAccountVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("F1205")
+				.fiscalCode("0051")
+				.currency("MDL")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getBlankBankAccountVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("1205")
+				.fiscalCode("0051")
+				.bankAccount(" ")
+				.currency("MDL")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getEmptyBankAccountVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("1205")
+				.fiscalCode("0051")
+				.bankAccount("")
+				.currency("MDL")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getInvalidCharactersBankAccountVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("dsfd4")
+				.bank("dsfd4")
+				.fiscalCode("54484")
+				.bankAccount("dsfd#4")
+				.currency("MDL")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getToManyCharactersBankAccountVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.fiscalCode("12054353453453453")
+				.bankAccount("12054353453453453".repeat(10))
+				.currency("MDL")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+	
+	public VendorDTO getNullCurrencyVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("F1205")
+				.fiscalCode("0051")
+				.bankAccount("324")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getBlankCurrencyVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("1205")
+				.fiscalCode("0051")
+				.bankAccount("0051")
+				.currency(" ")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getEmptyCurrencyVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("1205")
+				.fiscalCode("0051")
+				.bankAccount("0051")
+				.currency("")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getInvalidCharactersCurrencyVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("dsfd4")
+				.bank("dsfd4")
+				.fiscalCode("54484")
+				.bankAccount("2222")
+				.currency("MD#s43L")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getToManyCharactersCurrencyVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.fiscalCode("12054353453453453")
+				.bankAccount("12054353453453453")
+				.currency("MDLDSFSF".repeat(2))
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+	
+	public VendorDTO getNullVatCodeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("F1205")
+				.fiscalCode("0051")
+				.bankAccount("324")
+				.currency("DKf")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getBlankVatCodeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("1205")
+				.fiscalCode("0051")
+				.bankAccount("0051")
+				.currency("DM")
+				.vatCode(" ")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getEmptyVatCodeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("1205")
+				.fiscalCode("0051")
+				.bankAccount("0051")
+				.currency("DF")
+				.vatCode("")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getInvalidCharactersVatCodeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("dsfd4")
+				.bank("dsfd4")
+				.fiscalCode("54484")
+				.bankAccount("2222")
+				.currency("MDD")
+				.vatCode("0545F$")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getToManyCharactersVatCodeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.fiscalCode("12054353453453453")
+				.bankAccount("12054353453453453")
+				.currency("MDLDSFSF")
+				.vatCode("05434225".repeat(10))
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+	
+	public VendorDTO getNullCityVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("F1205")
+				.fiscalCode("0051")
+				.bankAccount("324")
+				.currency("DKf")
+				.vatCode("221")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getBlankCityVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("1205")
+				.fiscalCode("0051")
+				.bankAccount("0051")
+				.currency("DM")
+				.vatCode("12")
+				.city(" ")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getEmptyCityVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("1205")
+				.fiscalCode("0051")
+				.bankAccount("0051")
+				.currency("DF")
+				.vatCode("3244")
+				.city("")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getInvalidCharactersCityVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("dsfd4")
+				.bank("dsfd4")
+				.fiscalCode("54484")
+				.bankAccount("2222")
+				.currency("MDD")
+				.vatCode("0545")
+				.city("BS#$")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getToManyCharactersCityVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.fiscalCode("12054353453453453")
+				.bankAccount("12054353453453453")
+				.currency("MDLDSFSF")
+				.vatCode("05434225")
+				.city("BS dsfdsf 4fefe fefe".repeat(10))
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+	
+	public VendorDTO getNullRegionVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("F1205")
+				.fiscalCode("0051")
+				.bankAccount("324")
+				.currency("DKf")
+				.vatCode("221")
+				.city("dsf")
+				.phoneNumber("00-55-")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+	
+	public VendorDTO getNullPhoneNumberVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("F1205")
+				.fiscalCode("0051")
+				.bankAccount("324")
+				.currency("DKf")
+				.vatCode("221")
+				.region(RegionDTO.builder().build())
+				.city("0Ds")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getBlankPhoneNumberVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("1205")
+				.fiscalCode("0051")
+				.bankAccount("0051")
+				.currency("DM")
+				.vatCode("12")
+				.city("DM")
+				.region(RegionDTO.builder().build())
+				.phoneNumber(" ")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getEmptyPhoneNumberVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("1205")
+				.fiscalCode("0051")
+				.bankAccount("0051")
+				.currency("DF")
+				.vatCode("3244")
+				.city("DF")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getInvalidCharactersPhoneNumberVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("dsfd4")
+				.bank("dsfd4")
+				.fiscalCode("54484")
+				.bankAccount("2222")
+				.currency("MDD")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-$")
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getToManyCharactersPhoneNumberVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.fiscalCode("12054353453453453")
+				.bankAccount("12054353453453453")
+				.currency("MDLDSFSF")
+				.vatCode("05434225")
+				.city("BS dsfdsf 4fefe fefe")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-3343-43-434-".repeat(5))
+				.postalCode("15d")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+	
+	public VendorDTO getNullPostalCodeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("F1205")
+				.fiscalCode("0051")
+				.bankAccount("324")
+				.currency("DKf")
+				.vatCode("221")
+				.region(RegionDTO.builder().build())
+				.city("0Ds")
+				.phoneNumber("24-5")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getBlankPostalCodeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("1205")
+				.fiscalCode("0051")
+				.bankAccount("0051")
+				.currency("DM")
+				.vatCode("12")
+				.city("DM")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("15-454")
+				.postalCode(" ")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getEmptyPostalCodeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("1205")
+				.fiscalCode("0051")
+				.bankAccount("0051")
+				.currency("DF")
+				.vatCode("3244")
+				.city("DF")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("31-545")
+				.postalCode("")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getInvalidCharactersPostalCodeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("dsfd4")
+				.bank("dsfd4")
+				.fiscalCode("54484")
+				.bankAccount("2222")
+				.currency("MDD")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-3")
+				.postalCode("15d$3#")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getToManyCharactersPostalCodeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.fiscalCode("12054353453453453")
+				.bankAccount("12054353453453453")
+				.currency("MDLDSFSF")
+				.vatCode("05434225")
+				.city("BS dsfdsf 4fefe fefe")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-3343-43-434-")
+				.postalCode("15dds32fdfd4443")
+				.businessAddress("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+	
+	public VendorDTO getNullBusinessAddressVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("F1205")
+				.fiscalCode("0051")
+				.bankAccount("324")
+				.currency("DKf")
+				.vatCode("221")
+				.region(RegionDTO.builder().build())
+				.city("0Ds")
+				.phoneNumber("24-5")
+				.postalCode("Strada")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getBlankBusinessAddressVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("1205")
+				.fiscalCode("0051")
+				.bankAccount("0051")
+				.currency("DM")
+				.vatCode("12")
+				.city("DM")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("15-454")
+				.postalCode("Strada")
+				.businessAddress(" ")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getEmptyBusinessAddressVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("1205")
+				.fiscalCode("0051")
+				.bankAccount("0051")
+				.currency("DF")
+				.vatCode("3244")
+				.city("DF")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("31-545")
+				.postalCode("Strada")
+				.businessAddress("")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getInvalidCharactersBusinessAddressVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("dsfd4")
+				.bank("dsfd4")
+				.fiscalCode("54484")
+				.bankAccount("2222")
+				.currency("MDD")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-3")
+				.postalCode("15e3")
+				.businessAddress("Strada$#")
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getToManyCharactersBusinessAddressVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.fiscalCode("12054353453453453")
+				.bankAccount("12054353453453453")
+				.currency("MDLDSFSF")
+				.vatCode("05434225")
+				.city("BS dsfdsf 4fefe fefe")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-3343-43-434-")
+				.postalCode("15dds")
+				.businessAddress("Strada fdfd s4re dsf sd ".repeat(20))
+				.vendorType("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+	
+	public VendorDTO getNullVendorTypeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("F1205")
+				.fiscalCode("0051")
+				.bankAccount("324")
+				.currency("DKf")
+				.vatCode("221")
+				.region(RegionDTO.builder().build())
+				.city("0Ds")
+				.phoneNumber("24-5")
+				.postalCode("Strada")
+				.businessAddress("FD df")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getBlankVendorTypeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("1205")
+				.fiscalCode("0051")
+				.bankAccount("0051")
+				.currency("DM")
+				.vatCode("12")
+				.city("DM")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("15-454")
+				.postalCode("Strada")
+				.businessAddress("FD df")
+				.vendorType(" ")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getEmptyVendorTypeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("1205")
+				.fiscalCode("0051")
+				.bankAccount("0051")
+				.currency("DF")
+				.vatCode("3244")
+				.city("DF")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("31-545")
+				.postalCode("Strada")
+				.businessAddress("FD df")
+				.vendorType("")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getInvalidCharactersVendorTypeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("dsfd4")
+				.bank("dsfd4")
+				.fiscalCode("54484")
+				.bankAccount("2222")
+				.currency("MDD")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-3")
+				.postalCode("15e3")
+				.businessAddress("Strada")
+				.vendorType("Strada$#")
+				.vendorLegalType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getToManyCharactersVendorTypeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.fiscalCode("12054353453453453")
+				.bankAccount("12054353453453453")
+				.currency("MDLDSFSF")
+				.vatCode("05434225")
+				.city("BS dsfdsf 4fefe fefe")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-3343-43-434-")
+				.postalCode("15dds")
+				.businessAddress("Strada fdfd s4re dsf sd ")
+				.vendorType("Strada fdfd s4re dsf sd ".repeat(10))
+				.vendorLegalType("dddd d")
+				.build();
+	}
+	
+	public VendorDTO getNullVendorLegalTypeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("F1205")
+				.fiscalCode("0051")
+				.bankAccount("324")
+				.currency("DKf")
+				.vatCode("221")
+				.region(RegionDTO.builder().build())
+				.city("0Ds")
+				.phoneNumber("24-5")
+				.postalCode("Strada")
+				.businessAddress("FD df")
+				.vendorType("dddd d")
+				.build();
+	}
+
+	public VendorDTO getBlankVendorLegalTypeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("1205")
+				.fiscalCode("0051")
+				.bankAccount("0051")
+				.currency("DM")
+				.vatCode("12")
+				.city("DM")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("15-454")
+				.postalCode("Strada")
+				.businessAddress("FD df")
+				.vendorType("dddd d")
+				.vendorLegalType(" ")
+				.build();
+	}
+
+	public VendorDTO getEmptyVendorLegalTypeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Bank")
+				.bank("1205")
+				.fiscalCode("0051")
+				.bankAccount("0051")
+				.currency("DF")
+				.vatCode("3244")
+				.city("DF")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("31-545")
+				.postalCode("Strada")
+				.businessAddress("FD df")
+				.vendorType("dddd d")
+				.vendorLegalType("")
+				.build();
+	}
+
+	public VendorDTO getInvalidCharactersVendorLegalTypeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("dsfd4")
+				.bank("dsfd4")
+				.fiscalCode("54484")
+				.bankAccount("2222")
+				.currency("MDD")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-3")
+				.postalCode("15e3")
+				.businessAddress("Strada")
+				.vendorType("Strada")
+				.vendorLegalType("d#4ddd d")
+				.build();
+	}
+
+	public VendorDTO getToManyCharactersVendorLegalTypeVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.fiscalCode("12054353453453453")
+				.bankAccount("12054353453453453")
+				.currency("MDLDSFSF")
+				.vatCode("05434225")
+				.city("BS dsfdsf 4fefe fefe")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-3343-43-434-")
+				.postalCode("15dds")
+				.businessAddress("Strada fdfd s4re dsf sd ")
+				.vendorType("Strada fdfd s4re dsf sd ")
+				.vendorLegalType("Strada fdfd s4re dsf sd ".repeat(15))
+				.build();
+	}
+	
+	public VendorDTO getInvalidCharactersNoteVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("dsfd4")
+				.bank("dsfd4")
+				.fiscalCode("54484")
+				.bankAccount("2222")
+				.currency("MDD")
+				.vatCode("0545")
+				.city("BS")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-3")
+				.postalCode("15e3")
+				.businessAddress("Strada")
+				.vendorType("Strada")
+				.vendorLegalType("dddd d")
+				.note("fdfdf$#%")
+				.build();
+	}
+
+	public VendorDTO getToManyCharactersNoteVendorDTO() {
+		return VendorDTO.builder()
+				.id(1)
+				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
+				.fiscalCode("12054353453453453")
+				.bankAccount("12054353453453453")
+				.currency("MDLDSFSF")
+				.vatCode("05434225")
+				.city("BS dsfdsf 4fefe fefe")
+				.region(RegionDTO.builder().build())
+				.phoneNumber("00-55-3343-43-434-")
+				.postalCode("15dds")
+				.businessAddress("Strada fdfd s4re dsf sd ")
+				.vendorType("Strada fdfd s4re dsf sd ")
+				.vendorLegalType("Strada fdfd s4re dsf sd ")
+				.note("sdfdsfdsfds sdfsdf4sfdsf sdfsd".repeat(25))
 				.build();
 	}
 }

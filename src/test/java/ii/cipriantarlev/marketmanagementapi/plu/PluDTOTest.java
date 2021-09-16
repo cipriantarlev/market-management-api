@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * © 2021 II Ciprian Tarlev. All Rights Reserved.
+ *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.plu;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,7 +13,7 @@ import javax.validation.Validator;
 
 import org.junit.jupiter.api.Test;
 
-import ii.cipriantarlev.marketmanagementapi.data.TestDataBuilder;
+import ii.cipriantarlev.marketmanagementapi.data.TestDataDTOBuilder;
 
 class PluDTOTest {
 
@@ -19,7 +22,7 @@ class PluDTOTest {
 	@Test
 	void testWhenValueIsNull() throws Exception {
 		Set<ConstraintViolation<PluDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNullValuePluDTO());
+				.validate(TestDataDTOBuilder.getNullValuePluDTO());
 
 		assertEquals("PLU value should not be null",
 				constraintViolationSet.iterator().next().getMessage());
@@ -30,7 +33,7 @@ class PluDTOTest {
 	void testWhenValueIsNegative() throws Exception {
 
 		Set<ConstraintViolation<PluDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getNegativeValuePluDTO());
+				.validate(TestDataDTOBuilder.getNegativeValuePluDTO());
 
 		assertEquals("PLU value should be positive",
 				constraintViolationSet.iterator().next().getMessage());
@@ -41,7 +44,7 @@ class PluDTOTest {
 	void testWhenValueWrongRange() throws Exception {
 
 		Set<ConstraintViolation<PluDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getWorngRangeValuePluDTO());
+				.validate(TestDataDTOBuilder.getWorngRangeValuePluDTO());
 
 		assertEquals("PLU value max value is 9",
 				constraintViolationSet.iterator().next().getMessage());
@@ -52,7 +55,7 @@ class PluDTOTest {
 	void testWhenValueIsZero() throws Exception {
 
 		Set<ConstraintViolation<PluDTO>> constraintViolationSet = validator
-				.validate(TestDataBuilder.getZeroValuePluDTO());
+				.validate(TestDataDTOBuilder.getZeroValuePluDTO());
 
 		assertEquals("PLU value should be positive",
 				constraintViolationSet.iterator().next().getMessage());
