@@ -5,6 +5,7 @@ package ii.cipriantarlev.marketmanagementapi.documenttype;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +22,8 @@ public class DocumentTypeDTO {
 
 	private Integer id;
 
-	@NotBlank(message = "Document type name should not be blank")
-	@Pattern(regexp = "^[a-zA-Z]+$", message = "Document type name should contain only letters")
+	@NotBlank(message = "Document type name should not be blank or null")
+	@Size(min = 1, max = 250, message = "Document type name length should be between {min} and {max}")
+	@Pattern(regexp = "^[A-Za-z\\s]*$", message = "Document type name should contain only letters")
 	private String name;
 }

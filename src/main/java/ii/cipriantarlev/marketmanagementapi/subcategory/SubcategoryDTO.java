@@ -24,8 +24,8 @@ public class SubcategoryDTO {
 
 	private Integer id;
 
-	@NotBlank(message = "Subcategory name should not be blank")
-	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Subcategory name should contain only letters and numbers")
+	@NotBlank(message = "Subcategory name should not be blank or null")
+	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "Subcategory name should contain only letters and numbers")
 	@Size(min = 1, max = 50, message = "Subcategory name length should be between {min} and {max}")
 	private String name;
 

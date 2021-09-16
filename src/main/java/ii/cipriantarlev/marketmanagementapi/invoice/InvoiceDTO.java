@@ -13,11 +13,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
-
 import ii.cipriantarlev.marketmanagementapi.documenttype.DocumentTypeDTO;
 import ii.cipriantarlev.marketmanagementapi.myorganization.MyOrganizationDTOOnlyName;
+import ii.cipriantarlev.marketmanagementapi.validation.LocalDateFormat;
 import ii.cipriantarlev.marketmanagementapi.vendor.VendorDTOOnlyName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,20 +41,21 @@ public class InvoiceDTO {
 	@NotNull(message = "Vendor DTO should not be null")
 	private VendorDTOOnlyName vendor;
 
-	@NotBlank(message = "Created date should not be blank")
-	@DateTimeFormat(iso = ISO.DATE)
+	@NotNull(message = "Created date should not be null")
+	@LocalDateFormat(pattern = "yyyy-MM-dd", message = "Created date should be in the following format: {pattern}")
 	private LocalDate dateCreated;
 
-	@NotBlank(message = "Invoice number should not be blank")
+	@NotBlank(message = "Invoice number should not be blank or null")
 	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Invoice number should contain only letters and numbers")
 	@Size(min = 1, max = 50, message = "Invoice number length should be between {min} and {max}")
 	private String invoiceNumber;
 
-	@NotBlank(message = "Invoice date should not be blank")
-	@DateTimeFormat(iso = ISO.DATE)
+	@NotNull(message = "Invoice date should not be null")
+	@LocalDateFormat(pattern = "yyyy-MM-dd", message = "Invoice date should be in the following format: {pattern}")
 	private LocalDate invoiceDate;
 
 	@Size(min = 1, max = 250, message = "Note length should be between {min} and {max}")
+	@Pattern(regexp = "^[a-zA-Z0-9\\s.,:;-]+$", message = "Note should contain alphanumeric character, space, dot, comma, colons, semicolons and dash")
 	private String note;
 
 	@DecimalMin(value = "0.0", inclusive = false, message = "Total Discount Price min value should be {value}")

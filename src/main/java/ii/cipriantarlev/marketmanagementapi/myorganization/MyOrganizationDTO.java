@@ -23,33 +23,33 @@ public class MyOrganizationDTO {
 
 	private Integer id;
 
-	@NotBlank(message = "My Organization name should not be blank")
-	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "My Organization name should contain only letters and numbers")
+	@NotBlank(message = "My Organization name should not be blank or null")
+	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "My Organization name should contain only letters and numbers")
 	@Size(min = 1, max = 150, message = "My Organization name length should be between {min} and {max}")
 	private String name;
 
-	@NotBlank(message = "Bank should not be blank")
-	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Bank should contain only letters and numbers")
+	@NotBlank(message = "Bank should not be blank or null")
+	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "Bank should contain only letters and numbers")
 	@Size(min = 1, max = 200, message = "Bank length should be between {min} and {max}")
 	private String bank;
 
-	@NotBlank(message = "Fiscal Code should not be blank")
+	@NotBlank(message = "Fiscal Code should not be blank or null")
 	@Pattern(regexp = "^[0-9]+$", message = "Fiscal Code should contain only numbers")
 	@Size(min = 1, max = 20, message = "Fiscal Code length should be between {min} and {max}")
 	private String fiscalCode;
 
-	@NotBlank(message = "Bank Account should not be blank")
+	@NotBlank(message = "Bank Account should not be blank or null")
 	@Pattern(regexp = "^[0-9]+$", message = "Bank Account should contain only numbers")
 	@Size(min = 1, max = 50, message = "Bank Account length should be between {min} and {max}")
 	private String bankAccount;
 
-	@NotBlank(message = "Vat Code should not be blank")
+	@NotBlank(message = "Vat Code should not be blank or null")
 	@Pattern(regexp = "^[0-9]+$", message = "Vat Code should contain only numbers")
 	@Size(min = 1, max = 50, message = "Vat Code length should be between {min} and {max}")
 	private String vatCode;
 
-	@NotBlank(message = "City should not be blank")
-	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "City should contain only letters and numbers")
+	@NotBlank(message = "City should not be blank or null")
+	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "City should contain only letters and numbers")
 	@Size(min = 1, max = 150, message = "City length should be between {min} and {max}")
 	private String city;
 
@@ -58,11 +58,11 @@ public class MyOrganizationDTO {
 	private String phoneNumber;
 
 	@Email(message = "Email should be valid")
-	@Pattern(regexp = "^(.+)@(.+)$", message = "Email should respect the patter: email@email.com")
-	@Size(min = 5, max = 150, message = "Email length should be between {min} and {max}")
+	@Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$", message = "Email should respect the patter: email@email.com")
+	@Size(min = 5, max = 100, message = "Email length should be between {min} and {max}")
 	private String email;
 
-	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Note should contain only letters and numbers")
+	@Pattern(regexp = "^[a-zA-Z0-9\\s.,:;-]+$", message = "Note should contain alphanumeric character, space, dot, comma, colons, semicolons and dash")
 	@Size(min = 1, max = 500, message = "Note length should be between {min} and {max}")
 	private String note;
 }
