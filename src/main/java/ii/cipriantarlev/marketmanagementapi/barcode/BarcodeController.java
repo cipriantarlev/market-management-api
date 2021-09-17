@@ -5,6 +5,8 @@ package ii.cipriantarlev.marketmanagementapi.barcode;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +61,7 @@ public class BarcodeController {
 	}
 
 	@PostMapping
-	public ResponseEntity<BarcodeDTO> saveOrGenerateBarcode(@RequestBody BarcodeDTO barcodeDTO) {
+	public ResponseEntity<BarcodeDTO> saveOrGenerateBarcode(@Valid @RequestBody BarcodeDTO barcodeDTO) {
 		var barcode = barcodeService.generateNewBarcode(barcodeDTO);
 		return new ResponseEntity<>(barcode, HttpStatus.OK);
 	}

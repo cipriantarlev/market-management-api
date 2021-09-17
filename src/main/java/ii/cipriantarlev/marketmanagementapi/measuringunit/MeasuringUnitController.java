@@ -5,6 +5,8 @@ package ii.cipriantarlev.marketmanagementapi.measuringunit;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -51,7 +53,7 @@ public class MeasuringUnitController {
 	}
 
 	@PostMapping
-	public ResponseEntity<MeasuringUnitDTO> createMeasuringUnit(@RequestBody MeasuringUnitDTO measuringUnitDTO) {
+	public ResponseEntity<MeasuringUnitDTO> createMeasuringUnit(@Valid @RequestBody MeasuringUnitDTO measuringUnitDTO) {
 		if (measuringUnitDTO.getId() != null && measuringUnitService.findById(measuringUnitDTO.getId()) != null) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
@@ -64,7 +66,7 @@ public class MeasuringUnitController {
 	}
 
 	@PutMapping
-	public ResponseEntity<MeasuringUnitDTO> updateMeasuringUnit(@RequestBody MeasuringUnitDTO measuringUnitDTO) {
+	public ResponseEntity<MeasuringUnitDTO> updateMeasuringUnit(@Valid @RequestBody MeasuringUnitDTO measuringUnitDTO) {
 		var measuringUnit = measuringUnitService.findById(measuringUnitDTO.getId());
 
 		if (measuringUnit == null) {

@@ -5,6 +5,8 @@ package ii.cipriantarlev.marketmanagementapi.subcategory;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -62,7 +64,7 @@ public class SubcategoryController {
 	}
 
 	@PostMapping
-	public ResponseEntity<SubcategoryDTO> createSubcategory(@RequestBody SubcategoryDTO subcategoryDTO) {
+	public ResponseEntity<SubcategoryDTO> createSubcategory(@Valid @RequestBody SubcategoryDTO subcategoryDTO) {
 		if (subcategoryDTO.getId() != null && subcategoryService.findById(subcategoryDTO.getId()) != null) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
@@ -75,7 +77,7 @@ public class SubcategoryController {
 	}
 
 	@PutMapping
-	public ResponseEntity<SubcategoryDTO> updateSubcategory(@RequestBody SubcategoryDTO subcategoryDTO) {
+	public ResponseEntity<SubcategoryDTO> updateSubcategory(@Valid @RequestBody SubcategoryDTO subcategoryDTO) {
 		var subcategory = subcategoryService.findById(subcategoryDTO.getId());
 
 		if (subcategory == null) {

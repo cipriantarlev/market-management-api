@@ -5,6 +5,8 @@ package ii.cipriantarlev.marketmanagementapi.documenttype;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -51,7 +53,7 @@ public class DocumentTypeController {
 	}
 
 	@PostMapping
-	public ResponseEntity<DocumentTypeDTO> createDocumentType(@RequestBody DocumentTypeDTO documentTypeDTO) {
+	public ResponseEntity<DocumentTypeDTO> createDocumentType(@Valid @RequestBody DocumentTypeDTO documentTypeDTO) {
 		if (documentTypeDTO.getId() != null && documentTypeService.findById(documentTypeDTO.getId()) != null) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
@@ -64,7 +66,7 @@ public class DocumentTypeController {
 	}
 
 	@PutMapping
-	public ResponseEntity<DocumentTypeDTO> updateDocumentType(@RequestBody DocumentTypeDTO documentTypeDTO) {
+	public ResponseEntity<DocumentTypeDTO> updateDocumentType(@Valid @RequestBody DocumentTypeDTO documentTypeDTO) {
 		var productDto = documentTypeService.findById(documentTypeDTO.getId());
 
 		if (productDto == null) {

@@ -5,6 +5,8 @@ package ii.cipriantarlev.marketmanagementapi.myorganization;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -54,7 +56,8 @@ public class MyOrganizationController {
 	}
 
 	@PostMapping
-	public ResponseEntity<MyOrganizationDTO> createMyOrganization(@RequestBody MyOrganizationDTO myOrganizationDTO) {
+	public ResponseEntity<MyOrganizationDTO> createMyOrganization(
+			@Valid @RequestBody MyOrganizationDTO myOrganizationDTO) {
 		if (myOrganizationDTO.getId() != null && myOrganizationService.findById(myOrganizationDTO.getId()) != null) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
@@ -67,7 +70,7 @@ public class MyOrganizationController {
 	}
 
 	@PutMapping
-	public ResponseEntity<MyOrganizationDTO> updateUser(@RequestBody MyOrganizationDTO myOrganizationDTO) {
+	public ResponseEntity<MyOrganizationDTO> updateUser(@Valid @RequestBody MyOrganizationDTO myOrganizationDTO) {
 		var myOrganization = myOrganizationService.findById(myOrganizationDTO.getId());
 
 		if (myOrganization == null) {

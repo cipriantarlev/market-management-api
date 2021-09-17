@@ -1,11 +1,9 @@
 /*******************************************************************************
  * © 2021 II Ciprian Tarlev. All Rights Reserved.
  *******************************************************************************/
-package ii.cipriantarlev.marketmanagementapi.plu;
+package ii.cipriantarlev.marketmanagementapi.error;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,13 +16,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class PluDTO {
+public class ValidationErrorResponse {
 
-	@Positive
-	private Integer id;
-
-	@NotNull(message = "PLU value should not be null")
-	@Max(value = 9, message = "PLU value max value is {value}")
-	@Positive(message = "PLU value should be positive")
-	private Integer value;
+	private int status;
+	private String field;
+	private String message;
+	private LocalDateTime timeStamp;
 }

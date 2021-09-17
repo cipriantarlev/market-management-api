@@ -5,6 +5,7 @@ package ii.cipriantarlev.marketmanagementapi.documenttype;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ import lombok.Setter;
 @Builder(toBuilder = true)
 public class DocumentTypeDTO {
 
+	@Positive
 	private Integer id;
 
 	@NotBlank(message = "Document type name should not be blank or null")

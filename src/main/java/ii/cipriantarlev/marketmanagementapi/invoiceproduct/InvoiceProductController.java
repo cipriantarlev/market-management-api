@@ -5,6 +5,8 @@ package ii.cipriantarlev.marketmanagementapi.invoiceproduct;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -56,7 +58,8 @@ public class InvoiceProductController {
 	}
 
 	@PostMapping("/product")
-	public ResponseEntity<InvoiceProductDTO> createInvoiceProduct(@RequestBody InvoiceProductDTO invoiceProductDTO) {
+	public ResponseEntity<InvoiceProductDTO> createInvoiceProduct(
+			@Valid @RequestBody InvoiceProductDTO invoiceProductDTO) {
 		if (invoiceProductDTO.getId() != null && invoiceProductService.findById(invoiceProductDTO.getId()) != null) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
@@ -72,7 +75,8 @@ public class InvoiceProductController {
 	}
 
 	@PutMapping("/product")
-	public ResponseEntity<InvoiceProductDTO> updateInvoiceProduct(@RequestBody InvoiceProductDTO invoiceProductDTO) {
+	public ResponseEntity<InvoiceProductDTO> updateInvoiceProduct(
+			@Valid @RequestBody InvoiceProductDTO invoiceProductDTO) {
 		var invoiceProduct = invoiceProductService.findAllByInvoiceId(invoiceProductDTO.getId());
 
 		if (invoiceProduct == null) {
