@@ -5,6 +5,7 @@ package ii.cipriantarlev.marketmanagementapi.barcode;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ import lombok.Setter;
 @Builder(toBuilder = true)
 public class BarcodeDTO {
 
+	@Positive
 	private Long id;
 
 	@NotBlank(message = "Barcode value should not be blank or null")

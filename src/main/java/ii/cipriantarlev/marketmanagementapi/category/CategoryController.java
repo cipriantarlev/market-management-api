@@ -5,6 +5,8 @@ package ii.cipriantarlev.marketmanagementapi.category;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -54,7 +56,7 @@ public class CategoryController {
 	}
 
 	@PostMapping
-	public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO categoryDTO) {
+	public ResponseEntity<CategoryDTO> createCategory(@Valid @RequestBody CategoryDTO categoryDTO) {
 		if (categoryDTO.getId() != null && categoryService.findById(categoryDTO.getId()) != null) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
@@ -66,7 +68,7 @@ public class CategoryController {
 	}
 
 	@PutMapping
-	public ResponseEntity<CategoryDTO> updateCategory(@RequestBody CategoryDTO categoryDTO) {
+	public ResponseEntity<CategoryDTO> updateCategory(@Valid @RequestBody CategoryDTO categoryDTO) {
 		var category = categoryService.findById(categoryDTO.getId());
 
 		if (category == null) {

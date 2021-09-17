@@ -3,9 +3,11 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.subcategory;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import ii.cipriantarlev.marketmanagementapi.category.CategoryDTO;
@@ -22,6 +24,7 @@ import lombok.Setter;
 @Builder(toBuilder = true)
 public class SubcategoryDTO {
 
+	@Positive
 	private Integer id;
 
 	@NotBlank(message = "Subcategory name should not be blank or null")
@@ -29,6 +32,7 @@ public class SubcategoryDTO {
 	@Size(min = 1, max = 50, message = "Subcategory name length should be between {min} and {max}")
 	private String name;
 
+	@Valid
 	@NotNull(message = "Category DTO should not be null")
 	private CategoryDTO category;
 }

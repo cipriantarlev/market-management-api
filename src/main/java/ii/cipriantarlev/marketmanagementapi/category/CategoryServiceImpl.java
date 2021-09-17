@@ -21,8 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public List<CategoryDTO> findAll() {
-		return categoryRepository.findAll().stream()
-				.map(category -> categoryMapper.mapEntityToDTO(category))
+		return categoryRepository.findAll().stream().map(category -> categoryMapper.mapEntityToDTO(category))
 				.collect(Collectors.toList());
 	}
 
@@ -39,6 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public Category save(CategoryDTO categoryDTO) {
+
 		var category = categoryMapper.mapDTOToEntity(categoryDTO);
 		return categoryRepository.save(category);
 	}

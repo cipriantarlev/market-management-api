@@ -5,6 +5,8 @@ package ii.cipriantarlev.marketmanagementapi.user;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -54,7 +56,7 @@ public class UserController {
 	}
 
 	@PostMapping
-	public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO user) {
+	public ResponseEntity<UserDTO> createUser(@Valid @RequestBody UserDTO user) {
 		if (user.getId() != null && userService.findById(user.getId()) != null) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
@@ -70,7 +72,7 @@ public class UserController {
 	}
 
 	@PutMapping
-	public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO user) {
+	public ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UserDTO user) {
 		var userDTO = userService.findById(user.getId());
 
 		if (userDTO == null) {

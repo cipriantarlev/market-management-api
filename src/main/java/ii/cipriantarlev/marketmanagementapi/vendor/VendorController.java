@@ -5,6 +5,8 @@ package ii.cipriantarlev.marketmanagementapi.vendor;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -54,7 +56,7 @@ public class VendorController {
 	}
 
 	@PostMapping
-	public ResponseEntity<VendorDTO> createVendor(@RequestBody VendorDTO vendorDTO) {
+	public ResponseEntity<VendorDTO> createVendor(@Valid @RequestBody VendorDTO vendorDTO) {
 		if (vendorDTO.getId() != null && vendorService.findById(vendorDTO.getId()) != null) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
@@ -66,7 +68,7 @@ public class VendorController {
 	}
 
 	@PutMapping
-	public ResponseEntity<VendorDTO> updateVendor(@RequestBody VendorDTO vendorDTO) {
+	public ResponseEntity<VendorDTO> updateVendor(@Valid @RequestBody VendorDTO vendorDTO) {
 		var vendor = vendorService.findById(vendorDTO.getId());
 
 		if (vendor == null) {

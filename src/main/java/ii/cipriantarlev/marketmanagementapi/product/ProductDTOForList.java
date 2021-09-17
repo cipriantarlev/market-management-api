@@ -6,11 +6,13 @@ package ii.cipriantarlev.marketmanagementapi.product;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import ii.cipriantarlev.marketmanagementapi.barcode.BarcodeDTO;
@@ -27,10 +29,11 @@ import lombok.Setter;
 @Builder(toBuilder = true)
 public class ProductDTOForList {
 
+	@Positive
 	private Long id;
 
-	@NotBlank(message = "Romanian Name should not be blank")
-	@Pattern(regexp = "^[a-zA-Z0-9-]+$", message = "Romanian Name should contain only letters, numbers and dash")
+	@NotBlank(message = "Romanian Name should not be blank or null")
+	@Pattern(regexp = "^[a-zA-Z0-9-\\s]+$", message = "Romanian Name should contain only letters, numbers and dash")
 	@Size(min = 1, max = 300, message = "Romanian Name length should be between {min} and {max}")
 	private String nameRom;
 
@@ -42,6 +45,7 @@ public class ProductDTOForList {
 	@Digits(integer = 5, fraction = 2, message = "Retail Price fromat should have {integer} integer digits and {fraction} digits")
 	private BigDecimal retailPrice;
 
+	@Valid
 	@NotNull(message = "Barcode list should not be null")
 	private List<BarcodeDTO> barcodes;
 
