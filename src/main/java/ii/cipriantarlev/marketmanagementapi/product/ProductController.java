@@ -5,6 +5,8 @@ package ii.cipriantarlev.marketmanagementapi.product;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -62,7 +64,7 @@ public class ProductController {
 	}
 
 	@PostMapping
-	public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
+	public ResponseEntity<ProductDTO> createProduct(@Valid @RequestBody ProductDTO productDTO) {
 		if (productDTO.getId() != null && productService.findById(productDTO.getId()) != null) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
@@ -74,7 +76,7 @@ public class ProductController {
 	}
 
 	@PutMapping
-	public ResponseEntity<ProductDTO> updateProduct(@RequestBody ProductDTO productDTO) {
+	public ResponseEntity<ProductDTO> updateProduct(@Valid @RequestBody ProductDTO productDTO) {
 		var product = productService.findById(productDTO.getId());
 
 		if (product == null) {

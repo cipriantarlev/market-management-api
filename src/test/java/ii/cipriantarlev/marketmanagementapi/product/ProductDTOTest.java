@@ -288,7 +288,7 @@ class ProductDTOTest {
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
 				.validate(TestDataDTOBuilder.getWrongRangeStockProductDTO());
 
-		assertEquals("Stock fromat should have 6 integer digits and 2 digits",
+		assertEquals("Stock fromat should have 6 integer digits and 4 digits",
 				constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
 	}

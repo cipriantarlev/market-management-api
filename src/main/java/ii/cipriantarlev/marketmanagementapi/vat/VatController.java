@@ -5,6 +5,8 @@ package ii.cipriantarlev.marketmanagementapi.vat;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -51,7 +53,7 @@ public class VatController {
 	}
 
 	@PostMapping
-	public ResponseEntity<VatDTO> createVat(@RequestBody VatDTO vatDTO) {
+	public ResponseEntity<VatDTO> createVat(@Valid @RequestBody VatDTO vatDTO) {
 		if (vatDTO.getId() != null && vatService.findById(vatDTO.getId()) != null) {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
@@ -63,7 +65,7 @@ public class VatController {
 	}
 
 	@PutMapping
-	public ResponseEntity<VatDTO> updateDTO(@RequestBody VatDTO vatDTO) {
+	public ResponseEntity<VatDTO> updateDTO(@Valid @RequestBody VatDTO vatDTO) {
 		VatDTO vat = vatService.findById(vatDTO.getId());
 
 		if (vat == null) {

@@ -1,6 +1,6 @@
-/**
- * 
- */
+/*******************************************************************************
+ * © 2021 II Ciprian Tarlev. All Rights Reserved.
+ *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.validation;
 
 import static java.lang.annotation.ElementType.FIELD;

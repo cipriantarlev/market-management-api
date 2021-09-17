@@ -5,10 +5,12 @@ package ii.cipriantarlev.marketmanagementapi.user;
 
 import java.util.List;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import ii.cipriantarlev.marketmanagementapi.role.RoleDTO;
@@ -25,6 +27,7 @@ import lombok.Setter;
 @Builder(toBuilder = true)
 public class UserDTO {
 
+	@Positive
 	private Integer id;
 
 	@NotBlank(message = "Username should not be blank or null")
@@ -42,6 +45,7 @@ public class UserDTO {
 	@Size(min = 5, max = 100, message = "Email length should be between {min} and {max}")
 	private String email;
 
+	@Valid
 	@NotNull(message = "Roles should not be null")
 	private List<RoleDTO> roles;
 
