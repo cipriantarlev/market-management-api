@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,11 +28,11 @@ public class GlobalExceptionHandler {
 
 		exception.getBindingResult().getAllErrors().forEach(error -> {
 
-			ValidationErrorResponse errorResponse = ValidationErrorResponse.builder()
-					.status(HttpStatus.BAD_REQUEST.value())
-					.field(((FieldError) error).getField())
-					.message(error.getDefaultMessage())
-					.timeStamp(LocalDateTime.now()).build();
+			var errorResponse = new ValidationErrorResponse();
+			errorResponse.setStatusCode(HttpStatus.BAD_REQUEST.value());
+			errorResponse.setField(((FieldError) error).getField());
+			errorResponse.setMessage(error.getDefaultMessage());
+			errorResponse.setTimeStamp(LocalDateTime.now());
 			
 			log.error("Validation not passed for '{}' for field '{}' with message: {}", error.getObjectName(),
 					errorResponse.getField(), errorResponse.getMessage());
@@ -43,18 +42,16 @@ public class GlobalExceptionHandler {
 	}
 
 	@ExceptionHandler(DataIntegrityViolationException.class)
-	public ResponseEntity<ValidationErrorResponse> handleUniqueConstraintViolation(
+	public ResponseEntity<ErrorResponse> handleUniqueConstraintViolation(
 			DataIntegrityViolationException exception) {		
 		
-		var rootCauseMessage = exception.getRootCause() != null ? exception.getRootCause().getMessage() : exception.getMessage();
+		var rootCauseMessage = exception.getRootCause() != null
+				? exception.getRootCause().getMessage().replace("\"", "'")
+				: exception.getMessage();
 		
-		var fieldMessage = StringUtils.substringAfterLast(rootCauseMessage, '\n').trim();
-		var errorMessage = StringUtils.substringBeforeLast(rootCauseMessage, "\n").replace("\"", "'");
-		
-			ValidationErrorResponse errorResponse = ValidationErrorResponse.builder()
-					.status(HttpStatus.BAD_REQUEST.value())
-					.field(fieldMessage)
-					.message(errorMessage)
+		var errorResponse = ErrorResponse.builder()
+					.statusCode(HttpStatus.BAD_REQUEST.value())
+					.message(rootCauseMessage)
 					.timeStamp(LocalDateTime.now())
 					.build();
 			log.error("Unique constraint violation error: {}", errorResponse);
