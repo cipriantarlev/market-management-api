@@ -3,7 +3,10 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.error;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +17,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ValidationErrorResponse extends ErrorResponse {
+@Builder(toBuilder = true)
+public class ErrorResponse {
 
-	private String field;
+	private int statusCode;
+	private String message;
+	private LocalDateTime timeStamp;
 }
