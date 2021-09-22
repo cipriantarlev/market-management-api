@@ -61,10 +61,6 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
 
-		if (user.getUsername() != null && userService.findByUsername(user.getUsername()) != null) {
-			return new ResponseEntity<>(HttpStatus.CONFLICT);
-		}
-
 		var savedUser = userMapper.mapUserToUserDTO(userService.save(user));
 		var headers = new HttpHeaders();
 		headers.setLocation(UriComponentsBuilder.fromPath("/users/{id}").buildAndExpand(savedUser.getId()).toUri());
