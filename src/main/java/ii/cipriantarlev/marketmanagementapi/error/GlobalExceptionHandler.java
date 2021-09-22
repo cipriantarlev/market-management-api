@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,20 +43,23 @@ public class GlobalExceptionHandler {
 	}
 
 	@ExceptionHandler(DataIntegrityViolationException.class)
-	public ResponseEntity<ErrorResponse> handleUniqueConstraintViolation(
+	public ResponseEntity<List<ErrorResponse>> handleUniqueConstraintViolation(
 			DataIntegrityViolationException exception) {		
-		
+
 		var rootCauseMessage = exception.getRootCause() != null
-				? exception.getRootCause().getMessage().replace("\"", "'")
+				? StringUtils.substringAfterLast(exception.getRootCause().getMessage(), "Detail:").replace(".", "")
 				: exception.getMessage();
-		
+
+		List<ErrorResponse> errorResponseList = new ArrayList<>();
+
 		var errorResponse = ErrorResponse.builder()
 					.statusCode(HttpStatus.BAD_REQUEST.value())
 					.message(rootCauseMessage)
 					.timeStamp(LocalDateTime.now())
 					.build();
 			log.error("Unique constraint violation error: {}", errorResponse);
+			errorResponseList.add(errorResponse);
 
-		return new ResponseEntity<>(errorResponse,HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(errorResponseList, HttpStatus.BAD_REQUEST);
 }
 }
