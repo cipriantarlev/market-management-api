@@ -81,6 +81,14 @@
 			<version>2.3.8</version>
 		</dependency>
 
+		<!-- Utils Dependency -->
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.11</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-collections4</artifactId>
