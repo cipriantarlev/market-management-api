@@ -8,7 +8,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,71 +19,50 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
-@CrossOrigin("http://localhost:3000")
+import ii.cipriantarlev.marketmanagementapi.util.RestControllerUtil;
+
+import static ii.cipriantarlev.marketmanagementapi.util.Constants.*;
+
+@CrossOrigin(LOCAL_HOST)
 @RestController
-@RequestMapping("/measuring-units")
+@RequestMapping(MEASURING_UNITS_ROOT_PATH)
 public class MeasuringUnitController {
 
 	@Autowired
 	private MeasuringUnitService measuringUnitService;
 
+	@Autowired
+	private RestControllerUtil restControllerUtil;
+
 	@GetMapping
 	public ResponseEntity<List<MeasuringUnitDTO>> getMeasuringUnits() {
 		List<MeasuringUnitDTO> measuringUnits = measuringUnitService.findAll();
-
-		if (measuringUnits == null || measuringUnits.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
 		return new ResponseEntity<>(measuringUnits, HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping(ID_PATH)
 	public ResponseEntity<MeasuringUnitDTO> getMeasuringUnit(@PathVariable Integer id) {
 		var measuringUnit = measuringUnitService.findById(id);
-
-		if (measuringUnit == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
 		return new ResponseEntity<>(measuringUnit, HttpStatus.OK);
 	}
 
 	@PostMapping
 	public ResponseEntity<MeasuringUnitDTO> createMeasuringUnit(@Valid @RequestBody MeasuringUnitDTO measuringUnitDTO) {
-		if (measuringUnitDTO.getId() != null && measuringUnitService.findById(measuringUnitDTO.getId()) != null) {
-			return new ResponseEntity<>(HttpStatus.CONFLICT);
-		}
-
 		var measuringUnit = measuringUnitService.save(measuringUnitDTO);
-		var headers = new HttpHeaders();
-		headers.setLocation(
-				UriComponentsBuilder.fromPath("/measuring-units/{id}").buildAndExpand(measuringUnit.getId()).toUri());
+		var headers = restControllerUtil.setHttpsHeaderLocation(MEASURING_UNITS_ROOT_PATH.concat(ID_PATH),
+				measuringUnit.getId().longValue());
 		return new ResponseEntity<>(measuringUnit, headers, HttpStatus.OK);
 	}
 
 	@PutMapping
 	public ResponseEntity<MeasuringUnitDTO> updateMeasuringUnit(@Valid @RequestBody MeasuringUnitDTO measuringUnitDTO) {
-		var measuringUnit = measuringUnitService.findById(measuringUnitDTO.getId());
-
-		if (measuringUnit == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
-		MeasuringUnitDTO savedMeasuringUnit = measuringUnitService.save(measuringUnitDTO);
+		var savedMeasuringUnit = measuringUnitService.update(measuringUnitDTO);
 		return new ResponseEntity<>(savedMeasuringUnit, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping(ID_PATH)
 	public ResponseEntity<Void> deleteVat(@PathVariable Integer id) {
-		var measuringUnit = measuringUnitService.findById(id);
-
-		if (measuringUnit == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
 		measuringUnitService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

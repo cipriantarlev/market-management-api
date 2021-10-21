@@ -8,7 +8,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,71 +19,50 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
-@CrossOrigin("http://localhost:3000")
+import ii.cipriantarlev.marketmanagementapi.util.RestControllerUtil;
+
+import static ii.cipriantarlev.marketmanagementapi.util.Constants.*;
+
+@CrossOrigin(LOCAL_HOST)
 @RestController
-@RequestMapping("/document-types")
+@RequestMapping(DOCUMENT_TYPE_ROOT_PATH)
 public class DocumentTypeController {
 
 	@Autowired
 	private DocumentTypeService documentTypeService;
 
+	@Autowired
+	private RestControllerUtil restControllerUtil;
+
 	@GetMapping
 	public ResponseEntity<List<DocumentTypeDTO>> getDocumentTypeList() {
 		var documentTypeList = documentTypeService.findAll();
-
-		if (documentTypeList == null || documentTypeList.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
 		return new ResponseEntity<>(documentTypeList, HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping(ID_PATH)
 	public ResponseEntity<DocumentTypeDTO> getDocumentType(@PathVariable Integer id) {
 		var documentType = documentTypeService.findById(id);
-
-		if (documentType == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
 		return new ResponseEntity<>(documentType, HttpStatus.OK);
 	}
 
 	@PostMapping
 	public ResponseEntity<DocumentTypeDTO> createDocumentType(@Valid @RequestBody DocumentTypeDTO documentTypeDTO) {
-		if (documentTypeDTO.getId() != null && documentTypeService.findById(documentTypeDTO.getId()) != null) {
-			return new ResponseEntity<>(HttpStatus.CONFLICT);
-		}
-
 		var documentType = documentTypeService.save(documentTypeDTO);
-		var headers = new HttpHeaders();
-		headers.setLocation(
-				UriComponentsBuilder.fromPath("/document-types/{id}").buildAndExpand(documentType.getId()).toUri());
+		var headers = restControllerUtil.setHttpsHeaderLocation(DOCUMENT_TYPE_ROOT_PATH,
+				documentType.getId().longValue());
 		return new ResponseEntity<>(documentType, headers, HttpStatus.OK);
 	}
 
 	@PutMapping
 	public ResponseEntity<DocumentTypeDTO> updateDocumentType(@Valid @RequestBody DocumentTypeDTO documentTypeDTO) {
-		var productDto = documentTypeService.findById(documentTypeDTO.getId());
-
-		if (productDto == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
-		var savedDocumentType = documentTypeService.save(documentTypeDTO);
+		var savedDocumentType = documentTypeService.update(documentTypeDTO);
 		return new ResponseEntity<>(savedDocumentType, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping(ID_PATH)
 	public ResponseEntity<Void> deleteDocumentType(@PathVariable Integer id) {
-		var documentType = documentTypeService.findById(id);
-
-		if (documentType == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
 		documentTypeService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

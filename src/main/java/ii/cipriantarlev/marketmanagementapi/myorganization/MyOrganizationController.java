@@ -8,7 +8,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,75 +19,51 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
-@CrossOrigin("http://localhost:3000")
+import ii.cipriantarlev.marketmanagementapi.util.RestControllerUtil;
+
+import static ii.cipriantarlev.marketmanagementapi.util.Constants.*;
+
+@CrossOrigin(LOCAL_HOST)
 @RestController
-@RequestMapping("/my-organizations")
+@RequestMapping(MY_ORGANIZATIONS_ROOT_PATH)
 public class MyOrganizationController {
 
 	@Autowired
 	private MyOrganizationService myOrganizationService;
 
 	@Autowired
-	private MyOrganizationMapper myOrganizationMapper;
+	private RestControllerUtil restControllerUtil;
 
 	@GetMapping
 	public ResponseEntity<List<MyOrganizationDTO>> getMyOrganizations() {
 		List<MyOrganizationDTO> myOrganizations = myOrganizationService.findAll();
-		
-		if(myOrganizations == null || myOrganizations.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-		
 		return new ResponseEntity<>(myOrganizations, HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping(ID_PATH)
 	public ResponseEntity<MyOrganizationDTO> getMyOrganizationDTO(@PathVariable Integer id) {
 		var myOrganization = myOrganizationService.findById(id);
-
-		if (myOrganization == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		
 		return new ResponseEntity<>(myOrganization, HttpStatus.OK);
 	}
 
 	@PostMapping
 	public ResponseEntity<MyOrganizationDTO> createMyOrganization(
 			@Valid @RequestBody MyOrganizationDTO myOrganizationDTO) {
-		if (myOrganizationDTO.getId() != null && myOrganizationService.findById(myOrganizationDTO.getId()) != null) {
-			return new ResponseEntity<>(HttpStatus.CONFLICT);
-		}
-
-		var savedMyOrganization = myOrganizationMapper.mapEntityToDTO(myOrganizationService.save(myOrganizationDTO));
-		var headers = new HttpHeaders();
-		headers.setLocation(UriComponentsBuilder.fromPath("/my-organizations/{id}")
-				.buildAndExpand(savedMyOrganization.getId()).toUri());
+		var savedMyOrganization = myOrganizationService.save(myOrganizationDTO);
+		var headers = restControllerUtil
+				.setHttpsHeaderLocation(MY_ORGANIZATIONS_ROOT_PATH.concat(ID_PATH), savedMyOrganization.getId().longValue());
 		return new ResponseEntity<>(savedMyOrganization, headers, HttpStatus.CREATED);
 	}
 
 	@PutMapping
 	public ResponseEntity<MyOrganizationDTO> updateUser(@Valid @RequestBody MyOrganizationDTO myOrganizationDTO) {
-		var myOrganization = myOrganizationService.findById(myOrganizationDTO.getId());
-
-		if (myOrganization == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
-		var savedMyOrganization = myOrganizationMapper.mapEntityToDTO(myOrganizationService.save(myOrganizationDTO));
+		var savedMyOrganization = myOrganizationService.save(myOrganizationDTO);
 		return new ResponseEntity<>(savedMyOrganization, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping(ID_PATH)
 	public ResponseEntity<Void> deletedUser(@PathVariable Integer id) {
-		var myOrganization = myOrganizationService.findById(id);
-
-		if (myOrganization == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
 		myOrganizationService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
