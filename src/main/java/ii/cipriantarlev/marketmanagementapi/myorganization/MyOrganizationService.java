@@ -13,7 +13,9 @@ public interface MyOrganizationService {
 
 	MyOrganizationDTO findById(Integer id);
 
-	MyOrganization save(MyOrganizationDTO userDTO);
+	MyOrganizationDTO save(MyOrganizationDTO userDTO);
+
+	MyOrganizationDTO update(MyOrganizationDTO userDTO);
 
 	void deleteById(Integer id);
 }

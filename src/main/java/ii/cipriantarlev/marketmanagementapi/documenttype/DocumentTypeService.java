@@ -13,5 +13,7 @@ public interface DocumentTypeService {
 
 	DocumentTypeDTO save(DocumentTypeDTO documentTypeDTO);
 
+	DocumentTypeDTO update(DocumentTypeDTO documentTypeDTO);
+
 	void deleteById(Integer id);
 }

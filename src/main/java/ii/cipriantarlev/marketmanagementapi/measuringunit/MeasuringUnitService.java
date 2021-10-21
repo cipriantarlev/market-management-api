@@ -13,5 +13,7 @@ public interface MeasuringUnitService {
 
 	MeasuringUnitDTO save(MeasuringUnitDTO measuringUnitDTO);
 
+	MeasuringUnitDTO update(MeasuringUnitDTO measuringUnitDTO);
+
 	void deleteById(Integer id);
 }

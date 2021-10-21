@@ -13,5 +13,7 @@ public interface InvoiceProductService {
 
 	InvoiceProductDTO save(InvoiceProductDTO invoiceProductDTO);
 
+	InvoiceProductDTO update(InvoiceProductDTO invoiceProductDTO);
+
 	void deleteById(Long id);
 }

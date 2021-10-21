@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ii.cipriantarlev.marketmanagementapi.exceptions.DTOListNotFoundException;
+import ii.cipriantarlev.marketmanagementapi.exceptions.DTONotFoundException;
+
 @Service
 public class BarcodeServiceImpl implements BarcodeService {
 
@@ -21,9 +24,14 @@ public class BarcodeServiceImpl implements BarcodeService {
 
 	@Override
 	public List<BarcodeDTO> findAll() {
-		return barcodeRepository.findAll().stream()
-				.map(barcode -> barcodeMapper.mapEntityToDTO(barcode))
-				.collect(Collectors.toList());
+		List<BarcodeDTO> barcodes = barcodeRepository.findAll().stream()
+				.map(barcode -> barcodeMapper.mapEntityToDTO(barcode)).collect(Collectors.toList());
+
+		if (barcodes == null || barcodes.isEmpty()) {
+			throw new DTOListNotFoundException("Barcode list not found");
+		}
+
+		return barcodes;
 	}
 
 	@Override
@@ -34,12 +42,12 @@ public class BarcodeServiceImpl implements BarcodeService {
 			return barcodeMapper.mapEntityToDTO(barcode.get());
 		}
 
-		return null;
+		throw new DTONotFoundException(String.format("Barcode with %d not found", id), id);
 	}
 
 	@Override
 	public BarcodeDTO generateNewBarcode(BarcodeDTO barcodeDTO) {
-		if(barcodeDTO.getValue().equalsIgnoreCase("21")) {
+		if (barcodeDTO.getValue().equalsIgnoreCase("21")) {
 			return getGeneratedBarcode(barcodeDTO, "2100000");
 		}
 
@@ -52,6 +60,7 @@ public class BarcodeServiceImpl implements BarcodeService {
 
 	@Override
 	public void deleteById(Long id) {
+		findById(id);
 		barcodeRepository.deleteById(id);
 	}
 
@@ -69,5 +78,4 @@ public class BarcodeServiceImpl implements BarcodeService {
 	public void deleteBarcodeWithNullProductId() {
 		barcodeRepository.deleteAll(barcodeRepository.findAllByProductIdNull());
 	}
-
 }
