@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin("http://localhost:3000")
+import static ii.cipriantarlev.marketmanagementapi.util.Constants.*;
+
+@CrossOrigin(LOCAL_HOST)
 @RestController
-@RequestMapping("/barcodes")
+@RequestMapping(BARCODES_ROOT_PATH)
 public class BarcodeController {
 
 	@Autowired
@@ -29,13 +31,8 @@ public class BarcodeController {
 
 	@GetMapping
 	public ResponseEntity<List<BarcodeDTO>> getAllBarcodes() {
-		List<BarcodeDTO> barcodes = barcodeService.findAll();
-
-		if (barcodes == null || barcodes.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
-		return new ResponseEntity<>(barcodes, HttpStatus.OK);
+		var findAll = barcodeService.findAll();
+		return new ResponseEntity<>(findAll, HttpStatus.OK);
 	}
 
 //	@GetMapping("/product/{id}")
@@ -49,15 +46,10 @@ public class BarcodeController {
 //		return new ResponseEntity<>(barcodes, HttpStatus.OK);
 //	}
 
-	@GetMapping("/{id}")
+	@GetMapping(ID_PATH)
 	public ResponseEntity<BarcodeDTO> getBarcode(@PathVariable Long id) {
-		var barcode = barcodeService.findById(id);
-
-		if (barcode == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
-		return new ResponseEntity<>(barcode, HttpStatus.OK);
+		var findById = barcodeService.findById(id);
+		return new ResponseEntity<>(findById, HttpStatus.OK);
 	}
 
 	@PostMapping
@@ -66,14 +58,8 @@ public class BarcodeController {
 		return new ResponseEntity<>(barcode, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping(ID_PATH)
 	public ResponseEntity<Void> deleteBarcode(@PathVariable Long id) {
-		var barcode = barcodeService.findById(id);
-
-		if (barcode == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
 		barcodeService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

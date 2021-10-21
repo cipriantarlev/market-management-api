@@ -8,7 +8,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,73 +19,50 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
-@CrossOrigin("http://localhost:3000")
+import ii.cipriantarlev.marketmanagementapi.util.RestControllerUtil;
+
+import static ii.cipriantarlev.marketmanagementapi.util.Constants.*;
+
+@CrossOrigin(LOCAL_HOST)
 @RestController
-@RequestMapping("/categories")
+@RequestMapping(CATEGORIES_ROOT_PATH)
 public class CategoryController {
 
 	@Autowired
 	private CategoryService categoryService;
 
 	@Autowired
-	private CategoryMapper categoryMapper;
+	private RestControllerUtil restControllerUtil;
 
 	@GetMapping
 	public ResponseEntity<List<CategoryDTO>> getCategories() {
 		List<CategoryDTO> categories = categoryService.findAll();
-
-		if (categories == null || categories.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
 		return new ResponseEntity<>(categories, HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping(ID_PATH)
 	public ResponseEntity<CategoryDTO> getCategory(@PathVariable Integer id) {
 		var category = categoryService.findById(id);
-
-		if (category == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
 		return new ResponseEntity<>(category, HttpStatus.OK);
 	}
 
 	@PostMapping
 	public ResponseEntity<CategoryDTO> createCategory(@Valid @RequestBody CategoryDTO categoryDTO) {
-		if (categoryDTO.getId() != null && categoryService.findById(categoryDTO.getId()) != null) {
-			return new ResponseEntity<>(HttpStatus.CONFLICT);
-		}
-
-		var category = categoryMapper.mapEntityToDTO(categoryService.save(categoryDTO));
-		var headers = new HttpHeaders();
-		headers.setLocation(UriComponentsBuilder.fromPath("/categories/{id}").buildAndExpand(category.getId()).toUri());
+		var category = categoryService.save(categoryDTO);
+		var headers = restControllerUtil
+				.setHttpsHeaderLocation(CATEGORIES_ROOT_PATH, category.getId().longValue());
 		return new ResponseEntity<>(category, headers, HttpStatus.OK);
 	}
 
 	@PutMapping
 	public ResponseEntity<CategoryDTO> updateCategory(@Valid @RequestBody CategoryDTO categoryDTO) {
-		var category = categoryService.findById(categoryDTO.getId());
-
-		if (category == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
-		var savedCategory = categoryMapper.mapEntityToDTO(categoryService.save(categoryDTO));
+		var savedCategory = categoryService.update(categoryDTO);
 		return new ResponseEntity<>(savedCategory, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping(ID_PATH)
 	public ResponseEntity<Void> deleteCategory(@PathVariable Integer id) {
-		var category = categoryService.findById(id);
-
-		if (category == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
 		categoryService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

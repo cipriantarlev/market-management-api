@@ -1,7 +1,7 @@
 /*******************************************************************************
  * © 2021 II Ciprian Tarlev. All Rights Reserved.
  *******************************************************************************/
-package ii.cipriantarlev.marketmanagementapi.error;
+package ii.cipriantarlev.marketmanagementapi.exceptions.error.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
