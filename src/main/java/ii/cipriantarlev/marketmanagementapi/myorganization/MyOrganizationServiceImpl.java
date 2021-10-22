@@ -53,7 +53,7 @@ public class MyOrganizationServiceImpl implements MyOrganizationService {
 				&& myOrganizationRepository.findById(myOrganizationDTO.getId()).isPresent()) {
 			throw new DTOFoundWhenSaveException(
 					String.format(
-							"Measuring Unit with id: '%d' already exists in database. "
+							"My Organization with id: '%d' already exists in database. "
 									+ "Please use update in order to save the changes in database",
 							myOrganizationDTO.getId()),
 					myOrganizationDTO.getId());

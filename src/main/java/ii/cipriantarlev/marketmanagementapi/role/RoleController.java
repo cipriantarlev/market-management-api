@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin("http://localhost:3000")
+import static ii.cipriantarlev.marketmanagementapi.util.Constants.*;
+
+@CrossOrigin(LOCAL_HOST)
 @RestController
-@RequestMapping("/roles")
+@RequestMapping(ROLES_ROOT_PATH)
 public class RoleController {
 
 	@Autowired
@@ -24,11 +26,6 @@ public class RoleController {
 	@GetMapping
 	public ResponseEntity<List<RoleDTO>> getRoles() {
 		List<RoleDTO> roles = roleService.findAll();
-
-		if (roles == null || roles.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
 		return new ResponseEntity<>(roles, HttpStatus.OK);
 	}
 }

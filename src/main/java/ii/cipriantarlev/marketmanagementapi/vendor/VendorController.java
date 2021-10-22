@@ -8,7 +8,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,73 +19,50 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
-@CrossOrigin("http://localhost:3000")
+import ii.cipriantarlev.marketmanagementapi.util.RestControllerUtil;
+
+import static ii.cipriantarlev.marketmanagementapi.util.Constants.*;
+
+@CrossOrigin(LOCAL_HOST)
 @RestController
-@RequestMapping("/vendors")
+@RequestMapping(VENDORS_ROOT_PATH)
 public class VendorController {
 
 	@Autowired
 	private VendorService vendorService;
 
 	@Autowired
-	private VendorMapper vendorMapper;
+	private RestControllerUtil restControllerUtil;
 
 	@GetMapping
 	public ResponseEntity<List<VendorDTONoRegions>> getVendors() {
 		List<VendorDTONoRegions> vendors = vendorService.findAll();
-
-		if (vendors == null || vendors.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
 		return new ResponseEntity<>(vendors, HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping(ID_PATH)
 	public ResponseEntity<VendorDTO> getVendor(@PathVariable Integer id) {
 		var vendor = vendorService.findById(id);
-
-		if (vendor == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
 		return new ResponseEntity<>(vendor, HttpStatus.OK);
 	}
 
 	@PostMapping
 	public ResponseEntity<VendorDTO> createVendor(@Valid @RequestBody VendorDTO vendorDTO) {
-		if (vendorDTO.getId() != null && vendorService.findById(vendorDTO.getId()) != null) {
-			return new ResponseEntity<>(HttpStatus.CONFLICT);
-		}
-
-		var vendor = vendorMapper.mapVendorToVendorDTO(vendorService.save(vendorDTO));
-		var headers = new HttpHeaders();
-		headers.setLocation(UriComponentsBuilder.fromPath("/vendors/{id}").buildAndExpand(vendor.getId()).toUri());
+		var vendor = vendorService.save(vendorDTO);
+		var headers = restControllerUtil.setHttpsHeaderLocation(VENDORS_ROOT_PATH.concat(ID_PATH),
+				vendor.getId().longValue());
 		return new ResponseEntity<>(vendor, headers, HttpStatus.OK);
 	}
 
 	@PutMapping
 	public ResponseEntity<VendorDTO> updateVendor(@Valid @RequestBody VendorDTO vendorDTO) {
-		var vendor = vendorService.findById(vendorDTO.getId());
-
-		if (vendor == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
-		var savedVendor = vendorMapper.mapVendorToVendorDTO(vendorService.save(vendorDTO));
+		var savedVendor = vendorService.save(vendorDTO);
 		return new ResponseEntity<>(savedVendor, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping(ID_PATH)
 	public ResponseEntity<Void> deleteVendor(@PathVariable Integer id) {
-		var vendor = vendorService.findById(id);
-
-		if (vendor == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
 		vendorService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

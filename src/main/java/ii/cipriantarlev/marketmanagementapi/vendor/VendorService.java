@@ -13,7 +13,9 @@ public interface VendorService {
 
 	VendorDTO findById(Integer id);
 
-	Vendor save(VendorDTO vendorDTO);
+	VendorDTO save(VendorDTO vendorDTO);
+
+	VendorDTO update(VendorDTO vendorDTO);
 
 	void deleteById(Integer id);
 }

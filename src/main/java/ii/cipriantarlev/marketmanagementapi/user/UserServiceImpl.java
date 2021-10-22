@@ -10,6 +10,10 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ii.cipriantarlev.marketmanagementapi.exceptions.DTOFoundWhenSaveException;
+import ii.cipriantarlev.marketmanagementapi.exceptions.DTOListNotFoundException;
+import ii.cipriantarlev.marketmanagementapi.exceptions.DTONotFoundException;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -21,9 +25,14 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<UserDTO> findAll() {
-		return userRepository.findAll().stream()
-				.map(user -> hideUserPassword(user))
+		List<UserDTO> users = userRepository.findAll().stream().map(this::hideUserPassword)
 				.collect(Collectors.toList());
+
+		if (users == null || users.isEmpty()) {
+			throw new DTOListNotFoundException("User list not found");
+		}
+
+		return users;
 	}
 
 	@Override
@@ -33,7 +42,45 @@ public class UserServiceImpl implements UserService {
 		if (user.isPresent()) {
 			return hideUserPassword(user.get());
 		}
-		return null;
+
+		throw new DTONotFoundException(String.format("User with %d not found", id), id);
+	}
+
+	@Override
+	public UserDTO save(UserDTO userDTO) {
+		if (userDTO.getId() != null && userRepository.findById(userDTO.getId()).isPresent()) {
+			throw new DTOFoundWhenSaveException(
+					String.format("User with id: '%d' already exists in database. "
+							+ "Please use update in order to save the changes in database", userDTO.getId()),
+					userDTO.getId());
+		}
+
+		var user = userRepository.save(userMapper.mapUserDTOToUser(userDTO));
+		return userMapper.mapUserToUserDTO(user);
+	}
+
+	@Override
+	public UserDTO update(UserDTO userDTO) {
+		var foundUser = this.findById(userDTO.getId());
+		if (userDTO.getUsername() != null && userRepository.findByUsername(userDTO.getUsername()) != null
+				&& !userDTO.getUsername().equalsIgnoreCase(foundUser.getUsername())) {
+
+			throw new DTOFoundWhenSaveException(
+					String.format("User with username %s already exists in database.", userDTO.getUsername()), 0);
+		}
+		var user = userRepository.save(userMapper.mapUserDTOToUser(userDTO));
+		return userMapper.mapUserToUserDTO(user);
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		this.findById(id);
+		userRepository.deleteById(id);
+	}
+
+	public UserDTO hideUserPassword(User user) {
+		user.setPassword("");
+		return userMapper.mapUserToUserDTO(user);
 	}
 
 	@Override
@@ -44,22 +91,6 @@ public class UserServiceImpl implements UserService {
 			return userMapper.mapUserToUserDTO(user);
 		}
 
-		return null;
-	}
-
-	@Override
-	public User save(UserDTO userDTO) {
-		var user = userMapper.mapUserDTOToUser(userDTO);
-		return userRepository.save(user);
-	}
-
-	@Override
-	public void deleteById(Integer id) {
-		userRepository.deleteById(id);
-	}
-
-	public UserDTO hideUserPassword(User user) {
-		user.setPassword("");
-		return userMapper.mapUserToUserDTO(user);
+		throw new DTONotFoundException(String.format("User with username %s not found", username));
 	}
 }

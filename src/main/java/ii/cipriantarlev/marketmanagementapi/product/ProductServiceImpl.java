@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ii.cipriantarlev.marketmanagementapi.barcode.BarcodeService;
+import ii.cipriantarlev.marketmanagementapi.exceptions.DTOFoundWhenSaveException;
+import ii.cipriantarlev.marketmanagementapi.exceptions.DTOListNotFoundException;
+import ii.cipriantarlev.marketmanagementapi.exceptions.DTONotFoundException;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -25,9 +28,15 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductDTOForList> findAll() {
-		return productRepository.findAll().stream()
+		List<ProductDTOForList> products = productRepository.findAll().stream()
 				.map(product -> productMapper.mapEntityToDTOForList(product))
 				.collect(Collectors.toList());
+
+		if (products == null || products.isEmpty()) {
+			throw new DTOListNotFoundException("Product list not found");
+		}
+
+		return products;
 	}
 
 	@Override
@@ -37,11 +46,26 @@ public class ProductServiceImpl implements ProductService {
 		if (product.isPresent()) {
 			return productMapper.mapEntityToDTO(product.get());
 		}
-		return null;
+		throw new DTONotFoundException(String.format("Product with %d not found", id), id);
 	}
 
 	@Override
 	public ProductDTO save(ProductDTO productDTO) {
+		if (productDTO.getId() != null && productRepository.findById(productDTO.getId()).isPresent()) {
+			throw new DTOFoundWhenSaveException(
+					String.format("Product with id: '%d' already exists in database. "
+							+ "Please use update in order to save the changes in database", productDTO.getId()),
+					productDTO.getId());
+		}
+
+		var product = productRepository.save(productMapper.mapDTOToEntity(productDTO));
+		barcodeService.deleteBarcodeWithNullProductId();
+		return productMapper.mapEntityToDTO(product);
+	}
+
+	@Override
+	public ProductDTO update(ProductDTO productDTO) {
+		this.findById(productDTO.getId());
 		var product = productRepository.save(productMapper.mapDTOToEntity(productDTO));
 		barcodeService.deleteBarcodeWithNullProductId();
 		return productMapper.mapEntityToDTO(product);
@@ -49,6 +73,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public void deleteById(Long id) {
+		this.findById(id);
 		productRepository.deleteById(id);
 	}
 
@@ -60,6 +85,7 @@ public class ProductServiceImpl implements ProductService {
 			return productMapper.mapEntityToDTO(product);
 		}
 
-		return null;
+		throw new DTONotFoundException(String.format("Product with %s not found", Long.parseLong(barcodeValue)),
+				Long.parseLong(barcodeValue));
 	}
 }

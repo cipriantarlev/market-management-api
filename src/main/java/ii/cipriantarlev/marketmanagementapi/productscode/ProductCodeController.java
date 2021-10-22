@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin("http://localhost:3000")
+import static ii.cipriantarlev.marketmanagementapi.util.Constants.*;
+
+@CrossOrigin(LOCAL_HOST)
 @RestController
-@RequestMapping("/products-code")
+@RequestMapping(PRODUCTS_CODE_ROOT_PATH)
 public class ProductCodeController {
 
 	@Autowired
@@ -27,22 +29,12 @@ public class ProductCodeController {
 	@GetMapping
 	public ResponseEntity<List<ProductCodeDTO>> getProductsCode() {
 		List<ProductCodeDTO> productsCode = productCodeService.findAll();
-
-		if (productsCode == null || productsCode.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
 		return new ResponseEntity<>(productsCode, HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping(ID_PATH)
 	public ResponseEntity<ProductCodeDTO> getProductCode(@PathVariable Long id) {
 		var productCode = productCodeService.findById(id);
-
-		if (productCode == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
 		return new ResponseEntity<>(productCode, HttpStatus.OK);
 	}
 
@@ -52,14 +44,8 @@ public class ProductCodeController {
 		return new ResponseEntity<>(generateNewProductCode, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping(ID_PATH)
 	public ResponseEntity<Void> deleteProductCode(@PathVariable Long id) {
-		var productCode = productCodeService.findById(id);
-
-		if (productCode == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
 		productCodeService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
