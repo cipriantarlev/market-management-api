@@ -8,7 +8,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,82 +19,56 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
-@CrossOrigin("http://localhost:3000")
+import ii.cipriantarlev.marketmanagementapi.util.RestControllerUtil;
+
+import static ii.cipriantarlev.marketmanagementapi.util.Constants.*;
+
+@CrossOrigin(LOCAL_HOST)
 @RestController
-@RequestMapping("/subcategories")
+@RequestMapping(SUBCATEGORIES_ROOT_PATH)
 public class SubcategoryController {
 
 	@Autowired
 	private SubcategoryService subcategoryService;
 
+	@Autowired
+	private RestControllerUtil restControllerUtil;
+
 	@GetMapping
 	public ResponseEntity<List<SubcategoryDTO>> getSubcategories() {
 		List<SubcategoryDTO> subcategories = subcategoryService.findAll();
-
-		if (subcategories == null || subcategories.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
 		return new ResponseEntity<>(subcategories, HttpStatus.OK);
 	}
 
-	@GetMapping("/category/{categoryId}")
+	@GetMapping(CATEGORY_CATEGORY_ID)
 	public ResponseEntity<List<SubcategoryDTONoCategory>> getSubcategoriesByCategoryId(@PathVariable Integer categoryId) {
 		List<SubcategoryDTONoCategory> subcategories = subcategoryService.findAllByCategoryId(categoryId);
-
-		if (subcategories == null || subcategories.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
 		return new ResponseEntity<>(subcategories, HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping(ID_PATH)
 	public ResponseEntity<SubcategoryDTO> getSubcategory(@PathVariable Integer id) {
 		var subcategory = subcategoryService.findById(id);
-
-		if (subcategory == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
 		return new ResponseEntity<>(subcategory, HttpStatus.OK);
 	}
 
 	@PostMapping
 	public ResponseEntity<SubcategoryDTO> createSubcategory(@Valid @RequestBody SubcategoryDTO subcategoryDTO) {
-		if (subcategoryDTO.getId() != null && subcategoryService.findById(subcategoryDTO.getId()) != null) {
-			return new ResponseEntity<>(HttpStatus.CONFLICT);
-		}
-		
 		var subcategory = subcategoryService.save(subcategoryDTO);
-		var headers = new HttpHeaders();
-		headers.setLocation(
-				UriComponentsBuilder.fromPath("/subcategories/{id}").buildAndExpand(subcategory.getId()).toUri());
+		var headers = restControllerUtil.setHttpsHeaderLocation(SUBCATEGORIES_ROOT_PATH.concat(ID_PATH),
+				subcategory.getId().longValue());
 		return new ResponseEntity<>(subcategory, headers, HttpStatus.OK);
 	}
 
 	@PutMapping
 	public ResponseEntity<SubcategoryDTO> updateSubcategory(@Valid @RequestBody SubcategoryDTO subcategoryDTO) {
-		var subcategory = subcategoryService.findById(subcategoryDTO.getId());
-
-		if (subcategory == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
-		var savedSubcategory = subcategoryService.save(subcategoryDTO);
+		var savedSubcategory = subcategoryService.update(subcategoryDTO);
 		return new ResponseEntity<>(savedSubcategory, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping(ID_PATH)
 	public ResponseEntity<Void> deleteSubcategory(@PathVariable Integer id) {
-		var subcategory = subcategoryService.findById(id);
-
-		if (subcategory == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
 		subcategoryService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

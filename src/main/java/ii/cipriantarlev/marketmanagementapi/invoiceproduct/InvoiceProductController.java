@@ -41,7 +41,7 @@ public class InvoiceProductController {
 		return new ResponseEntity<>(invoiceProductsByInvoiceId, HttpStatus.OK);
 	}
 
-	@GetMapping(PRODUCT_PATH + PRODUCT_ID_ID_PATH)
+	@GetMapping(PRODUCT_PATH + PRODUCT_ID_PATH)
 	public ResponseEntity<InvoiceProductDTO> getInvoiceProductById(@PathVariable Long productId) {
 		var invoiceProduct = invoiceProductService.findById(productId);
 		return new ResponseEntity<>(invoiceProduct, HttpStatus.OK);
@@ -53,7 +53,7 @@ public class InvoiceProductController {
 
 		var invoiceProduct = invoiceProductService.save(invoiceProductDTO);
 		var headers = restControllerUtil.setHttpsHeaderLocation(
-				INVOICE_PRODUCT_ROOT_PATH.concat(PRODUCT_PATH).concat(PRODUCT_ID_ID_PATH), invoiceProduct.getId());
+				INVOICE_PRODUCT_ROOT_PATH.concat(PRODUCT_PATH).concat(PRODUCT_ID_PATH), invoiceProduct.getId());
 
 		return new ResponseEntity<>(invoiceProduct, headers, HttpStatus.OK);
 	}
@@ -66,7 +66,7 @@ public class InvoiceProductController {
 		return new ResponseEntity<>(savedInvoiceProduct, HttpStatus.OK);
 	}
 
-	@DeleteMapping(PRODUCT_PATH + PRODUCT_ID_ID_PATH)
+	@DeleteMapping(PRODUCT_PATH + PRODUCT_ID_PATH)
 	public ResponseEntity<Void> deleteInvoiceProductById(@PathVariable Long productId) {
 		invoiceProductService.deleteById(productId);
 		return new ResponseEntity<>(HttpStatus.OK);

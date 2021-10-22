@@ -13,5 +13,7 @@ public interface VatService {
 
 	VatDTO save(VatDTO vatDTO);
 
+	VatDTO update(VatDTO vatDTO);
+
 	void deleteById(Integer id);
 }

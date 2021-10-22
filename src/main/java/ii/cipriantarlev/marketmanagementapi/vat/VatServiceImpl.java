@@ -10,6 +10,10 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ii.cipriantarlev.marketmanagementapi.exceptions.DTOFoundWhenSaveException;
+import ii.cipriantarlev.marketmanagementapi.exceptions.DTOListNotFoundException;
+import ii.cipriantarlev.marketmanagementapi.exceptions.DTONotFoundException;
+
 @Service
 public class VatServiceImpl implements VatService {
 
@@ -21,9 +25,15 @@ public class VatServiceImpl implements VatService {
 
 	@Override
 	public List<VatDTO> findAll() {
-		return vatRepository.findAll().stream()
+		List<VatDTO> vatList = vatRepository.findAll().stream()
 				.map(vat -> vatMapper.mapVatToVatDTO(vat))
 				.collect(Collectors.toList());
+
+		if (vatList == null || vatList.isEmpty()) {
+			throw new DTOListNotFoundException("VAT list not found");
+		}
+
+		return vatList;
 	}
 
 	@Override
@@ -34,17 +44,32 @@ public class VatServiceImpl implements VatService {
 			return vatMapper.mapVatToVatDTO(vat.get());
 		}
 
-		return null;
+		throw new DTONotFoundException(String.format("VAT with %d not found", id), id);
 	}
 
 	@Override
 	public VatDTO save(VatDTO vatDTO) {
+		if (vatDTO.getId() != null && vatRepository.findById(vatDTO.getId()).isPresent()) {
+			throw new DTOFoundWhenSaveException(
+					String.format("VAT with id: '%d' already exists in database. "
+							+ "Please use update in order to save the changes in database", vatDTO.getId()),
+					vatDTO.getId());
+		}
+
+		var vat = vatRepository.save(vatMapper.mapVatDTOToVat(vatDTO));
+		return vatMapper.mapVatToVatDTO(vat);
+	}
+
+	@Override
+	public VatDTO update(VatDTO vatDTO) {
+		this.findById(vatDTO.getId());
 		var vat = vatRepository.save(vatMapper.mapVatDTOToVat(vatDTO));
 		return vatMapper.mapVatToVatDTO(vat);
 	}
 
 	@Override
 	public void deleteById(Integer id) {
+		this.findById(id);
 		vatRepository.deleteById(id);
 	}
 }

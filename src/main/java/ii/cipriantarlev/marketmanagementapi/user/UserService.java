@@ -13,7 +13,9 @@ public interface UserService {
 
 	UserDTO findByUsername(String username);
 
-	User save(UserDTO userDTO);
+	UserDTO save(UserDTO userDTO);
+
+	UserDTO update(UserDTO userDTO);
 
 	void deleteById(Integer id);
 }

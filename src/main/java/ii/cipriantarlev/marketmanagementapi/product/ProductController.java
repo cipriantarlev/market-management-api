@@ -8,7 +8,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,81 +19,55 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
-@CrossOrigin("http://localhost:3000")
+import ii.cipriantarlev.marketmanagementapi.util.RestControllerUtil;
+
+import static ii.cipriantarlev.marketmanagementapi.util.Constants.*;
+
+@CrossOrigin(LOCAL_HOST)
 @RestController
-@RequestMapping("/products")
+@RequestMapping(PRODUCTS_ROOT_PATH)
 public class ProductController {
 
 	@Autowired
 	private ProductService productService;
 
+	@Autowired
+	private RestControllerUtil restControllerUtil;
+
 	@GetMapping
 	public ResponseEntity<List<ProductDTOForList>> getProducts() {
 		var products = productService.findAll();
-
-		if (products == null || products.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
 		return new ResponseEntity<>(products, HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping(ID_PATH)
 	public ResponseEntity<ProductDTO> getProduct(@PathVariable Long id) {
 		var product = productService.findById(id);
-
-		if (product == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
 		return new ResponseEntity<>(product, HttpStatus.OK);
 	}
 
-	@GetMapping("/barcodes/{barcodeValue}")
+	@GetMapping(BARCODES_ROOT_PATH + BARCODE_VALUE)
 	public ResponseEntity<ProductDTO> getProductByBarcodeValue(@PathVariable String barcodeValue) {
 		var product = productService.findByBarcodeValue(barcodeValue);
-
-		if (product == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
 		return new ResponseEntity<>(product, HttpStatus.OK);
 	}
 
 	@PostMapping
 	public ResponseEntity<ProductDTO> createProduct(@Valid @RequestBody ProductDTO productDTO) {
-		if (productDTO.getId() != null && productService.findById(productDTO.getId()) != null) {
-			return new ResponseEntity<>(HttpStatus.CONFLICT);
-		}
-
 		var product = productService.save(productDTO);
-		var headers = new HttpHeaders();
-		headers.setLocation(UriComponentsBuilder.fromPath("/products/{id}").buildAndExpand(product.getId()).toUri());
+		var headers = restControllerUtil.setHttpsHeaderLocation(PRODUCTS_ROOT_PATH.concat(ID_PATH), product.getId());
 		return new ResponseEntity<>(product, headers, HttpStatus.OK);
 	}
 
 	@PutMapping
 	public ResponseEntity<ProductDTO> updateProduct(@Valid @RequestBody ProductDTO productDTO) {
-		var product = productService.findById(productDTO.getId());
-
-		if (product == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
-		var savedProduct = productService.save(productDTO);
+		var savedProduct = productService.update(productDTO);
 		return new ResponseEntity<>(savedProduct, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping(ID_PATH)
 	public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-		var product = productService.findById(id);
-
-		if (product == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
 		productService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

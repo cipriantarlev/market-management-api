@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ii.cipriantarlev.marketmanagementapi.exceptions.DTOListNotFoundException;
+import ii.cipriantarlev.marketmanagementapi.exceptions.DTONotFoundException;
+
 @Service
 public class PluServiceImpl implements PluService {
 
@@ -21,9 +24,15 @@ public class PluServiceImpl implements PluService {
 
 	@Override
 	public List<PluDTO> findAll() {
-		return pluRepository.findAll().stream()
+		List<PluDTO> pluList = pluRepository.findAll().stream()
 				.map(plu -> pluMapper.mapEntityToDTO(plu))
 				.collect(Collectors.toList());
+
+		if (pluList == null || pluList.isEmpty()) {
+			throw new DTOListNotFoundException("PLU list not found");
+		}
+
+		return pluList;
 	}
 
 	@Override
@@ -34,7 +43,7 @@ public class PluServiceImpl implements PluService {
 			return pluMapper.mapEntityToDTO(plu.get());
 		}
 
-		return null;
+		throw new DTONotFoundException(String.format("PLU with %d not found", id), id);
 	}
 
 	@Override
@@ -52,6 +61,7 @@ public class PluServiceImpl implements PluService {
 
 	@Override
 	public void deleteById(Integer id) {
+		this.findById(id);
 		pluRepository.deleteById(id);
 	}
 

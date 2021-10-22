@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ii.cipriantarlev.marketmanagementapi.exceptions.DTOListNotFoundException;
+
 @Service
 public class RegionServiceImpl implements RegionService {
 
@@ -20,9 +22,14 @@ public class RegionServiceImpl implements RegionService {
 
 	@Override
 	public List<RegionDTO> findAll() {
-		return regionRepository.findAll().stream()
+		List<RegionDTO> regions = regionRepository.findAll().stream()
 				.map(region -> regionMapper.mapRegionToRegionDTO(region))
 				.collect(Collectors.toList());
-	}
 
+		if (regions == null || regions.isEmpty()) {
+			throw new DTOListNotFoundException("Region list not found");
+		}
+
+		return regions;
+	}
 }
