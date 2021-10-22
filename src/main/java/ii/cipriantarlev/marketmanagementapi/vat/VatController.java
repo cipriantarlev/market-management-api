@@ -8,7 +8,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,70 +19,49 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
-@CrossOrigin("http://localhost:3000")
+import ii.cipriantarlev.marketmanagementapi.util.RestControllerUtil;
+
+import static ii.cipriantarlev.marketmanagementapi.util.Constants.*;
+
+@CrossOrigin(LOCAL_HOST)
 @RestController
-@RequestMapping("/vat")
+@RequestMapping(VAT_ROOT_PATH)
 public class VatController {
 
 	@Autowired
 	private VatService vatService;
 
+	@Autowired
+	private RestControllerUtil restControllerUtil;
+
 	@GetMapping
 	public ResponseEntity<List<VatDTO>> getVatList() {
 		List<VatDTO> vatList = vatService.findAll();
-
-		if (vatList == null || vatList.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
 		return new ResponseEntity<>(vatList, HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping(ID_PATH)
 	public ResponseEntity<VatDTO> getVatById(@PathVariable Integer id) {
 		VatDTO vat = vatService.findById(id);
-
-		if (vat == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
 		return new ResponseEntity<>(vat, HttpStatus.OK);
 	}
 
 	@PostMapping
 	public ResponseEntity<VatDTO> createVat(@Valid @RequestBody VatDTO vatDTO) {
-		if (vatDTO.getId() != null && vatService.findById(vatDTO.getId()) != null) {
-			return new ResponseEntity<>(HttpStatus.CONFLICT);
-		}
-
 		var vat = vatService.save(vatDTO);
-		var headers = new HttpHeaders();
-		headers.setLocation(UriComponentsBuilder.fromPath("/vat/{id}").buildAndExpand(vat.getId()).toUri());
+		var headers = restControllerUtil.setHttpsHeaderLocation(VAT_ROOT_PATH.concat(ID_PATH), vat.getId().longValue());
 		return new ResponseEntity<>(vat, headers, HttpStatus.OK);
 	}
 
 	@PutMapping
 	public ResponseEntity<VatDTO> updateDTO(@Valid @RequestBody VatDTO vatDTO) {
-		VatDTO vat = vatService.findById(vatDTO.getId());
-
-		if (vat == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
 		var savedVat = vatService.save(vatDTO);
 		return new ResponseEntity<>(savedVat, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping(ID_PATH)
 	public ResponseEntity<Void> deleteVat(@PathVariable Integer id) {
-		VatDTO vat = vatService.findById(id);
-
-		if (vat == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
 		vatService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

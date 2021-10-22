@@ -15,5 +15,7 @@ public interface SubcategoryService {
 
 	SubcategoryDTO save(SubcategoryDTO subcategoryDTO);
 
+	SubcategoryDTO update(SubcategoryDTO subcategoryDTO);
+
 	void deleteById(Integer id);
 }

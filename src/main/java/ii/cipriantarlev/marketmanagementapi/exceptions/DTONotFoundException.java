@@ -19,6 +19,11 @@ public class DTONotFoundException extends RuntimeException {
 		this.id = id;
 	}
 
+	public DTONotFoundException(String message) {
+		super(message);
+		id = 0;
+	}
+
 	public long getDtoId() {
 		return id;
 	}

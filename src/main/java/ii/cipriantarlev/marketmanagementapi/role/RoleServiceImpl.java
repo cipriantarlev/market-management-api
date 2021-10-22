@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ii.cipriantarlev.marketmanagementapi.exceptions.DTOListNotFoundException;
+
 @Service
 public class RoleServiceImpl implements RoleService {
 
@@ -20,10 +22,15 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public List<RoleDTO> findAll() {
-		return roleRepository.findAll()
+		List<RoleDTO> roles = roleRepository.findAll()
 							 .stream()
 							 .map(role -> roleMapper.mapRoleToRoleDTO(role))
 							 .collect(Collectors.toList());
-	}
 
+		if (roles == null || roles.isEmpty()) {
+			throw new DTOListNotFoundException("Role list not found");
+		}
+
+		return roles;
+	}
 }

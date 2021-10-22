@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin("http://localhost:3000")
+import static ii.cipriantarlev.marketmanagementapi.util.Constants.*;
+
+@CrossOrigin(LOCAL_HOST)
 @RestController
-@RequestMapping("/regions")
+@RequestMapping(REGIONS_ROOT_PATH)
 public class RegionController {
 
 	@Autowired
@@ -23,13 +25,7 @@ public class RegionController {
 
 	@GetMapping
 	public ResponseEntity<List<RegionDTO>> getRegions() {
-
 		List<RegionDTO> regions = regionService.findAll();
-
-		if (regions == null || regions.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-
 		return new ResponseEntity<>(regions, HttpStatus.OK);
 	}
 }

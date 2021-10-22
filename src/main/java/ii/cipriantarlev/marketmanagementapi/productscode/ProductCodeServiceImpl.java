@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ii.cipriantarlev.marketmanagementapi.exceptions.DTOListNotFoundException;
+import ii.cipriantarlev.marketmanagementapi.exceptions.DTONotFoundException;
+
 @Service
 public class ProductCodeServiceImpl implements ProductCodeService {
 
@@ -21,9 +24,15 @@ public class ProductCodeServiceImpl implements ProductCodeService {
 
 	@Override
 	public List<ProductCodeDTO> findAll() {
-		return productCodeRepository.findAll().stream()
+		List<ProductCodeDTO> productCodes = productCodeRepository.findAll().stream()
 				.map(productCode -> productCodeMapper.mapEntityToDTO(productCode))
 				.collect(Collectors.toList());
+
+		if (productCodes == null || productCodes.isEmpty()) {
+			throw new DTOListNotFoundException("ProductCode list not found");
+		}
+
+		return productCodes;
 	}
 
 	@Override
@@ -34,7 +43,7 @@ public class ProductCodeServiceImpl implements ProductCodeService {
 			return productCodeMapper.mapEntityToDTO(productCode.get());
 		}
 
-		return null;
+		throw new DTONotFoundException(String.format("ProductCode with %d not found", id), id);
 	}
 
 	@Override
@@ -46,7 +55,6 @@ public class ProductCodeServiceImpl implements ProductCodeService {
 			return productCodeMapper.mapEntityToDTO(savedProductCode);
 		}
 
-		
 		Long generatedValue = Long.parseLong(lastProductCode.getValue().substring(2)) + 1;
 		var generatedProductCode = productCodeRepository.save(new ProductCode("MD" + String.format("%08d", generatedValue)));
 		return productCodeMapper.mapEntityToDTO(generatedProductCode);
@@ -54,6 +62,7 @@ public class ProductCodeServiceImpl implements ProductCodeService {
 
 	@Override
 	public void deleteById(Long id) {
+		this.findById(id);
 		productCodeRepository.deleteById(id);
 	}
 

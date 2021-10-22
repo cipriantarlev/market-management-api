@@ -58,7 +58,7 @@ public class MyOrganizationController {
 
 	@PutMapping
 	public ResponseEntity<MyOrganizationDTO> updateUser(@Valid @RequestBody MyOrganizationDTO myOrganizationDTO) {
-		var savedMyOrganization = myOrganizationService.save(myOrganizationDTO);
+		var savedMyOrganization = myOrganizationService.update(myOrganizationDTO);
 		return new ResponseEntity<>(savedMyOrganization, HttpStatus.OK);
 	}
 
