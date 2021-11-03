@@ -57,7 +57,7 @@ public class VendorController {
 
 	@PutMapping
 	public ResponseEntity<VendorDTO> updateVendor(@Valid @RequestBody VendorDTO vendorDTO) {
-		var savedVendor = vendorService.save(vendorDTO);
+		var savedVendor = vendorService.update(vendorDTO);
 		return new ResponseEntity<>(savedVendor, HttpStatus.OK);
 	}
 
