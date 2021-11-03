@@ -51,7 +51,7 @@ public class UserController {
 	public ResponseEntity<UserDTO> createUser(@Valid @RequestBody UserDTO user) {
 		var savedUser = userService.save(user);
 		var headers = restControllerUtil.setHttpsHeaderLocation(USERS_ROOT_PATH.concat(ID_PATH),
-				user.getId().longValue());
+				savedUser.getId().longValue());
 		return new ResponseEntity<>(savedUser, headers, HttpStatus.CREATED);
 	}
 

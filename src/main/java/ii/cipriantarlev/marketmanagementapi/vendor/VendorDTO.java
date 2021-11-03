@@ -33,7 +33,7 @@ public class VendorDTO {
 	private String name;
 
 	@NotBlank(message = "Bank should not be blank or null")
-	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "Bank should contain only letters and numbers")
+	@Pattern(regexp = "^[a-zA-Z0-9-.\\s]+$", message = "Bank should contain only letters and numbers")
 	@Size(min = 1, max = 250, message = "Bank length should be between {min} and {max}")
 	private String bank;
 
@@ -72,12 +72,12 @@ public class VendorDTO {
 	private String phoneNumber;
 
 	@NotBlank(message = "Postal code should not be blank or null")
-	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Postal code should contain only letters and numbers")
+	@Pattern(regexp = "^[a-zA-Z0-9-]+$", message = "Postal code should contain only letters and numbers")
 	@Size(min = 1, max = 10, message = "Postal code length should be between {min} and {max}")
 	private String postalCode;
 
 	@NotBlank(message = "Business address should not be blank or null")
-	@Pattern(regexp = "^[a-zA-Z0-9\\s:\"\'-]+$", message = "Business address should contain only letters, numbers, \', \", -, :")
+	@Pattern(regexp = "^[a-zA-Z0-9\\s:\"\'\\-ăâîșşțţÂĂÎȘŞȚŢ,]+$", message = "Business address should contain only letters, numbers, \', \", -, :")
 	@Size(min = 1, max = 250, message = "Business address length should be between {min} and {max}")
 	private String businessAddress;
 
