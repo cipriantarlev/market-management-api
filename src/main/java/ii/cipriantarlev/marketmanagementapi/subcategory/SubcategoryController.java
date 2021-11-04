@@ -3,6 +3,8 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.subcategory;
 
+import static ii.cipriantarlev.marketmanagementapi.utils.Constants.*;
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -20,9 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ii.cipriantarlev.marketmanagementapi.util.RestControllerUtil;
-
-import static ii.cipriantarlev.marketmanagementapi.util.Constants.*;
+import ii.cipriantarlev.marketmanagementapi.utils.RestControllerUtil;
 
 @CrossOrigin(LOCAL_HOST)
 @RestController

@@ -3,6 +3,8 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.vat;
 
+import static ii.cipriantarlev.marketmanagementapi.utils.Constants.*;
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -10,6 +12,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ii.cipriantarlev.marketmanagementapi.util.RestControllerUtil;
-
-import static ii.cipriantarlev.marketmanagementapi.util.Constants.*;
+import ii.cipriantarlev.marketmanagementapi.utils.RestControllerUtil;
 
 @CrossOrigin(LOCAL_HOST)
 @RestController
@@ -42,12 +43,14 @@ public class VatController {
 	}
 
 	@GetMapping(ID_PATH)
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<VatDTO> getVatById(@PathVariable Integer id) {
 		VatDTO vat = vatService.findById(id);
 		return new ResponseEntity<>(vat, HttpStatus.OK);
 	}
 
 	@PostMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<VatDTO> createVat(@Valid @RequestBody VatDTO vatDTO) {
 		var vat = vatService.save(vatDTO);
 		var headers = restControllerUtil.setHttpsHeaderLocation(VAT_ROOT_PATH.concat(ID_PATH), vat.getId().longValue());
@@ -55,12 +58,14 @@ public class VatController {
 	}
 
 	@PutMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<VatDTO> updateDTO(@Valid @RequestBody VatDTO vatDTO) {
 		var savedVat = vatService.save(vatDTO);
 		return new ResponseEntity<>(savedVat, HttpStatus.OK);
 	}
 
 	@DeleteMapping(ID_PATH)
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Void> deleteVat(@PathVariable Integer id) {
 		vatService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
