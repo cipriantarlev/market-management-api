@@ -1,4 +1,4 @@
-package ii.cipriantarlev.marketmanagementapi.util;
+package ii.cipriantarlev.marketmanagementapi.utils;
 
 import lombok.experimental.UtilityClass;
 

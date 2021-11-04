@@ -1,4 +1,4 @@
-package ii.cipriantarlev.marketmanagementapi.util;
+package ii.cipriantarlev.marketmanagementapi.utils;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;

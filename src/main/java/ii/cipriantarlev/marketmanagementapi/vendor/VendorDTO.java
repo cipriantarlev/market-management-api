@@ -58,7 +58,7 @@ public class VendorDTO {
 	private String vatCode;
 
 	@NotBlank(message = "City should not be blank or null")
-	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "City should contain only letters and numbers")
+	@Pattern(regexp = "^[a-zA-Z0-9-ăâîșşțţÂĂÎȘŞȚŢ\\\\s]+$", message = "City should contain only letters and numbers")
 	@Size(min = 1, max = 100, message = "City length should be between {min} and {max}")
 	private String city;
 
