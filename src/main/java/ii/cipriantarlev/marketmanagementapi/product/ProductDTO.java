@@ -65,7 +65,7 @@ public class ProductDTO {
 	private BigDecimal retailPrice;
 
 	@DecimalMin(value = "0.0", message = "Trade margin min value should be {value}")
-	@Digits(integer = 2, fraction = 2, message = "Trade margin fromat should have {integer} integer digits and {fraction} digits")
+	@Digits(integer = 3, fraction = 2, message = "Trade margin fromat should have {integer} integer digits and {fraction} digits")
 	private BigDecimal tradeMargin;
 
 	@Valid

@@ -51,6 +51,18 @@ public class InvoiceController {
 		return new ResponseEntity<>(invoices, HttpStatus.OK);
 	}
 
+	@GetMapping(INCOME_INVOICES)
+	public ResponseEntity<List<InvoiceDTO>> getIncomeInvoices() {
+		var invoices = invoiceService.findAllIncomeInvoices();
+		return new ResponseEntity<>(invoices, HttpStatus.OK);
+	}
+
+	@GetMapping(OUTCOME_INVOICES)
+	public ResponseEntity<List<InvoiceDTO>> getOutcomeInvoices() {
+		var invoices = invoiceService.findAllOutcomeInvoices();
+		return new ResponseEntity<>(invoices, HttpStatus.OK);
+	}
+
 	@GetMapping(ID_PATH)
 	public ResponseEntity<InvoiceDTO> getInvoice(@PathVariable Long id) {
 		var invoice = invoiceService.findById(id);

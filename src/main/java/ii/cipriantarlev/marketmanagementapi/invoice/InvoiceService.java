@@ -9,6 +9,10 @@ public interface InvoiceService {
 
 	List<InvoiceDTO> findAll();
 
+	List<InvoiceDTO> findAllIncomeInvoices();
+
+	List<InvoiceDTO> findAllOutcomeInvoices();
+
 	InvoiceDTO findById(Long id);
 
 	InvoiceDTO save(InvoiceDTO invoiceDTO);
