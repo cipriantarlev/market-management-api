@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ii.cipriantarlev.marketmanagementapi.documenttype.DocumentType;
 import ii.cipriantarlev.marketmanagementapi.exceptions.DTOFoundWhenSaveException;
 import ii.cipriantarlev.marketmanagementapi.exceptions.DTOListNotFoundException;
 import ii.cipriantarlev.marketmanagementapi.exceptions.DTONotFoundException;
@@ -72,5 +73,31 @@ public class InvoiceServiceImpl implements InvoiceService {
 	public void deleteById(Long id) {
 		this.findById(id);
 		invoiceRepository.deleteById(id);
+	}
+
+	@Override
+	public List<InvoiceDTO> findAllIncomeInvoices() {
+		List<InvoiceDTO> invoices = invoiceRepository
+				.findAllByDocumentType(DocumentType.builder().id(1).build()).stream()
+				.map(invoice -> invoiceMapper.mapEntityToDTO(invoice)).collect(Collectors.toList());
+
+		if (invoices == null || invoices.isEmpty()) {
+			throw new DTOListNotFoundException("Invoice list not found");
+		}
+
+		return invoices;
+	}
+
+	@Override
+	public List<InvoiceDTO> findAllOutcomeInvoices() {
+		List<InvoiceDTO> invoices = invoiceRepository
+				.findAllByDocumentType(DocumentType.builder().id(2).build()).stream()
+				.map(invoice -> invoiceMapper.mapEntityToDTO(invoice)).collect(Collectors.toList());
+
+		if (invoices == null || invoices.isEmpty()) {
+			throw new DTOListNotFoundException("Invoice list not found");
+		}
+
+		return invoices;
 	}
 }
