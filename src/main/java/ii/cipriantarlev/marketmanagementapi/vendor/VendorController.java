@@ -43,7 +43,6 @@ public class VendorController {
 	}
 
 	@GetMapping(ID_PATH)
-	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<VendorDTO> getVendor(@PathVariable Integer id) {
 		var vendor = vendorService.findById(id);
 		return new ResponseEntity<>(vendor, HttpStatus.OK);
