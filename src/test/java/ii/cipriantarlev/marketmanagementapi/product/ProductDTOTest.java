@@ -227,7 +227,7 @@ class ProductDTOTest {
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
 				.validate(TestDataDTOBuilder.getWrongRangeTradeMarginProductDTO());
 
-		assertEquals("Trade margin fromat should have 2 integer digits and 2 digits",
+		assertEquals("Trade margin fromat should have 3 integer digits and 2 digits",
 				constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
 	}
