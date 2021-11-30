@@ -31,7 +31,7 @@ public class MyOrganizationDTO {
 	private String name;
 
 	@NotBlank(message = "Bank should not be blank or null")
-	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "Bank should contain only letters and numbers")
+	@Pattern(regexp = "^[a-zA-Z0-9-.\\s]+$", message = "Bank should contain only letters and numbers")
 	@Size(min = 1, max = 200, message = "Bank length should be between {min} and {max}")
 	private String bank;
 

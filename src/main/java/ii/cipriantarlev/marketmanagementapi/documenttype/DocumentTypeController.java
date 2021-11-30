@@ -3,6 +3,8 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.documenttype;
 
+import static ii.cipriantarlev.marketmanagementapi.utils.Constants.*;
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -10,6 +12,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ii.cipriantarlev.marketmanagementapi.util.RestControllerUtil;
-
-import static ii.cipriantarlev.marketmanagementapi.util.Constants.*;
+import ii.cipriantarlev.marketmanagementapi.utils.RestControllerUtil;
 
 @CrossOrigin(LOCAL_HOST)
 @RestController
@@ -42,12 +43,14 @@ public class DocumentTypeController {
 	}
 
 	@GetMapping(ID_PATH)
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<DocumentTypeDTO> getDocumentType(@PathVariable Integer id) {
 		var documentType = documentTypeService.findById(id);
 		return new ResponseEntity<>(documentType, HttpStatus.OK);
 	}
 
 	@PostMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<DocumentTypeDTO> createDocumentType(@Valid @RequestBody DocumentTypeDTO documentTypeDTO) {
 		var documentType = documentTypeService.save(documentTypeDTO);
 		var headers = restControllerUtil.setHttpsHeaderLocation(DOCUMENT_TYPE_ROOT_PATH,
@@ -56,12 +59,14 @@ public class DocumentTypeController {
 	}
 
 	@PutMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<DocumentTypeDTO> updateDocumentType(@Valid @RequestBody DocumentTypeDTO documentTypeDTO) {
 		var savedDocumentType = documentTypeService.update(documentTypeDTO);
 		return new ResponseEntity<>(savedDocumentType, HttpStatus.OK);
 	}
 
 	@DeleteMapping(ID_PATH)
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Void> deleteDocumentType(@PathVariable Integer id) {
 		documentTypeService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);

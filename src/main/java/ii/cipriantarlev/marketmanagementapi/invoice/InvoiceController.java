@@ -3,6 +3,8 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.invoice;
 
+import static ii.cipriantarlev.marketmanagementapi.utils.Constants.*;
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -22,11 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ii.cipriantarlev.marketmanagementapi.myorganization.MyOrganizationDTOOnlyName;
 import ii.cipriantarlev.marketmanagementapi.myorganization.MyOrganizationService;
+import ii.cipriantarlev.marketmanagementapi.utils.RestControllerUtil;
 import ii.cipriantarlev.marketmanagementapi.vendor.VendorDTOOnlyName;
 import ii.cipriantarlev.marketmanagementapi.vendor.VendorService;
-import ii.cipriantarlev.marketmanagementapi.util.RestControllerUtil;
-
-import static ii.cipriantarlev.marketmanagementapi.util.Constants.*;
 
 @CrossOrigin(LOCAL_HOST)
 @RestController
@@ -48,6 +48,18 @@ public class InvoiceController {
 	@GetMapping
 	public ResponseEntity<List<InvoiceDTO>> getInvoices() {
 		var invoices = invoiceService.findAll();
+		return new ResponseEntity<>(invoices, HttpStatus.OK);
+	}
+
+	@GetMapping(INCOME_INVOICES)
+	public ResponseEntity<List<InvoiceDTO>> getIncomeInvoices() {
+		var invoices = invoiceService.findAllIncomeInvoices();
+		return new ResponseEntity<>(invoices, HttpStatus.OK);
+	}
+
+	@GetMapping(OUTCOME_INVOICES)
+	public ResponseEntity<List<InvoiceDTO>> getOutcomeInvoices() {
+		var invoices = invoiceService.findAllOutcomeInvoices();
 		return new ResponseEntity<>(invoices, HttpStatus.OK);
 	}
 

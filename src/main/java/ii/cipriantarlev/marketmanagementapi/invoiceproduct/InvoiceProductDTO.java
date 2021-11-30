@@ -29,7 +29,6 @@ public class InvoiceProductDTO {
 	@Positive
 	private Long id;
 
-	@Valid
 	@NotNull(message = "Invoice DTO should not be null")
 	private InvoiceDTO invoice;
 

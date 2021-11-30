@@ -73,15 +73,8 @@ class VatDTOTest {
 		Set<ConstraintViolation<VatDTO>> constraintViolationSet = validator
 				.validate(TestDataDTOBuilder.getBlankNameVatDTO());
 
-		List<ConstraintViolation<VatDTO>> constraintViolationList = new ArrayList<>();
-		CollectionUtils.addAll(constraintViolationList, constraintViolationSet);
-
-		Set<String> finalSet = new HashSet<>();
-		constraintViolationList.forEach(constraintViolation -> finalSet.add(constraintViolation.getMessage()));
-
-		assertTrue(finalSet.contains("Vat name should not be blank or null"));
-		assertTrue(finalSet.contains("Vat name should contain only letters, numbers, () or %"));
-		assertEquals(2, constraintViolationSet.size());
+		assertEquals("Vat name should not be blank or null", constraintViolationSet.iterator().next().getMessage());
+		assertEquals(1, constraintViolationSet.size());
 	}
 
 	@Test

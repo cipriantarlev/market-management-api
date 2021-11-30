@@ -33,7 +33,7 @@ public class VatDTO {
 	private Integer value;
 
 	@NotBlank(message = "Vat name should not be blank or null")
-	@Pattern(regexp = "^[a-zA-Z0-9()%]+$", message = "Vat name should contain only letters, numbers, () or %")
+	@Pattern(regexp = "^[a-zA-Z0-9()%\\s]+$", message = "Vat name should contain only letters, numbers, () or %")
 	@Size(min = 1, max = 100, message = "Vat name length should be between {min} and {max}")
 	private String name;
 }

@@ -3,6 +3,8 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.myorganization;
 
+import static ii.cipriantarlev.marketmanagementapi.utils.Constants.*;
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -10,6 +12,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ii.cipriantarlev.marketmanagementapi.util.RestControllerUtil;
-
-import static ii.cipriantarlev.marketmanagementapi.util.Constants.*;
+import ii.cipriantarlev.marketmanagementapi.utils.RestControllerUtil;
 
 @CrossOrigin(LOCAL_HOST)
 @RestController
@@ -36,18 +37,21 @@ public class MyOrganizationController {
 	private RestControllerUtil restControllerUtil;
 
 	@GetMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<List<MyOrganizationDTO>> getMyOrganizations() {
 		List<MyOrganizationDTO> myOrganizations = myOrganizationService.findAll();
 		return new ResponseEntity<>(myOrganizations, HttpStatus.OK);
 	}
 
 	@GetMapping(ID_PATH)
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<MyOrganizationDTO> getMyOrganizationDTO(@PathVariable Integer id) {
 		var myOrganization = myOrganizationService.findById(id);
 		return new ResponseEntity<>(myOrganization, HttpStatus.OK);
 	}
 
 	@PostMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<MyOrganizationDTO> createMyOrganization(
 			@Valid @RequestBody MyOrganizationDTO myOrganizationDTO) {
 		var savedMyOrganization = myOrganizationService.save(myOrganizationDTO);
@@ -57,12 +61,14 @@ public class MyOrganizationController {
 	}
 
 	@PutMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<MyOrganizationDTO> updateUser(@Valid @RequestBody MyOrganizationDTO myOrganizationDTO) {
 		var savedMyOrganization = myOrganizationService.update(myOrganizationDTO);
 		return new ResponseEntity<>(savedMyOrganization, HttpStatus.OK);
 	}
 
 	@DeleteMapping(ID_PATH)
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Void> deletedUser(@PathVariable Integer id) {
 		myOrganizationService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);

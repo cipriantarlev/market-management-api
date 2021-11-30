@@ -3,6 +3,8 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.vendor;
 
+import static ii.cipriantarlev.marketmanagementapi.utils.Constants.*;
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -10,6 +12,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ii.cipriantarlev.marketmanagementapi.util.RestControllerUtil;
-
-import static ii.cipriantarlev.marketmanagementapi.util.Constants.*;
+import ii.cipriantarlev.marketmanagementapi.utils.RestControllerUtil;
 
 @CrossOrigin(LOCAL_HOST)
 @RestController
@@ -48,6 +49,7 @@ public class VendorController {
 	}
 
 	@PostMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<VendorDTO> createVendor(@Valid @RequestBody VendorDTO vendorDTO) {
 		var vendor = vendorService.save(vendorDTO);
 		var headers = restControllerUtil.setHttpsHeaderLocation(VENDORS_ROOT_PATH.concat(ID_PATH),
@@ -56,12 +58,14 @@ public class VendorController {
 	}
 
 	@PutMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<VendorDTO> updateVendor(@Valid @RequestBody VendorDTO vendorDTO) {
-		var savedVendor = vendorService.save(vendorDTO);
+		var savedVendor = vendorService.update(vendorDTO);
 		return new ResponseEntity<>(savedVendor, HttpStatus.OK);
 	}
 
 	@DeleteMapping(ID_PATH)
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Void> deleteVendor(@PathVariable Integer id) {
 		vendorService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
