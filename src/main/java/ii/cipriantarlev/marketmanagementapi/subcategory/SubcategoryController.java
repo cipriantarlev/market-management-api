@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,18 +43,21 @@ public class SubcategoryController {
 	}
 
 	@GetMapping(CATEGORY_CATEGORY_ID)
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<List<SubcategoryDTONoCategory>> getSubcategoriesByCategoryId(@PathVariable Integer categoryId) {
 		List<SubcategoryDTONoCategory> subcategories = subcategoryService.findAllByCategoryId(categoryId);
 		return new ResponseEntity<>(subcategories, HttpStatus.OK);
 	}
 
 	@GetMapping(ID_PATH)
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<SubcategoryDTO> getSubcategory(@PathVariable Integer id) {
 		var subcategory = subcategoryService.findById(id);
 		return new ResponseEntity<>(subcategory, HttpStatus.OK);
 	}
 
 	@PostMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<SubcategoryDTO> createSubcategory(@Valid @RequestBody SubcategoryDTO subcategoryDTO) {
 		var subcategory = subcategoryService.save(subcategoryDTO);
 		var headers = restControllerUtil.setHttpsHeaderLocation(SUBCATEGORIES_ROOT_PATH.concat(ID_PATH),
@@ -62,12 +66,14 @@ public class SubcategoryController {
 	}
 
 	@PutMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<SubcategoryDTO> updateSubcategory(@Valid @RequestBody SubcategoryDTO subcategoryDTO) {
 		var savedSubcategory = subcategoryService.update(subcategoryDTO);
 		return new ResponseEntity<>(savedSubcategory, HttpStatus.OK);
 	}
 
 	@DeleteMapping(ID_PATH)
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Void> deleteSubcategory(@PathVariable Integer id) {
 		subcategoryService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
