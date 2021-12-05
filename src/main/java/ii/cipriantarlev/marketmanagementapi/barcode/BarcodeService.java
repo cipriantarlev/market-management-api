@@ -16,4 +16,6 @@ public interface BarcodeService {
 	void deleteById(Long id);
 
 	void deleteBarcodeWithNullProductId();
+	
+	boolean checkIfValueExists(String value);
 }

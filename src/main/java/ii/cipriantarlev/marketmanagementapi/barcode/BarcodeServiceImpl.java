@@ -78,4 +78,9 @@ public class BarcodeServiceImpl implements BarcodeService {
 	public void deleteBarcodeWithNullProductId() {
 		barcodeRepository.deleteAll(barcodeRepository.findAllByProductIdNull());
 	}
+
+	@Override
+	public boolean checkIfValueExists(String value) {
+		return barcodeRepository.findByValue(value) != null;
+	}
 }

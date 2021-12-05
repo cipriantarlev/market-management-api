@@ -18,4 +18,8 @@ public interface ProductService {
 	ProductDTO update(ProductDTO productDTO);
 
 	void deleteById(Long id);
+	
+	boolean checkIfNameRomExists(String nameRom);
+	
+	boolean checkIfNameRusExists(String nameRus);
 }
