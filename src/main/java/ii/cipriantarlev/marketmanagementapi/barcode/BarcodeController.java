@@ -63,4 +63,9 @@ public class BarcodeController {
 		barcodeService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+	@GetMapping(BARCODE_BY_VALUE)
+	public ResponseEntity<Boolean> checkIfValueExists(@PathVariable String value) {
+		return new ResponseEntity<>(barcodeService.checkIfValueExists(value), HttpStatus.OK);
+	}
 }

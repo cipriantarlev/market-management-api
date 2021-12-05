@@ -88,4 +88,14 @@ public class ProductServiceImpl implements ProductService {
 		throw new DTONotFoundException(String.format("Product with %s not found", Long.parseLong(barcodeValue)),
 				Long.parseLong(barcodeValue));
 	}
+
+	@Override
+	public boolean checkIfNameRomExists(String nameRom) {
+		return productRepository.findByNameRom(nameRom) != null;
+	}
+
+	@Override
+	public boolean checkIfNameRusExists(String nameRus) {
+		return productRepository.findByNameRus(nameRus) != null;
+	}
 }
