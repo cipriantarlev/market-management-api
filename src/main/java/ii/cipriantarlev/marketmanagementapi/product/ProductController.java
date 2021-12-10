@@ -4,7 +4,6 @@
 package ii.cipriantarlev.marketmanagementapi.product;
 
 import static ii.cipriantarlev.marketmanagementapi.utils.Constants.*;
-
 import java.util.List;
 
 import javax.validation.Valid;
@@ -70,5 +69,15 @@ public class ProductController {
 	public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
 		productService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@GetMapping(PRODUCT_BY_NAME_ROM)
+	public ResponseEntity<Boolean> checkIfNameRomExists(@PathVariable String value) {
+		return new ResponseEntity<>(productService.checkIfNameRomExists(value), HttpStatus.OK);
+	}
+	
+	@GetMapping(PRODUCT_BY_NAME_RUS)
+	public ResponseEntity<Boolean> checkIfNameRusExists(@PathVariable String value) {
+		return new ResponseEntity<>(productService.checkIfNameRusExists(value), HttpStatus.OK);
 	}
 }

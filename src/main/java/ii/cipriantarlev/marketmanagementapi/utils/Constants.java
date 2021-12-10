@@ -45,4 +45,7 @@ public class Constants {
 	public final String CATEGORY_CATEGORY_ID = "/category/{categoryId}";
 	public final String INCOME_INVOICES = "/income";
 	public final String OUTCOME_INVOICES = "/outcome";
+	public final String BARCODE_BY_VALUE = "/barcode/{value}";
+	public final String PRODUCT_BY_NAME_ROM = "/product/name-rom/{value}";
+	public final String PRODUCT_BY_NAME_RUS = "/product/name-rus/{value}";
 }

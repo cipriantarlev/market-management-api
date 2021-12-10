@@ -14,4 +14,6 @@ public interface BarcodeRepository extends JpaRepository<Barcode, Long> {
 
 	@Query(value = "SELECT * FROM BARCODES WHERE PRODUCT_ID IS NULL", nativeQuery = true)
 	List<Barcode> findAllByProductIdNull();
+	
+	Barcode findByValue(String value);
 }
