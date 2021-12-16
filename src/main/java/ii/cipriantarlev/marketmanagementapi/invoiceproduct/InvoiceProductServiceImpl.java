@@ -63,7 +63,7 @@ public class InvoiceProductServiceImpl implements InvoiceProductService {
 		}
 
 		var invoiceProduct = invoiceProductRepository.save(invoiceProductMapper.mapDTOToEntity(invoiceProductDTO));
-		productService.save(invoiceProductDTO.getProduct());
+		productService.update(invoiceProductDTO.getProduct());
 		return invoiceProductMapper.mapEntityToDTO(invoiceProduct);
 	}
 
@@ -79,7 +79,7 @@ public class InvoiceProductServiceImpl implements InvoiceProductService {
 		var invoiceProduct = this.findById(id);
 		var product = invoiceProduct.getProduct();
 		product.setStock(product.getStock().subtract(invoiceProduct.getQuantity()));
-		productService.save(product);
+		productService.update(product);
 		invoiceProductRepository.deleteById(id);
 	}
 }
