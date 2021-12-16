@@ -39,12 +39,12 @@ public class ProductDTO {
 	private Long id;
 
 	@NotBlank(message = "Romanian Name should not be blank or null")
-	@Pattern(regexp = "^[a-zA-Z0-9-\\s]+$", message = "Romanian Name should contain only letters, numbers and dash")
+	@Pattern(regexp = "^[a-zA-Z0-9-\\s.]+$", message = "Romanian Name should contain only letters, numbers, dash and dot")
 	@Size(min = 1, max = 300, message = "Romanian Name length should be between {min} and {max}")
 	private String nameRom;
 
 	@NotBlank(message = "Russian Name should not be blank or null")
-	@Pattern(regexp = "^[a-zA-ZА-Яа-я0-9-\\s]+$", message = "Russian Name should contain only letters, numbers and dash")
+	@Pattern(regexp = "^[a-zA-ZА-Яа-я0-9-\\s.]+$", message = "Russian Name should contain only letters, numbers, dash and dot")
 	@Size(min = 1, max = 300, message = "Russian Name length should be between {min} and {max}")
 	private String nameRus;
 
