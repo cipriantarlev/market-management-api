@@ -196,7 +196,7 @@ class InvoiceDTOTest {
 		Set<ConstraintViolation<InvoiceDTO>> constraintViolationSet = validator
 				.validate(TestDataDTOBuilder.getWorngRangeTotalDiscountPrice());
 
-		assertEquals("Total Discount Price fromat should have 6 integer digits and 2 digits",
+		assertEquals("Total Discount Price format should have 6 integer digits and 2 digits",
 				constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
 	}
@@ -218,7 +218,7 @@ class InvoiceDTOTest {
 		Set<ConstraintViolation<InvoiceDTO>> constraintViolationSet = validator
 				.validate(TestDataDTOBuilder.getWorngRangeTotalRetailPrice());
 
-		assertEquals("Total Retail Price fromat should have 6 integer digits and 2 digits",
+		assertEquals("Total Retail Price format should have 6 integer digits and 2 digits",
 				constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
 	}
@@ -240,7 +240,7 @@ class InvoiceDTOTest {
 		Set<ConstraintViolation<InvoiceDTO>> constraintViolationSet = validator
 				.validate(TestDataDTOBuilder.getWorngRangeTotalTradeMargin());
 
-		assertEquals("Total Trade Margin fromat should have 6 integer digits and 2 digits",
+		assertEquals("Total Trade Margin format should have 6 integer digits and 2 digits",
 				constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
 	}
@@ -262,7 +262,7 @@ class InvoiceDTOTest {
 		Set<ConstraintViolation<InvoiceDTO>> constraintViolationSet = validator
 				.validate(TestDataDTOBuilder.getWorngRangeTradeMargin());
 
-		assertEquals("Trade Margin fromat should have 4 integer digits and 2 digits",
+		assertEquals("Trade Margin format should have 4 integer digits and 2 digits",
 				constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
 	}
@@ -284,7 +284,7 @@ class InvoiceDTOTest {
 		Set<ConstraintViolation<InvoiceDTO>> constraintViolationSet = validator
 				.validate(TestDataDTOBuilder.getWorngRangeVatSum());
 
-		assertEquals("Vat sum fromat should have 6 integer digits and 2 digits",
+		assertEquals("Vat sum format should have 6 integer digits and 2 digits",
 				constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
 	}
