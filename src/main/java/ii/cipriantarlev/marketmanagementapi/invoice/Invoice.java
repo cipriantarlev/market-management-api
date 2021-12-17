@@ -83,6 +83,9 @@ public class Invoice {
 				mappedBy = "invoice")
 	private List<InvoiceProduct> invoiceProducts;
 
+	@Column(name = "is_approved")
+	private boolean isApproved;
+
 	public Invoice(DocumentType documentType, MyOrganization myOrganization, Vendor vendor, LocalDate dateCreated,
 			String invoiceNumber, LocalDate invoiceDate, String note, BigDecimal totalDiscountPrice,
 			BigDecimal totalRetailPrice, BigDecimal totalTradeMargin, BigDecimal tradeMargin, BigDecimal vatSum) {

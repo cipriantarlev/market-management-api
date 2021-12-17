@@ -76,6 +76,12 @@ public class InvoiceServiceImpl implements InvoiceService {
 	}
 
 	@Override
+	public int updateIsApprovedMarker(boolean isApproved, Long id) {
+		this.findById(id);
+		return invoiceRepository.updateIsApprovedMarker(isApproved, id);
+	}
+
+	@Override
 	public List<InvoiceDTO> findAllIncomeInvoices() {
 		List<InvoiceDTO> invoices = invoiceRepository
 				.findAllByDocumentType(DocumentType.builder().id(1).build()).stream()
