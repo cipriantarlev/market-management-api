@@ -65,23 +65,24 @@ public class InvoiceDTO {
 	private String note;
 
 	@DecimalMin(value = "0.0", message = "Total Discount Price min value should be {value}")
-	@Digits(integer = 6, fraction = 2, message = "Total Discount Price fromat should have {integer} integer digits and {fraction} digits")
+	@Digits(integer = 6, fraction = 2, message = "Total Discount Price format should have {integer} integer digits and {fraction} digits")
 	private BigDecimal totalDiscountPrice;
 
 	@DecimalMin(value = "0.0", message = "Total Retail Price min value should be {value}")
-	@Digits(integer = 6, fraction = 2, message = "Total Retail Price fromat should have {integer} integer digits and {fraction} digits")
+	@Digits(integer = 6, fraction = 2, message = "Total Retail Price format should have {integer} integer digits and {fraction} digits")
 	private BigDecimal totalRetailPrice;
 
 	@DecimalMin(value = "0.0", message = "Total Trade Margin min value should be {value}")
-	@Digits(integer = 6, fraction = 2, message = "Total Trade Margin fromat should have {integer} integer digits and {fraction} digits")
+	@Digits(integer = 6, fraction = 2, message = "Total Trade Margin format should have {integer} integer digits and {fraction} digits")
 	private BigDecimal totalTradeMargin;
 
 	@DecimalMin(value = "0.0", message = "Trade Margin min value should be {value}")
-	@Digits(integer = 4, fraction = 2, message = "Trade Margin fromat should have {integer} integer digits and {fraction} digits")
+	@Digits(integer = 4, fraction = 2, message = "Trade Margin format should have {integer} integer digits and {fraction} digits")
 	private BigDecimal tradeMargin;
 
 	@DecimalMin(value = "0.0", message = "Vat sum value should be {value}")
-	@Digits(integer = 6, fraction = 2, message = "Vat sum fromat should have {integer} integer digits and {fraction} digits")
+	@Digits(integer = 6, fraction = 2, message = "Vat sum format should have {integer} integer digits and {fraction} digits")
 	private BigDecimal vatSum;
 
+	private boolean isApproved;
 }

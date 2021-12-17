@@ -48,4 +48,5 @@ public class Constants {
 	public final String BARCODE_BY_VALUE = "/barcode/{value}";
 	public final String PRODUCT_BY_NAME_ROM = "/product/name-rom/{value}";
 	public final String PRODUCT_BY_NAME_RUS = "/product/name-rus/{value}";
+	public final String IS_APPROVED_INVOICE = "/isApproved/{id}/{isApproved}";
 }

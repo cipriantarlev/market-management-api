@@ -94,6 +94,12 @@ public class InvoiceController {
 		return new ResponseEntity<>(savedInvoice, HttpStatus.OK);
 	}
 
+	@PutMapping(IS_APPROVED_INVOICE)
+	public ResponseEntity<Integer> updateInvoiceIsApprovedMarker(@PathVariable Long id, @PathVariable boolean isApproved) {
+		var savedInvoice = invoiceService.updateIsApprovedMarker(isApproved, id);
+		return new ResponseEntity<>(savedInvoice, HttpStatus.OK);
+	}
+
 	@DeleteMapping(ID_PATH)
 	public ResponseEntity<Void> deleteInvoice(@PathVariable Long id) {
 		invoiceService.deleteById(id);

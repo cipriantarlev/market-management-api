@@ -20,4 +20,6 @@ public interface InvoiceService {
 	InvoiceDTO update(InvoiceDTO invoiceDTO);
 
 	void deleteById(Long id);
+
+	int updateIsApprovedMarker(boolean isApproved, Long id);
 }
