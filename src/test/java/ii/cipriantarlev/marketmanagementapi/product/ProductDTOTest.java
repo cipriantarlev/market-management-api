@@ -60,7 +60,7 @@ class ProductDTOTest {
 
 		assertTrue(finalSet.contains("Romanian Name should not be blank or null"));
 		assertTrue(finalSet.contains("Romanian Name length should be between 1 and 300"));
-		assertTrue(finalSet.contains("Romanian Name should contain only letters, numbers and dash"));
+		assertTrue(finalSet.contains("Romanian Name should contain only letters, numbers, dash and dot"));
 		assertEquals(3, constraintViolationSet.size());
 	}
 
@@ -70,7 +70,7 @@ class ProductDTOTest {
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
 				.validate(TestDataDTOBuilder.getInvalidCharactersNameRomProductDTO());
 
-		assertEquals("Romanian Name should contain only letters, numbers and dash",
+		assertEquals("Romanian Name should contain only letters, numbers, dash and dot",
 				constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
 	}
@@ -122,7 +122,7 @@ class ProductDTOTest {
 
 		assertTrue(finalSet.contains("Russian Name should not be blank or null"));
 		assertTrue(finalSet.contains("Russian Name length should be between 1 and 300"));
-		assertTrue(finalSet.contains("Russian Name should contain only letters, numbers and dash"));
+		assertTrue(finalSet.contains("Russian Name should contain only letters, numbers, dash and dot"));
 		assertEquals(3, constraintViolationSet.size());
 	}
 
@@ -132,7 +132,7 @@ class ProductDTOTest {
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
 				.validate(TestDataDTOBuilder.getInvalidCharactersNameRusProductDTO());
 
-		assertEquals("Russian Name should contain only letters, numbers and dash",
+		assertEquals("Russian Name should contain only letters, numbers, dash and dot",
 				constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
 	}
