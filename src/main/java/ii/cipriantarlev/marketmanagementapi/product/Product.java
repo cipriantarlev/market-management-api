@@ -29,12 +29,14 @@ import ii.cipriantarlev.marketmanagementapi.vat.Vat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "products")
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Product {
 
 	@Id

@@ -26,12 +26,14 @@ import ii.cipriantarlev.marketmanagementapi.vendor.Vendor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "invoices")
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Invoice {
 
 	@Id

@@ -23,12 +23,14 @@ import ii.cipriantarlev.marketmanagementapi.role.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name="users")
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class User {
 	
 	@Id

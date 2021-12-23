@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistoryService;
+import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,9 @@ public class PluServiceImpl implements PluService {
 
 	@Autowired
 	private PluMapper pluMapper;
+
+	@Autowired
+	private EntitiesHistoryService entitiesHistoryService;
 
 	@Override
 	public List<PluDTO> findAll() {
@@ -56,12 +61,13 @@ public class PluServiceImpl implements PluService {
 		}
 
 		var generatedPlu = pluRepository.save(new Plu(plu.getValue() + 1));
+		entitiesHistoryService.createEntityHistoryRecord(generatedPlu, null, HistoryAction.CREATE);
 		return pluMapper.mapEntityToDTO(generatedPlu);
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		this.findById(id);
+		entitiesHistoryService.createEntityHistoryRecord(this.findById(id), null, HistoryAction.DELETE);
 		pluRepository.deleteById(id);
 	}
 

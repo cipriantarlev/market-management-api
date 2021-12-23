@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistoryService;
+import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserMapper userMapper;
+
+	@Autowired
+	private EntitiesHistoryService entitiesHistoryService;
 
 	@Override
 	public List<UserDTO> findAll() {
@@ -56,6 +61,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 		var user = userRepository.save(userMapper.mapUserDTOToUser(userDTO));
+		entitiesHistoryService.createEntityHistoryRecord(user, null, HistoryAction.CREATE);
 		return userMapper.mapUserToUserDTO(user);
 	}
 
@@ -69,12 +75,13 @@ public class UserServiceImpl implements UserService {
 					String.format("User with username %s already exists in database.", userDTO.getUsername()), 0);
 		}
 		var user = userRepository.save(userMapper.mapUserDTOToUser(userDTO));
+		entitiesHistoryService.createEntityHistoryRecord(user, foundUser, HistoryAction.UPDATE);
 		return userMapper.mapUserToUserDTO(user);
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		this.findById(id);
+		entitiesHistoryService.createEntityHistoryRecord(this.findById(id), null, HistoryAction.DELETE);
 		userRepository.deleteById(id);
 	}
 

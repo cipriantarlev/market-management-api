@@ -18,12 +18,14 @@ import ii.cipriantarlev.marketmanagementapi.region.Region;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "vendors")
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Vendor {
 
 	@Id
