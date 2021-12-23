@@ -6,6 +6,8 @@ package ii.cipriantarlev.marketmanagementapi.documenttype;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistoryService;
+import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,9 @@ public class DocumentTypeServiceImpl implements DocumentTypeService {
 
 	@Autowired
 	private DocumentTypeMapper documentTypeMapper;
+
+	@Autowired
+	private EntitiesHistoryService entitiesHistoryService;
 
 	@Override
 	public List<DocumentTypeDTO> findAll() {
@@ -58,19 +63,21 @@ public class DocumentTypeServiceImpl implements DocumentTypeService {
 		}
 
 		var documentType = documentTypeRepository.save(documentTypeMapper.mapDTOToEntity(documentTypeDTO));
+		entitiesHistoryService.createEntityHistoryRecord(documentType, null, HistoryAction.CREATE);
 		return documentTypeMapper.mapEntityToDTO(documentType);
 	}
 
 	@Override
 	public DocumentTypeDTO update(DocumentTypeDTO documentTypeDTO) {
-		this.findById(documentTypeDTO.getId());
+		var foundDocumentTypeDTO = this.findById(documentTypeDTO.getId());
 		var documentType = documentTypeRepository.save(documentTypeMapper.mapDTOToEntity(documentTypeDTO));
+		entitiesHistoryService.createEntityHistoryRecord(documentType, foundDocumentTypeDTO, HistoryAction.UPDATE);
 		return documentTypeMapper.mapEntityToDTO(documentType);
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		this.findById(id);
+		entitiesHistoryService.createEntityHistoryRecord(this.findById(id), null, HistoryAction.DELETE);
 		documentTypeRepository.deleteById(id);
 	}
 }

@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistoryService;
+import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,9 @@ public class ProductCodeServiceImpl implements ProductCodeService {
 
 	@Autowired
 	private ProductCodeMapper productCodeMapper;
+
+	@Autowired
+	private EntitiesHistoryService entitiesHistoryService;
 
 	@Override
 	public List<ProductCodeDTO> findAll() {
@@ -56,13 +61,15 @@ public class ProductCodeServiceImpl implements ProductCodeService {
 		}
 
 		Long generatedValue = Long.parseLong(lastProductCode.getValue().substring(2)) + 1;
-		var generatedProductCode = productCodeRepository.save(new ProductCode("MD" + String.format("%08d", generatedValue)));
+		var generatedProductCode =
+				productCodeRepository.save(new ProductCode("MD" + String.format("%08d", generatedValue)));
+		entitiesHistoryService.createEntityHistoryRecord(generatedProductCode, null, HistoryAction.CREATE);
 		return productCodeMapper.mapEntityToDTO(generatedProductCode);
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		this.findById(id);
+		entitiesHistoryService.createEntityHistoryRecord(this.findById(id), null, HistoryAction.DELETE);
 		productCodeRepository.deleteById(id);
 	}
 

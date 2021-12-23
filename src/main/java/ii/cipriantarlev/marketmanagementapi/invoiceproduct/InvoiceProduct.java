@@ -21,12 +21,14 @@ import ii.cipriantarlev.marketmanagementapi.product.Product;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "invoice_products")
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class InvoiceProduct {
 
 	@Id

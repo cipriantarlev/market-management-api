@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import ii.cipriantarlev.marketmanagementapi.core.AuthenticationInformation;
 import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistoryService;
 import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +27,6 @@ public class MeasuringUnitServiceImpl implements MeasuringUnitService {
 
     @Autowired
     private EntitiesHistoryService entitiesHistoryService;
-
-    @Autowired
-    private AuthenticationInformation authenticationInformation;
 
     @Override
     public List<MeasuringUnitDTO> findAll() {
@@ -69,9 +65,7 @@ public class MeasuringUnitServiceImpl implements MeasuringUnitService {
         }
 
         var measuringUnit = measuringUnitRepository.save(measuringUnitMapper.mapDTOToEntity(measuringUnitDTO));
-        entitiesHistoryService
-                .createEntityHistoryRecord(measuringUnit, null, HistoryAction.CREATE,
-                        authenticationInformation.getAuthentication().getName());
+        entitiesHistoryService.createEntityHistoryRecord(measuringUnit, null, HistoryAction.CREATE);
         return measuringUnitMapper.mapEntityToDTO(measuringUnit);
     }
 
@@ -79,18 +73,13 @@ public class MeasuringUnitServiceImpl implements MeasuringUnitService {
     public MeasuringUnitDTO update(MeasuringUnitDTO measuringUnitDTO) {
         var foundMeasuringUnit = this.findById(measuringUnitDTO.getId());
         var measuringUnit = measuringUnitRepository.save(measuringUnitMapper.mapDTOToEntity(measuringUnitDTO));
-        entitiesHistoryService
-                .createEntityHistoryRecord(measuringUnit, foundMeasuringUnit, HistoryAction.UPDATE,
-                        authenticationInformation.getAuthentication().getName());
+        entitiesHistoryService.createEntityHistoryRecord(measuringUnit, foundMeasuringUnit, HistoryAction.UPDATE);
         return measuringUnitMapper.mapEntityToDTO(measuringUnit);
     }
 
     @Override
     public void deleteById(Integer id) {
-        var measuringUnit = this.findById(id);
-        entitiesHistoryService
-                .createEntityHistoryRecord(measuringUnit, null, HistoryAction.DELETE,
-                        authenticationInformation.getAuthentication().getName());
+        entitiesHistoryService.createEntityHistoryRecord(this.findById(id), null, HistoryAction.DELETE);
         measuringUnitRepository.deleteById(id);
     }
 }

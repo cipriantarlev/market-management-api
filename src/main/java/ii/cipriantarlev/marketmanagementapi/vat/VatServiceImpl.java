@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistoryService;
+import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,9 @@ public class VatServiceImpl implements VatService {
 
 	@Autowired
 	private VatMapper vatMapper;
+
+	@Autowired
+	private EntitiesHistoryService entitiesHistoryService;
 
 	@Override
 	public List<VatDTO> findAll() {
@@ -57,19 +62,21 @@ public class VatServiceImpl implements VatService {
 		}
 
 		var vat = vatRepository.save(vatMapper.mapVatDTOToVat(vatDTO));
+		entitiesHistoryService.createEntityHistoryRecord(vat, null, HistoryAction.CREATE);
 		return vatMapper.mapVatToVatDTO(vat);
 	}
 
 	@Override
 	public VatDTO update(VatDTO vatDTO) {
-		this.findById(vatDTO.getId());
+		var foundVat = this.findById(vatDTO.getId());
 		var vat = vatRepository.save(vatMapper.mapVatDTOToVat(vatDTO));
+		entitiesHistoryService.createEntityHistoryRecord(vat, foundVat, HistoryAction.UPDATE);
 		return vatMapper.mapVatToVatDTO(vat);
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		this.findById(id);
+		entitiesHistoryService.createEntityHistoryRecord(this.findById(id), null, HistoryAction.DELETE);
 		vatRepository.deleteById(id);
 	}
 }

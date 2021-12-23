@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * © 2021 II Ciprian Tarlev. All Rights Reserved.
+ *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.history;
 
 import org.springframework.data.jpa.repository.JpaRepository;

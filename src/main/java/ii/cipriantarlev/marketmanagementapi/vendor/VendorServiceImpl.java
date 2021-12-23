@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistoryService;
+import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,9 @@ public class VendorServiceImpl implements VendorService {
 
 	@Autowired
 	private VendorMapper vendorMapper;
+
+	@Autowired
+	private EntitiesHistoryService entitiesHistoryService;
 
 	@Override
 	public List<VendorDTONoRegions> findAll() {
@@ -57,19 +62,21 @@ public class VendorServiceImpl implements VendorService {
 		}
 
 		var vendor = vendorRepository.save(vendorMapper.mapVendorDTOToVendor(vendorDTO));
+		entitiesHistoryService.createEntityHistoryRecord(vendor, null, HistoryAction.CREATE);
 		return vendorMapper.mapVendorToVendorDTO(vendor);
 	}
 
 	@Override
 	public VendorDTO update(VendorDTO vendorDTO) {
-		this.findById(vendorDTO.getId());
+		var foundVendor = this.findById(vendorDTO.getId());
 		var vendor = vendorRepository.save(vendorMapper.mapVendorDTOToVendor(vendorDTO));
+		entitiesHistoryService.createEntityHistoryRecord(vendor, foundVendor, HistoryAction.UPDATE);
 		return vendorMapper.mapVendorToVendorDTO(vendor);
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		this.findById(id);
+		entitiesHistoryService.createEntityHistoryRecord(this.findById(id), null, HistoryAction.DELETE);
 		vendorRepository.deleteById(id);
 	}
 

@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistoryService;
+import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,9 @@ public class MyOrganizationServiceImpl implements MyOrganizationService {
 
 	@Autowired
 	private MyOrganizationMapper myOrganizationMapper;
+
+	@Autowired
+	private EntitiesHistoryService entitiesHistoryService;
 
 	@Override
 	public List<MyOrganizationDTO> findAll() {
@@ -61,20 +66,22 @@ public class MyOrganizationServiceImpl implements MyOrganizationService {
 
 		var myOrganization = myOrganizationRepository
 				.save(myOrganizationMapper.mapDTOToEntity(myOrganizationDTO));
+		entitiesHistoryService.createEntityHistoryRecord(myOrganization, null, HistoryAction.CREATE);
 		return myOrganizationMapper.mapEntityToDTO(myOrganization);
 	}
 
 	@Override
 	public MyOrganizationDTO update(MyOrganizationDTO myOrganizationDTO) {
-		this.findById(myOrganizationDTO.getId());
+		var foundMyOrganization = this.findById(myOrganizationDTO.getId());
 		var myOrganization = myOrganizationRepository
 				.save(myOrganizationMapper.mapDTOToEntity(myOrganizationDTO));
+		entitiesHistoryService.createEntityHistoryRecord(myOrganization, foundMyOrganization, HistoryAction.UPDATE);
 		return myOrganizationMapper.mapEntityToDTO(myOrganization);
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		this.findById(id);
+		entitiesHistoryService.createEntityHistoryRecord(this.findById(id), null, HistoryAction.DELETE);
 		myOrganizationRepository.deleteById(id);
 	}
 
