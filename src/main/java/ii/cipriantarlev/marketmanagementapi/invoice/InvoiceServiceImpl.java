@@ -6,6 +6,8 @@ package ii.cipriantarlev.marketmanagementapi.invoice;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistoryService;
+import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,9 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 	@Autowired
 	private InvoiceMapper invoiceMapper;
+
+	@Autowired
+	private EntitiesHistoryService entitiesHistoryService;
 
 	@Override
 	public List<InvoiceDTO> findAll() {
@@ -59,25 +64,29 @@ public class InvoiceServiceImpl implements InvoiceService {
 		}
 		
 		var savedInvoice = invoiceRepository.save(invoiceMapper.mapDTOToEntity(invoiceDTO));
+		entitiesHistoryService.createEntityHistoryRecord(savedInvoice, null, HistoryAction.CREATE);
 		return invoiceMapper.mapEntityToDTO(savedInvoice);
 	}
 
 	@Override
 	public InvoiceDTO update(InvoiceDTO invoiceDTO) {
-		this.findById(invoiceDTO.getId());
+		var foundInvoiceDTO = this.findById(invoiceDTO.getId());
 		var savedInvoice = invoiceRepository.save(invoiceMapper.mapDTOToEntity(invoiceDTO));
+		entitiesHistoryService.createEntityHistoryRecord(savedInvoice, foundInvoiceDTO, HistoryAction.UPDATE);
 		return invoiceMapper.mapEntityToDTO(savedInvoice);
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		this.findById(id);
+		entitiesHistoryService.createEntityHistoryRecord(this.findById(id), null, HistoryAction.DELETE);
 		invoiceRepository.deleteById(id);
 	}
 
 	@Override
 	public int updateIsApprovedMarker(boolean isApproved, Long id) {
-		this.findById(id);
+		var foundInvoice = this.findById(id);
+		foundInvoice.setApproved(isApproved);
+		entitiesHistoryService.createEntityHistoryRecord(foundInvoice, this.findById(id), HistoryAction.UPDATE);
 		return invoiceRepository.updateIsApprovedMarker(isApproved, id);
 	}
 

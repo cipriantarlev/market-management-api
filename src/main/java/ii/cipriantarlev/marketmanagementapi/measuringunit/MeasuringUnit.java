@@ -10,15 +10,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "measuring_units")
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class MeasuringUnit {
 
 	@Id

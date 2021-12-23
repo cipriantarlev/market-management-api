@@ -20,12 +20,14 @@ import ii.cipriantarlev.marketmanagementapi.category.Category;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "subcategories")
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Subcategory {
 
 	@Id

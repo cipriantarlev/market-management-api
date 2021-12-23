@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistoryService;
+import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,9 @@ public class SubcategoryServiceImpl implements SubcategoryService {
 
 	@Autowired
 	private SubcategoryMapper subcategoryMapper;
+
+	@Autowired
+	private EntitiesHistoryService entitiesHistoryService;
 
 	@Override
 	public List<SubcategoryDTO> findAll() {
@@ -71,20 +76,24 @@ public class SubcategoryServiceImpl implements SubcategoryService {
 					subcategoryDTO.getId());
 		}
 
-		var category = subcategoryRepository.save(subcategoryMapper.mapDTOToEntity(subcategoryDTO));
-		return subcategoryMapper.mapEntityToDTO(category);
+		var subcategory = subcategoryRepository.save(subcategoryMapper.mapDTOToEntity(subcategoryDTO));
+		var savedSubcategoryDTO = subcategoryMapper.mapEntityToDTO(subcategory);
+		entitiesHistoryService.createEntityHistoryRecord(savedSubcategoryDTO, null, HistoryAction.CREATE);
+		return savedSubcategoryDTO;
 	}
 
 	@Override
 	public SubcategoryDTO update(SubcategoryDTO subcategoryDTO) {
-		this.findById(subcategoryDTO.getId());
+		var foundCategory = this.findById(subcategoryDTO.getId());
 		var category = subcategoryRepository.save(subcategoryMapper.mapDTOToEntity(subcategoryDTO));
-		return subcategoryMapper.mapEntityToDTO(category);
+		var sentSubcategoryDTO = subcategoryMapper.mapEntityToDTO(category);
+		entitiesHistoryService.createEntityHistoryRecord(sentSubcategoryDTO, foundCategory, HistoryAction.UPDATE);
+		return sentSubcategoryDTO;
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		this.findById(id);
+		entitiesHistoryService.createEntityHistoryRecord(this.findById(id), null, HistoryAction.DELETE);
 		subcategoryRepository.deleteById(id);
 	}
 

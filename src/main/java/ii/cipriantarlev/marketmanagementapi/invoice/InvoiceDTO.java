@@ -19,17 +19,14 @@ import ii.cipriantarlev.marketmanagementapi.documenttype.DocumentTypeDTO;
 import ii.cipriantarlev.marketmanagementapi.myorganization.MyOrganizationDTOOnlyName;
 import ii.cipriantarlev.marketmanagementapi.validation.LocalDateFormat;
 import ii.cipriantarlev.marketmanagementapi.vendor.VendorDTOOnlyName;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
+@ToString
 public class InvoiceDTO {
 
 	@Positive

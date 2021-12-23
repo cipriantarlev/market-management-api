@@ -22,17 +22,14 @@ import ii.cipriantarlev.marketmanagementapi.plu.PluDTO;
 import ii.cipriantarlev.marketmanagementapi.productscode.ProductCodeDTO;
 import ii.cipriantarlev.marketmanagementapi.subcategory.SubcategoryDTONoCategory;
 import ii.cipriantarlev.marketmanagementapi.vat.VatDTO;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
+@ToString
 public class ProductDTO {
 
 	@Positive

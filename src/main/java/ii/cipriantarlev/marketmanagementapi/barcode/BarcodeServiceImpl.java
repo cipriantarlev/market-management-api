@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistoryService;
+import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,9 @@ public class BarcodeServiceImpl implements BarcodeService {
 
 	@Autowired
 	private BarcodeMapper barcodeMapper;
+
+	@Autowired
+	private EntitiesHistoryService entitiesHistoryService;
 
 	@Override
 	public List<BarcodeDTO> findAll() {
@@ -60,8 +65,20 @@ public class BarcodeServiceImpl implements BarcodeService {
 
 	@Override
 	public void deleteById(Long id) {
-		findById(id);
+		var barcodeDTO = findById(id);
+		entitiesHistoryService.createEntityHistoryRecord(barcodeDTO, null, HistoryAction.DELETE);
 		barcodeRepository.deleteById(id);
+	}
+
+	@Override
+	public void deleteBarcodeWithNullProductId() {
+		entitiesHistoryService.createEntityHistoryRecord(Barcode.class, null, HistoryAction.DELETE);
+		barcodeRepository.deleteAll(barcodeRepository.findAllByProductIdNull());
+	}
+
+	@Override
+	public boolean checkIfValueExists(String value) {
+		return barcodeRepository.findByValue(value) != null;
 	}
 
 	private BarcodeDTO getGeneratedBarcode(BarcodeDTO barcodeDTO, String generatedBarcodeValue) {
@@ -69,18 +86,8 @@ public class BarcodeServiceImpl implements BarcodeService {
 		if (lastBarcode == null) {
 			return new BarcodeDTO(generatedBarcodeValue);
 		} else {
-			Long generatedValue = Long.parseLong(lastBarcode.getValue()) + 1;
-			return new BarcodeDTO(generatedValue.toString());
+			long generatedValue = Long.parseLong(lastBarcode.getValue()) + 1;
+			return new BarcodeDTO(Long.toString(generatedValue));
 		}
-	}
-
-	@Override
-	public void deleteBarcodeWithNullProductId() {
-		barcodeRepository.deleteAll(barcodeRepository.findAllByProductIdNull());
-	}
-
-	@Override
-	public boolean checkIfValueExists(String value) {
-		return barcodeRepository.findByValue(value) != null;
 	}
 }
