@@ -25,7 +25,7 @@ import lombok.*;
 public class UserDTO {
 
 	@Positive
-	private Integer id;
+	private Long id;
 
 	@NotBlank(message = "Username should not be blank or null")
 	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Username should contain only letters and numbers")

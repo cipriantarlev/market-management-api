@@ -9,11 +9,11 @@ public interface MeasuringUnitService {
 
 	List<MeasuringUnitDTO> findAll();
 
-	MeasuringUnitDTO findById(Integer id);
+	MeasuringUnitDTO findById(Long id);
 
 	MeasuringUnitDTO save(MeasuringUnitDTO measuringUnitDTO);
 
 	MeasuringUnitDTO update(MeasuringUnitDTO measuringUnitDTO);
 
-	void deleteById(Integer id);
+	void deleteById(Long id);
 }

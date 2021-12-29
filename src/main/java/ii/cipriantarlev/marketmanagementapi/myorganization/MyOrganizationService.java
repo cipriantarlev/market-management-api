@@ -11,11 +11,11 @@ public interface MyOrganizationService {
 
 	List<MyOrganizationDTOOnlyName> findAllMyOrganizationDTOOnlyName();
 
-	MyOrganizationDTO findById(Integer id);
+	MyOrganizationDTO findById(Long id);
 
 	MyOrganizationDTO save(MyOrganizationDTO userDTO);
 
 	MyOrganizationDTO update(MyOrganizationDTO userDTO);
 
-	void deleteById(Integer id);
+	void deleteById(Long id);
 }

@@ -33,7 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
 				.map(category -> categoryMapper.mapEntityToDTO(category))
 				.collect(Collectors.toList());
 
-		if (categories == null || categories.isEmpty()) {
+		if (categories.isEmpty()) {
 			throw new DTOListNotFoundException("Category list not found");
 		}
 
@@ -41,7 +41,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public CategoryDTO findById(Integer id) {
+	public CategoryDTO findById(Long id) {
 		var category = categoryRepository.findById(id);
 
 		if (category.isPresent()) {
@@ -62,23 +62,22 @@ public class CategoryServiceImpl implements CategoryService {
 							categoryDTO.getId()), categoryDTO.getId());
 		}
 		var category = categoryMapper.mapDTOToEntity(categoryDTO);
-		var savedCategoryDTO = categoryMapper.mapEntityToDTO(categoryRepository.save(category));
-		entitiesHistoryService.createEntityHistoryRecord(savedCategoryDTO, null, HistoryAction.CREATE);
-		return savedCategoryDTO;
+		var savedCategory = categoryRepository.save(category);
+		entitiesHistoryService.createEntityHistoryRecord(savedCategory, null, HistoryAction.CREATE);
+		return categoryMapper.mapEntityToDTO(savedCategory);
 	}
 
 	@Override
 	public CategoryDTO update(CategoryDTO categoryDTO) {
-		var foundCategoryDTO = this.findById(categoryDTO.getId());
-		var category = categoryMapper.mapDTOToEntity(categoryDTO);
-		var savedSubcategoryDTO = categoryMapper.mapEntityToDTO(categoryRepository.save(category));
-		entitiesHistoryService.createEntityHistoryRecord(savedSubcategoryDTO, foundCategoryDTO, HistoryAction.UPDATE);
-		return savedSubcategoryDTO;
+		var foundCategory = categoryMapper.mapDTOToEntity(this.findById(categoryDTO.getId()));
+		var savedCategory = categoryRepository.save(categoryMapper.mapDTOToEntity(categoryDTO));
+		entitiesHistoryService.createEntityHistoryRecord(savedCategory, foundCategory, HistoryAction.UPDATE);
+		return categoryMapper.mapEntityToDTO(savedCategory);
 	}
 
 	@Override
-	public void deleteById(Integer id) {
-		entitiesHistoryService.createEntityHistoryRecord(this.findById(id), null, HistoryAction.DELETE);
+	public void deleteById(Long id) {
+		entitiesHistoryService.createEntityHistoryRecord(categoryMapper.mapDTOToEntity(this.findById(id)), null, HistoryAction.DELETE);
 		categoryRepository.deleteById(id);
 	}
 }

@@ -45,7 +45,7 @@ public class MyOrganizationController {
 
 	@GetMapping(ID_PATH)
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<MyOrganizationDTO> getMyOrganizationDTO(@PathVariable Integer id) {
+	public ResponseEntity<MyOrganizationDTO> getMyOrganizationDTO(@PathVariable Long id) {
 		var myOrganization = myOrganizationService.findById(id);
 		return new ResponseEntity<>(myOrganization, HttpStatus.OK);
 	}
@@ -69,7 +69,7 @@ public class MyOrganizationController {
 
 	@DeleteMapping(ID_PATH)
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Void> deletedUser(@PathVariable Integer id) {
+	public ResponseEntity<Void> deletedUser(@PathVariable Long id) {
 		myOrganizationService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

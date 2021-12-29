@@ -11,11 +11,11 @@ public interface VendorService {
 
 	List<VendorDTOOnlyName> findAllVendorDTOOnlyName();
 
-	VendorDTO findById(Integer id);
+	VendorDTO findById(Long id);
 
 	VendorDTO save(VendorDTO vendorDTO);
 
 	VendorDTO update(VendorDTO vendorDTO);
 
-	void deleteById(Integer id);
+	void deleteById(Long id);
 }

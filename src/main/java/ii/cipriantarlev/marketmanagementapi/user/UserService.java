@@ -9,7 +9,7 @@ public interface UserService {
 
 	List<UserDTO> findAll();
 
-	UserDTO findById(Integer id);
+	UserDTO findById(Long id);
 
 	UserDTO findByUsername(String username);
 
@@ -17,5 +17,5 @@ public interface UserService {
 
 	UserDTO update(UserDTO userDTO);
 
-	void deleteById(Integer id);
+	void deleteById(Long id);
 }

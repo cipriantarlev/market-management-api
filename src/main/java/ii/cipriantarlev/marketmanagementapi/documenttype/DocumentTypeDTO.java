@@ -19,7 +19,7 @@ import lombok.*;
 public class DocumentTypeDTO {
 
 	@Positive
-	private Integer id;
+	private Long id;
 
 	@NotBlank(message = "Document type name should not be blank or null")
 	@Size(min = 1, max = 250, message = "Document type name length should be between {min} and {max}")

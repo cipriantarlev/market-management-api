@@ -19,7 +19,7 @@ import lombok.*;
 public class VendorDTOOnlyName {
 
 	@Positive
-	private Integer id;
+	private Long id;
 
 	@NotBlank(message = "Vendor name should not be blank or null")
 	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "Vendor name should contain only letters and numbers")

@@ -20,7 +20,7 @@ import lombok.*;
 public class MyOrganizationDTO {
 
 	@Positive
-	private Integer id;
+	private Long id;
 
 	@NotBlank(message = "My Organization name should not be blank or null")
 	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "My Organization name should contain only letters and numbers")

@@ -44,7 +44,7 @@ public class DocumentTypeController {
 
 	@GetMapping(ID_PATH)
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<DocumentTypeDTO> getDocumentType(@PathVariable Integer id) {
+	public ResponseEntity<DocumentTypeDTO> getDocumentType(@PathVariable Long id) {
 		var documentType = documentTypeService.findById(id);
 		return new ResponseEntity<>(documentType, HttpStatus.OK);
 	}
@@ -67,7 +67,7 @@ public class DocumentTypeController {
 
 	@DeleteMapping(ID_PATH)
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Void> deleteDocumentType(@PathVariable Integer id) {
+	public ResponseEntity<Void> deleteDocumentType(@PathVariable Long id) {
 		documentTypeService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

@@ -19,7 +19,7 @@ import lombok.*;
 public class CategoryDTO {
 
 	@Positive
-	private Integer id;
+	private Long id;
 
 	@NotBlank(message = "Category name should not be blank or null")
 	@Size(min = 1, max = 150, message = "Category name length should be between {min} and {max}")

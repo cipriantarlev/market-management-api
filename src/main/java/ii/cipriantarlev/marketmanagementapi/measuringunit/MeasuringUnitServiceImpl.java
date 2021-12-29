@@ -34,7 +34,7 @@ public class MeasuringUnitServiceImpl implements MeasuringUnitService {
                 .map(measuringUnit -> measuringUnitMapper.mapEntityToDTO(measuringUnit))
                 .collect(Collectors.toList());
 
-        if (measuringUnits == null || measuringUnits.isEmpty()) {
+        if (measuringUnits.isEmpty()) {
             throw new DTOListNotFoundException("Measuring unit list not found");
         }
 
@@ -42,7 +42,7 @@ public class MeasuringUnitServiceImpl implements MeasuringUnitService {
     }
 
     @Override
-    public MeasuringUnitDTO findById(Integer id) {
+    public MeasuringUnitDTO findById(Long id) {
         Optional<MeasuringUnit> measuringUnit = measuringUnitRepository.findById(id);
 
         if (measuringUnit.isPresent()) {
@@ -73,13 +73,13 @@ public class MeasuringUnitServiceImpl implements MeasuringUnitService {
     public MeasuringUnitDTO update(MeasuringUnitDTO measuringUnitDTO) {
         var foundMeasuringUnit = this.findById(measuringUnitDTO.getId());
         var measuringUnit = measuringUnitRepository.save(measuringUnitMapper.mapDTOToEntity(measuringUnitDTO));
-        entitiesHistoryService.createEntityHistoryRecord(measuringUnit, foundMeasuringUnit, HistoryAction.UPDATE);
+        entitiesHistoryService.createEntityHistoryRecord(measuringUnit, measuringUnitMapper.mapDTOToEntity(foundMeasuringUnit), HistoryAction.UPDATE);
         return measuringUnitMapper.mapEntityToDTO(measuringUnit);
     }
 
     @Override
-    public void deleteById(Integer id) {
-        entitiesHistoryService.createEntityHistoryRecord(this.findById(id), null, HistoryAction.DELETE);
+    public void deleteById(Long id) {
+        entitiesHistoryService.createEntityHistoryRecord(measuringUnitMapper.mapDTOToEntity(this.findById(id)), null, HistoryAction.DELETE);
         measuringUnitRepository.deleteById(id);
     }
 }

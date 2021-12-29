@@ -44,7 +44,7 @@ public class CategoryController {
 
 	@GetMapping(ID_PATH)
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<CategoryDTO> getCategory(@PathVariable Integer id) {
+	public ResponseEntity<CategoryDTO> getCategory(@PathVariable Long id) {
 		var category = categoryService.findById(id);
 		return new ResponseEntity<>(category, HttpStatus.OK);
 	}
@@ -67,7 +67,7 @@ public class CategoryController {
 
 	@DeleteMapping(ID_PATH)
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Void> deleteCategory(@PathVariable Integer id) {
+	public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
 		categoryService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

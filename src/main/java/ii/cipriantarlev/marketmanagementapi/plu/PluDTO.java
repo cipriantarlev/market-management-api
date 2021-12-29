@@ -18,7 +18,7 @@ import lombok.*;
 public class PluDTO {
 
 	@Positive
-	private Integer id;
+	private Long id;
 
 	@NotNull(message = "PLU value should not be null")
 	@Max(value = 9, message = "PLU value max value is {value}")
