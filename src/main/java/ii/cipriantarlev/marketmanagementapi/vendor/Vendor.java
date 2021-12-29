@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import ii.cipriantarlev.marketmanagementapi.core.SuperEntity;
 import ii.cipriantarlev.marketmanagementapi.region.Region;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,12 +27,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Vendor {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+public class Vendor extends SuperEntity {
 
 	@Column(name = "name")
 	private String name;
@@ -54,7 +50,7 @@ public class Vendor {
 	@Column(name = "city")
 	private String city;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH })
+	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.REFRESH })
 	@JoinColumn(name = "region_id")
 	private Region region;
 

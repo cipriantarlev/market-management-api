@@ -19,7 +19,7 @@ import lombok.*;
 public class SubcategoryDTONoCategory {
 
 	@Positive
-	private Integer id;
+	private Long id;
 
 	@NotBlank(message = "Subcategory name should not be blank or null")
 	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "Subcategory name should contain only letters and numbers")

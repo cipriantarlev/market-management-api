@@ -44,7 +44,7 @@ public class VendorController {
 
 	@GetMapping(ID_PATH)
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<VendorDTO> getVendor(@PathVariable Integer id) {
+	public ResponseEntity<VendorDTO> getVendor(@PathVariable Long id) {
 		var vendor = vendorService.findById(id);
 		return new ResponseEntity<>(vendor, HttpStatus.OK);
 	}
@@ -67,7 +67,7 @@ public class VendorController {
 
 	@DeleteMapping(ID_PATH)
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Void> deleteVendor(@PathVariable Integer id) {
+	public ResponseEntity<Void> deleteVendor(@PathVariable Long id) {
 		vendorService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

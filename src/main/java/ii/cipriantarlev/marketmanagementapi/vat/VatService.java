@@ -9,11 +9,11 @@ public interface VatService {
 
 	List<VatDTO> findAll();
 
-	VatDTO findById(Integer id);
+	VatDTO findById(Long id);
 
 	VatDTO save(VatDTO vatDTO);
 
 	VatDTO update(VatDTO vatDTO);
 
-	void deleteById(Integer id);
+	void deleteById(Long id);
 }

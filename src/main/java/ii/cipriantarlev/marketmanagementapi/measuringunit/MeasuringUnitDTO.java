@@ -19,7 +19,7 @@ import lombok.*;
 public class MeasuringUnitDTO {
 
 	@Positive
-	private Integer id;
+	private Long id;
 
 	@NotBlank(message = "Measuring Unit name should not be blank or null")
 	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Measuring Unit name should contain only letters and numbers")

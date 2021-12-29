@@ -54,43 +54,43 @@ public class TestDataDTOBuilder {
 	}
 
 	public CategoryDTO getNullValueCategoryDTO() {
-		return CategoryDTO.builder().id(1).build();
+		return CategoryDTO.builder().id(1L).build();
 	}
 
 	public CategoryDTO getBlankValueCategoryDTO() {
-		return CategoryDTO.builder().id(1).name(" ").build();
+		return CategoryDTO.builder().id(1L).name(" ").build();
 	}
 
 	public CategoryDTO getEmptyValueCategoryDTO() {
-		return CategoryDTO.builder().id(1).name("").build();
+		return CategoryDTO.builder().id(1L).name("").build();
 	}
 
 	public CategoryDTO getInvalidCharactersValueCategoryDTO() {
-		return CategoryDTO.builder().id(1).name("A3").build();
+		return CategoryDTO.builder().id(1L).name("A3").build();
 	}
 
 	public CategoryDTO getToManyCharactersValueCategoryDTO() {
-		return CategoryDTO.builder().id(1).name("taAsttes testtest".repeat(10)).build();
+		return CategoryDTO.builder().id(1L).name("taAsttes testtest".repeat(10)).build();
 	}
 
 	public DocumentTypeDTO getNullValueDocumentTypeDTO() {
-		return DocumentTypeDTO.builder().id(1).build();
+		return DocumentTypeDTO.builder().id(1L).build();
 	}
 
 	public DocumentTypeDTO getBlankValueDocumentTypeDTO() {
-		return DocumentTypeDTO.builder().id(1).name(" ").build();
+		return DocumentTypeDTO.builder().id(1L).name(" ").build();
 	}
 
 	public DocumentTypeDTO getEmptyValueDocumentTypeDTO() {
-		return DocumentTypeDTO.builder().id(1).name("").build();
+		return DocumentTypeDTO.builder().id(1L).name("").build();
 	}
 
 	public DocumentTypeDTO getInvalidCharactersValueDocumentTypeDTO() {
-		return DocumentTypeDTO.builder().id(1).name("A3").build();
+		return DocumentTypeDTO.builder().id(1L).name("A3").build();
 	}
 
 	public DocumentTypeDTO getToManyCharactersValueDocumentTypeDTO() {
-		return DocumentTypeDTO.builder().id(1).name("taAsttes testtest".repeat(20)).build();
+		return DocumentTypeDTO.builder().id(1L).name("taAsttes testtest".repeat(20)).build();
 	}
 	
 	public InvoiceDTO getNullDocumentTypeInvoiceDTO() {
@@ -506,28 +506,28 @@ public class TestDataDTOBuilder {
 	}
 
 	public MeasuringUnitDTO getNullValueMeasuringUnitDTO() {
-		return MeasuringUnitDTO.builder().id(1).build();
+		return MeasuringUnitDTO.builder().id(1L).build();
 	}
 
 	public MeasuringUnitDTO getBlankValueMeasuringUnitDTO() {
-		return MeasuringUnitDTO.builder().id(1).name(" ").build();
+		return MeasuringUnitDTO.builder().id(1L).name(" ").build();
 	}
 
 	public MeasuringUnitDTO getEmptyValueMeasuringUnitDTO() {
-		return MeasuringUnitDTO.builder().id(1).name("").build();
+		return MeasuringUnitDTO.builder().id(1L).name("").build();
 	}
 
 	public MeasuringUnitDTO getInvalidCharactersValueMeasuringUnitDTO() {
-		return MeasuringUnitDTO.builder().id(1).name("A3 s@").build();
+		return MeasuringUnitDTO.builder().id(1L).name("A3 s@").build();
 	}
 
 	public MeasuringUnitDTO getToManyCharactersValueMeasuringUnitDTO() {
-		return MeasuringUnitDTO.builder().id(1).name("taAsttestesttest".repeat(6)).build();
+		return MeasuringUnitDTO.builder().id(1L).name("taAsttestesttest".repeat(6)).build();
 	}
 
 	public MyOrganizationDTO getNullNameMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.bank("Ad2")
 				.fiscalCode("01254")
 				.bankAccount("6554")
@@ -539,7 +539,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getBlankNameMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name(" ")
 				.bank("Ad2")
 				.fiscalCode("01254")
@@ -552,7 +552,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getEmptyNameMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("")
 				.bank("Ad2")
 				.fiscalCode("01254")
@@ -565,7 +565,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getInvalidCharactersNameMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Asjfd ndjd @")
 				.bank("Ad2")
 				.fiscalCode("01254")
@@ -578,7 +578,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getToManyCharactersNameMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Asjfd ndjdd3d2 d3ds".repeat(10))
 				.bank("Ad2")
 				.fiscalCode("01254")
@@ -591,7 +591,7 @@ public class TestDataDTOBuilder {
 	
 	public MyOrganizationDTO getNullBankMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Ad2")
 				.fiscalCode("01254")
 				.bankAccount("6554")
@@ -603,7 +603,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getBlankBankMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Ad2")
 				.bank(" ")
 				.fiscalCode("01254")
@@ -616,7 +616,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getEmptyBankMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Ad2")
 				.bank("")
 				.fiscalCode("01254")
@@ -629,7 +629,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getInvalidCharactersBankMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Asjfd ndjd")
 				.bank("Ad2  @")
 				.fiscalCode("01254")
@@ -642,7 +642,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getToManyCharactersBankMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("dfA")
 				.bank("Asjfd ndjdd3d2 d3ds".repeat(15))
 				.fiscalCode("01254")
@@ -655,7 +655,7 @@ public class TestDataDTOBuilder {
 	
 	public MyOrganizationDTO getNullFiscalCodeMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Ad2")
 				.bank("01254")
 				.bankAccount("6554")
@@ -667,7 +667,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getBlankFiscalCodeMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Ad2")
 				.bank("01254")
 				.fiscalCode(" ")
@@ -680,7 +680,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getEmptyFiscalCodeMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Ad2")
 				.bank("01254")
 				.fiscalCode("")
@@ -693,7 +693,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getInvalidCharactersFiscalCodeMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Asjfd ndjd")
 				.bank("Ad2 f")
 				.fiscalCode("01254A")
@@ -706,7 +706,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getToManyCharactersFiscalCodeMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("dfA")
 				.bank("Asjfd ndjdd3d2 d3ds")
 				.fiscalCode("012545643".repeat(4))
@@ -719,7 +719,7 @@ public class TestDataDTOBuilder {
 	
 	public MyOrganizationDTO getNullBankAccountMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Ad2")
 				.bank("01254")
 				.fiscalCode("6554")
@@ -731,7 +731,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getBlankBankAccountMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Ad2")
 				.bank("01254")
 				.fiscalCode("6554")
@@ -744,7 +744,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getEmptyBankAccountMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Ad2")
 				.bank("01254")
 				.fiscalCode("6554")
@@ -757,7 +757,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getInvalidCharactersBankAccountMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Asjfd ndjd")
 				.bank("Ad2 f")
 				.fiscalCode("01254")
@@ -770,7 +770,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getToManyCharactersBankAccountMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("dfA")
 				.bank("Asjfd ndjdd3d2 d3ds")
 				.fiscalCode("012545643")
@@ -783,7 +783,7 @@ public class TestDataDTOBuilder {
 	
 	public MyOrganizationDTO getNullVatCodeMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Ad2")
 				.bank("01254")
 				.fiscalCode("6554")
@@ -795,7 +795,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getBlankVatCodeMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Ad2")
 				.bank("01254")
 				.fiscalCode("6554")
@@ -808,7 +808,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getEmptyVatCodeMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Ad2")
 				.bank("01254")
 				.fiscalCode("6554")
@@ -821,7 +821,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getInvalidCharactersVatCodeMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Asjfd ndjd")
 				.bank("Ad2 f")
 				.fiscalCode("01254")
@@ -834,7 +834,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getToManyCharactersVatCodeMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("dfA")
 				.bank("Asjfd ndjdd3d2 d3ds")
 				.fiscalCode("012545643")
@@ -847,7 +847,7 @@ public class TestDataDTOBuilder {
 	
 	public MyOrganizationDTO getNullCityMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Ad2")
 				.bank("01254")
 				.fiscalCode("6554")
@@ -859,7 +859,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getBlankCityMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Ad2")
 				.bank("01254")
 				.fiscalCode("6554")
@@ -872,7 +872,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getEmptyCityMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Ad2")
 				.bank("01254")
 				.fiscalCode("6554")
@@ -885,7 +885,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getInvalidCharactersCityMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Asjfd ndjd")
 				.bank("Ad2 f")
 				.fiscalCode("01254")
@@ -898,7 +898,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getToManyCharactersCityMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("dfA")
 				.bank("Asjfd ndjdd3d2 d3ds")
 				.fiscalCode("012545643")
@@ -911,7 +911,7 @@ public class TestDataDTOBuilder {
 	
 	public MyOrganizationDTO getInvalidCharactersPhoneNumberMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Asjfd ndjd")
 				.bank("Ad2 f")
 				.fiscalCode("01254")
@@ -924,7 +924,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getToManyCharactersPhoneNumberMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("dfA")
 				.bank("Asjfd ndjdd3d2 d3ds")
 				.fiscalCode("012545643")
@@ -937,7 +937,7 @@ public class TestDataDTOBuilder {
 	
 	public MyOrganizationDTO getInvalidCharactersEmailMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Asjfd ndjd")
 				.bank("Ad2 f")
 				.fiscalCode("01254")
@@ -950,7 +950,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getToManyCharactersEmailMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("dfA")
 				.bank("Asjfd ndjdd3d2 d3ds")
 				.fiscalCode("012545643")
@@ -963,7 +963,7 @@ public class TestDataDTOBuilder {
 	
 	public MyOrganizationDTO getInvalidCharactersNoteMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Asjfd ndjd")
 				.bank("Ad2 f")
 				.fiscalCode("01254")
@@ -976,7 +976,7 @@ public class TestDataDTOBuilder {
 
 	public MyOrganizationDTO getToManyCharactersNoteMyOrganizationDTO() {
 		return MyOrganizationDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("dfA")
 				.bank("Asjfd ndjdd3d2 d3ds")
 				.fiscalCode("012545643")
@@ -989,27 +989,27 @@ public class TestDataDTOBuilder {
 	
 	public PluDTO getNullValuePluDTO() {
 		return PluDTO.builder()
-				.id(1)
+				.id(1L)
 				.build();
 	}
 	
 	public PluDTO getNegativeValuePluDTO() {
 		return PluDTO.builder()
-				.id(1)
+				.id(1L)
 				.value(-1)
 				.build();
 	}
 	
 	public PluDTO getZeroValuePluDTO() {
 		return PluDTO.builder()
-				.id(1)
+				.id(1L)
 				.value(0)
 				.build();
 	}
 	
 	public PluDTO getWorngRangeValuePluDTO() {
 		return PluDTO.builder()
-				.id(1)
+				.id(1L)
 				.value(10)
 				.build();
 	}
@@ -1394,23 +1394,23 @@ public class TestDataDTOBuilder {
 	}
 
 	public RegionDTO getNullNameRegionDTO() {
-		return RegionDTO.builder().id(1).build();
+		return RegionDTO.builder().id(1L).build();
 	}
 
 	public RegionDTO getBlankNameRegionDTO() {
-		return RegionDTO.builder().id(1).name(" ").build();
+		return RegionDTO.builder().id(1L).name(" ").build();
 	}
 
 	public RegionDTO getEmptyNameRegionDTO() {
-		return RegionDTO.builder().id(1).name("").build();
+		return RegionDTO.builder().id(1L).name("").build();
 	}
 
 	public RegionDTO getInvalidCharactersNameRegionDTO() {
-		return RegionDTO.builder().id(1).name("A3 s@").build();
+		return RegionDTO.builder().id(1L).name("A3 s@").build();
 	}
 
 	public RegionDTO getToManyCharactersNameRegionDTO() {
-		return RegionDTO.builder().id(1).name("taAsttestesttest".repeat(10)).build();
+		return RegionDTO.builder().id(1L).name("taAsttestesttest".repeat(10)).build();
 	}
 
 	public RoleDTO getNullRoleRoleDTO() {
@@ -1435,14 +1435,14 @@ public class TestDataDTOBuilder {
 
 	public SubcategoryDTO getNullNameSubcategoryDTO() {
 		return SubcategoryDTO.builder()
-				.id(1)
+				.id(1L)
 				.category(CategoryDTO.builder().name("dsds").build())
 				.build();
 	}
 
 	public SubcategoryDTO getBlankNameSubcategoryDTO() {
 		return SubcategoryDTO.builder()
-				.id(1)
+				.id(1L)
 				.name(" ")
 				.category(CategoryDTO.builder().name("dsds").build())
 				.build();
@@ -1450,7 +1450,7 @@ public class TestDataDTOBuilder {
 
 	public SubcategoryDTO getEmptyNameSubcategoryDTO() {
 		return SubcategoryDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("")
 				.category(CategoryDTO.builder().name("dsds").build())
 				.build();
@@ -1458,7 +1458,7 @@ public class TestDataDTOBuilder {
 
 	public SubcategoryDTO getInvalidCharactersNameSubcategoryDTO() {
 		return SubcategoryDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("A3 s@")
 				.category(CategoryDTO.builder().name("dsds").build())
 				.build();
@@ -1466,7 +1466,7 @@ public class TestDataDTOBuilder {
 
 	public SubcategoryDTO getToManyCharactersNameSubcategoryDTO() {
 		return SubcategoryDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("taAsttestesttest".repeat(10))
 				.category(CategoryDTO.builder().name("dsds").build())
 				.build();
@@ -1474,14 +1474,14 @@ public class TestDataDTOBuilder {
 	
 	public SubcategoryDTO getNullCategorySubcategoryDTO() {
 		return SubcategoryDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("taAsttestesttest")
 				.build();
 	}
 	
 	public UserDTO getNullRolesUserDTO() {
 		return UserDTO.builder()
-				.id(1)
+				.id(1L)
 				.username("ciprian")
 				.password("ciprian")
 				.email("email@email.com")
@@ -1490,7 +1490,7 @@ public class TestDataDTOBuilder {
 	
 	public UserDTO getNullUsernameUserDTO() {
 		return UserDTO.builder()
-				.id(1)
+				.id(1L)
 				.password("ciprian")
 				.roles(new ArrayList<RoleDTO>())
 				.email("email@email.com")
@@ -1499,7 +1499,7 @@ public class TestDataDTOBuilder {
 
 	public UserDTO getBlankUsernameUserDTO() {
 		return UserDTO.builder()
-				.id(1)
+				.id(1L)
 				.username(" ")
 				.password("ciprian")
 				.roles(new ArrayList<RoleDTO>())
@@ -1509,7 +1509,7 @@ public class TestDataDTOBuilder {
 
 	public UserDTO getEmptyUsernameUserDTO() {
 		return UserDTO.builder()
-				.id(1)
+				.id(1L)
 				.username("")
 				.password("ciprian")
 				.roles(new ArrayList<RoleDTO>())
@@ -1519,7 +1519,7 @@ public class TestDataDTOBuilder {
 
 	public UserDTO getInvalidCharactersUsernameUserDTO() {
 		return UserDTO.builder()
-				.id(1)
+				.id(1L)
 				.username("ciprian#")
 				.password("ciprian")
 				.roles(new ArrayList<RoleDTO>())
@@ -1529,7 +1529,7 @@ public class TestDataDTOBuilder {
 
 	public UserDTO getToManyCharactersUsernameUserDTO() {
 		return UserDTO.builder()
-				.id(1)
+				.id(1L)
 				.username("ciprianciprianciprianciprian".repeat(10))
 				.password("ciprian")
 				.roles(new ArrayList<RoleDTO>())
@@ -1539,7 +1539,7 @@ public class TestDataDTOBuilder {
 	
 	public UserDTO getNullPasswordUserDTO() {
 		return UserDTO.builder()
-				.id(1)
+				.id(1L)
 				.username("ciprian")
 				.roles(new ArrayList<RoleDTO>())
 				.email("email@email.com")
@@ -1548,7 +1548,7 @@ public class TestDataDTOBuilder {
 
 	public UserDTO getBlankPasswordUserDTO() {
 		return UserDTO.builder()
-				.id(1)
+				.id(1L)
 				.username("ciprian")
 				.password(" ")
 				.roles(new ArrayList<RoleDTO>())
@@ -1558,7 +1558,7 @@ public class TestDataDTOBuilder {
 
 	public UserDTO getEmptyPasswordUserDTO() {
 		return UserDTO.builder()
-				.id(1)
+				.id(1L)
 				.username("ciprian")
 				.password("")
 				.roles(new ArrayList<RoleDTO>())
@@ -1568,7 +1568,7 @@ public class TestDataDTOBuilder {
 
 	public UserDTO getToManyCharactersPasswordUserDTO() {
 		return UserDTO.builder()
-				.id(1)
+				.id(1L)
 				.username("ciprian")
 				.password("ciprianciprianciprianciprian".repeat(10))
 				.roles(new ArrayList<RoleDTO>())
@@ -1578,7 +1578,7 @@ public class TestDataDTOBuilder {
 	
 	public UserDTO getNullEmailUserDTO() {
 		return UserDTO.builder()
-				.id(1)
+				.id(1L)
 				.username("ciprian")
 				.password("ciprian")
 				.roles(new ArrayList<RoleDTO>())
@@ -1587,7 +1587,7 @@ public class TestDataDTOBuilder {
 
 	public UserDTO getBlankEmailUserDTO() {
 		return UserDTO.builder()
-				.id(1)
+				.id(1L)
 				.username("ciprian")
 				.password("ciprian")
 				.roles(new ArrayList<RoleDTO>())
@@ -1597,7 +1597,7 @@ public class TestDataDTOBuilder {
 
 	public UserDTO getEmptyEmailUserDTO() {
 		return UserDTO.builder()
-				.id(1)
+				.id(1L)
 				.username("ciprian")
 				.password("ciprian")
 				.roles(new ArrayList<RoleDTO>())
@@ -1607,7 +1607,7 @@ public class TestDataDTOBuilder {
 
 	public UserDTO getInvalidCharactersEmailUserDTO() {
 		return UserDTO.builder()
-				.id(1)
+				.id(1L)
 				.username("ciprian")
 				.password("ciprian")
 				.roles(new ArrayList<RoleDTO>())
@@ -1617,7 +1617,7 @@ public class TestDataDTOBuilder {
 
 	public UserDTO getToManyCharactersEmailUserDTO() {
 		return UserDTO.builder()
-				.id(1)
+				.id(1L)
 				.username("ciprianciprianciprianciprian")
 				.password("ciprian")
 				.roles(new ArrayList<RoleDTO>())
@@ -1627,14 +1627,14 @@ public class TestDataDTOBuilder {
 	
 	public VatDTO getNullValueVatDTO() {
 		return VatDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("20%")
 				.build();
 	}
 
 	public VatDTO getNegativeValueVatDTO() {
 		return VatDTO.builder()
-				.id(1)
+				.id(1L)
 				.value(-1)
 				.name("20%")
 				.build();
@@ -1642,7 +1642,7 @@ public class TestDataDTOBuilder {
 	
 	public VatDTO getWorngRangeValueVatDTO() {
 		return VatDTO.builder()
-				.id(1)
+				.id(1L)
 				.value(100)
 				.name("20%")
 				.build();
@@ -1650,14 +1650,14 @@ public class TestDataDTOBuilder {
 	
 	public VatDTO getNullNameVatDTO() {
 		return VatDTO.builder()
-				.id(1)
+				.id(1L)
 				.value(6)
 				.build();
 	}
 
 	public VatDTO getBlankNameVatDTO() {
 		return VatDTO.builder()
-				.id(1)
+				.id(1L)
 				.value(6)
 				.name(" ")
 				.build();
@@ -1665,7 +1665,7 @@ public class TestDataDTOBuilder {
 
 	public VatDTO getEmptyNameVatDTO() {
 		return VatDTO.builder()
-				.id(1)
+				.id(1L)
 				.value(6)
 				.name("")
 				.build();
@@ -1673,7 +1673,7 @@ public class TestDataDTOBuilder {
 
 	public VatDTO getInvalidCharactersNameVatDTO() {
 		return VatDTO.builder()
-				.id(1)
+				.id(1L)
 				.value(6)
 				.name("20%$#")
 				.build();
@@ -1681,7 +1681,7 @@ public class TestDataDTOBuilder {
 
 	public VatDTO getToManyCharactersNameVatDTO() {
 		return VatDTO.builder()
-				.id(1)
+				.id(1L)
 				.value(6)
 				.name("20%20%20%20%20%20%20%".repeat(10))
 				.build();
@@ -1689,14 +1689,14 @@ public class TestDataDTOBuilder {
 	
 	public VendorDTO getNullNameVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.bank("Bank")
 				.fiscalCode("1205")
 				.bankAccount("0051")
 				.currency("MDL")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -1707,7 +1707,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getBlankNameVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name(" ")
 				.bank("Bank")
 				.fiscalCode("1205")
@@ -1715,7 +1715,7 @@ public class TestDataDTOBuilder {
 				.currency("MDL")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -1726,7 +1726,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getEmptyNameVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("")
 				.bank("Bank")
 				.fiscalCode("1205")
@@ -1734,7 +1734,7 @@ public class TestDataDTOBuilder {
 				.currency("MDL")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -1745,7 +1745,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getInvalidCharactersNameVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("dsfd#4")
 				.bank("Bank")
 				.fiscalCode("1205")
@@ -1753,7 +1753,7 @@ public class TestDataDTOBuilder {
 				.currency("MDL")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -1764,7 +1764,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getToManyCharactersNameVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Fdfdfds fdsfFd 5 ds sdfsd s".repeat(10))
 				.bank("Bank")
 				.fiscalCode("1205")
@@ -1772,7 +1772,7 @@ public class TestDataDTOBuilder {
 				.currency("MDL")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -1783,14 +1783,14 @@ public class TestDataDTOBuilder {
 	
 	public VendorDTO getNullBankVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.fiscalCode("1205")
 				.bankAccount("0051")
 				.currency("MDL")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -1801,7 +1801,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getBlankBankVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank(" ")
 				.fiscalCode("1205")
@@ -1809,7 +1809,7 @@ public class TestDataDTOBuilder {
 				.currency("MDL")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -1820,7 +1820,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getEmptyBankVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("")
 				.fiscalCode("1205")
@@ -1828,7 +1828,7 @@ public class TestDataDTOBuilder {
 				.currency("MDL")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -1839,7 +1839,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getInvalidCharactersBankVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("dsfd4")
 				.bank("dsfd#4")
 				.fiscalCode("1205")
@@ -1847,7 +1847,7 @@ public class TestDataDTOBuilder {
 				.currency("MDL")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -1858,7 +1858,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getToManyCharactersBankVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.bank("Fdfdfds fdsfFd 5 ds sdfsd s".repeat(10))
 				.fiscalCode("1205")
@@ -1866,7 +1866,7 @@ public class TestDataDTOBuilder {
 				.currency("MDL")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -1877,14 +1877,14 @@ public class TestDataDTOBuilder {
 	
 	public VendorDTO getNullFiscalCodeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("F1205")
 				.bankAccount("0051")
 				.currency("MDL")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -1895,7 +1895,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getBlankFiscalCodeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("1205")
 				.fiscalCode(" ")
@@ -1903,7 +1903,7 @@ public class TestDataDTOBuilder {
 				.currency("MDL")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -1914,7 +1914,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getEmptyFiscalCodeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("1205")
 				.fiscalCode("")
@@ -1922,7 +1922,7 @@ public class TestDataDTOBuilder {
 				.currency("MDL")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -1933,7 +1933,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getInvalidCharactersFiscalCodeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("dsfd4")
 				.bank("dsfd4")
 				.fiscalCode("dsfd#4")
@@ -1941,7 +1941,7 @@ public class TestDataDTOBuilder {
 				.currency("MDL")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -1952,7 +1952,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getToManyCharactersFiscalCodeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.fiscalCode("12054353453453453".repeat(10))
@@ -1960,7 +1960,7 @@ public class TestDataDTOBuilder {
 				.currency("MDL")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -1971,14 +1971,14 @@ public class TestDataDTOBuilder {
 	
 	public VendorDTO getNullBankAccountVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("F1205")
 				.fiscalCode("0051")
 				.currency("MDL")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -1989,7 +1989,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getBlankBankAccountVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("1205")
 				.fiscalCode("0051")
@@ -1997,7 +1997,7 @@ public class TestDataDTOBuilder {
 				.currency("MDL")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2008,7 +2008,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getEmptyBankAccountVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("1205")
 				.fiscalCode("0051")
@@ -2016,7 +2016,7 @@ public class TestDataDTOBuilder {
 				.currency("MDL")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2027,7 +2027,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getInvalidCharactersBankAccountVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("dsfd4")
 				.bank("dsfd4")
 				.fiscalCode("54484")
@@ -2035,7 +2035,7 @@ public class TestDataDTOBuilder {
 				.currency("MDL")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2046,7 +2046,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getToManyCharactersBankAccountVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.fiscalCode("12054353453453453")
@@ -2054,7 +2054,7 @@ public class TestDataDTOBuilder {
 				.currency("MDL")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2065,14 +2065,14 @@ public class TestDataDTOBuilder {
 	
 	public VendorDTO getNullCurrencyVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("F1205")
 				.fiscalCode("0051")
 				.bankAccount("324")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2083,7 +2083,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getBlankCurrencyVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("1205")
 				.fiscalCode("0051")
@@ -2091,7 +2091,7 @@ public class TestDataDTOBuilder {
 				.currency(" ")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2102,7 +2102,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getEmptyCurrencyVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("1205")
 				.fiscalCode("0051")
@@ -2110,7 +2110,7 @@ public class TestDataDTOBuilder {
 				.currency("")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2121,7 +2121,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getInvalidCharactersCurrencyVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("dsfd4")
 				.bank("dsfd4")
 				.fiscalCode("54484")
@@ -2129,7 +2129,7 @@ public class TestDataDTOBuilder {
 				.currency("MD#s43L")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2140,7 +2140,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getToManyCharactersCurrencyVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.fiscalCode("12054353453453453")
@@ -2148,7 +2148,7 @@ public class TestDataDTOBuilder {
 				.currency("MDLDSFSF".repeat(2))
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2159,14 +2159,14 @@ public class TestDataDTOBuilder {
 	
 	public VendorDTO getNullVatCodeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("F1205")
 				.fiscalCode("0051")
 				.bankAccount("324")
 				.currency("DKf")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2177,7 +2177,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getBlankVatCodeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("1205")
 				.fiscalCode("0051")
@@ -2185,7 +2185,7 @@ public class TestDataDTOBuilder {
 				.currency("DM")
 				.vatCode(" ")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2196,7 +2196,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getEmptyVatCodeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("1205")
 				.fiscalCode("0051")
@@ -2204,7 +2204,7 @@ public class TestDataDTOBuilder {
 				.currency("DF")
 				.vatCode("")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2215,7 +2215,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getInvalidCharactersVatCodeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("dsfd4")
 				.bank("dsfd4")
 				.fiscalCode("54484")
@@ -2223,7 +2223,7 @@ public class TestDataDTOBuilder {
 				.currency("MDD")
 				.vatCode("0545F$")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2234,7 +2234,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getToManyCharactersVatCodeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.fiscalCode("12054353453453453")
@@ -2242,7 +2242,7 @@ public class TestDataDTOBuilder {
 				.currency("MDLDSFSF")
 				.vatCode("05434225".repeat(10))
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2253,14 +2253,14 @@ public class TestDataDTOBuilder {
 	
 	public VendorDTO getNullCityVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("F1205")
 				.fiscalCode("0051")
 				.bankAccount("324")
 				.currency("DKf")
 				.vatCode("221")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2271,7 +2271,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getBlankCityVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("1205")
 				.fiscalCode("0051")
@@ -2279,7 +2279,7 @@ public class TestDataDTOBuilder {
 				.currency("DM")
 				.vatCode("12")
 				.city(" ")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2290,7 +2290,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getEmptyCityVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("1205")
 				.fiscalCode("0051")
@@ -2298,7 +2298,7 @@ public class TestDataDTOBuilder {
 				.currency("DF")
 				.vatCode("3244")
 				.city("")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2309,7 +2309,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getInvalidCharactersCityVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("dsfd4")
 				.bank("dsfd4")
 				.fiscalCode("54484")
@@ -2317,7 +2317,7 @@ public class TestDataDTOBuilder {
 				.currency("MDD")
 				.vatCode("0545")
 				.city("BS#$")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2328,7 +2328,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getToManyCharactersCityVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.fiscalCode("12054353453453453")
@@ -2336,7 +2336,7 @@ public class TestDataDTOBuilder {
 				.currency("MDLDSFSF")
 				.vatCode("05434225")
 				.city("BS dsfdsf 4fefe fefe".repeat(10))
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2347,7 +2347,7 @@ public class TestDataDTOBuilder {
 	
 	public VendorDTO getNullRegionVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("F1205")
 				.fiscalCode("0051")
@@ -2365,14 +2365,14 @@ public class TestDataDTOBuilder {
 	
 	public VendorDTO getNullPhoneNumberVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("F1205")
 				.fiscalCode("0051")
 				.bankAccount("324")
 				.currency("DKf")
 				.vatCode("221")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.city("0Ds")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2383,7 +2383,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getBlankPhoneNumberVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("1205")
 				.fiscalCode("0051")
@@ -2391,7 +2391,7 @@ public class TestDataDTOBuilder {
 				.currency("DM")
 				.vatCode("12")
 				.city("DM")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber(" ")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2402,7 +2402,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getEmptyPhoneNumberVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("1205")
 				.fiscalCode("0051")
@@ -2410,7 +2410,7 @@ public class TestDataDTOBuilder {
 				.currency("DF")
 				.vatCode("3244")
 				.city("DF")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2421,7 +2421,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getInvalidCharactersPhoneNumberVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("dsfd4")
 				.bank("dsfd4")
 				.fiscalCode("54484")
@@ -2429,7 +2429,7 @@ public class TestDataDTOBuilder {
 				.currency("MDD")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-$")
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2440,7 +2440,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getToManyCharactersPhoneNumberVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.fiscalCode("12054353453453453")
@@ -2448,7 +2448,7 @@ public class TestDataDTOBuilder {
 				.currency("MDLDSFSF")
 				.vatCode("05434225")
 				.city("BS dsfdsf 4fefe fefe")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-3343-43-434-".repeat(5))
 				.postalCode("15d")
 				.businessAddress("Strada")
@@ -2459,14 +2459,14 @@ public class TestDataDTOBuilder {
 	
 	public VendorDTO getNullPostalCodeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("F1205")
 				.fiscalCode("0051")
 				.bankAccount("324")
 				.currency("DKf")
 				.vatCode("221")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.city("0Ds")
 				.phoneNumber("24-5")
 				.businessAddress("Strada")
@@ -2477,7 +2477,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getBlankPostalCodeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("1205")
 				.fiscalCode("0051")
@@ -2485,7 +2485,7 @@ public class TestDataDTOBuilder {
 				.currency("DM")
 				.vatCode("12")
 				.city("DM")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("15-454")
 				.postalCode(" ")
 				.businessAddress("Strada")
@@ -2496,7 +2496,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getEmptyPostalCodeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("1205")
 				.fiscalCode("0051")
@@ -2504,7 +2504,7 @@ public class TestDataDTOBuilder {
 				.currency("DF")
 				.vatCode("3244")
 				.city("DF")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("31-545")
 				.postalCode("")
 				.businessAddress("Strada")
@@ -2515,7 +2515,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getInvalidCharactersPostalCodeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("dsfd4")
 				.bank("dsfd4")
 				.fiscalCode("54484")
@@ -2523,7 +2523,7 @@ public class TestDataDTOBuilder {
 				.currency("MDD")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-3")
 				.postalCode("15d$3#")
 				.businessAddress("Strada")
@@ -2534,7 +2534,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getToManyCharactersPostalCodeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.fiscalCode("12054353453453453")
@@ -2542,7 +2542,7 @@ public class TestDataDTOBuilder {
 				.currency("MDLDSFSF")
 				.vatCode("05434225")
 				.city("BS dsfdsf 4fefe fefe")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-3343-43-434-")
 				.postalCode("15dds32fdfd4443")
 				.businessAddress("Strada")
@@ -2553,14 +2553,14 @@ public class TestDataDTOBuilder {
 	
 	public VendorDTO getNullBusinessAddressVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("F1205")
 				.fiscalCode("0051")
 				.bankAccount("324")
 				.currency("DKf")
 				.vatCode("221")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.city("0Ds")
 				.phoneNumber("24-5")
 				.postalCode("Strada")
@@ -2571,7 +2571,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getBlankBusinessAddressVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("1205")
 				.fiscalCode("0051")
@@ -2579,7 +2579,7 @@ public class TestDataDTOBuilder {
 				.currency("DM")
 				.vatCode("12")
 				.city("DM")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("15-454")
 				.postalCode("Strada")
 				.businessAddress(" ")
@@ -2590,7 +2590,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getEmptyBusinessAddressVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("1205")
 				.fiscalCode("0051")
@@ -2598,7 +2598,7 @@ public class TestDataDTOBuilder {
 				.currency("DF")
 				.vatCode("3244")
 				.city("DF")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("31-545")
 				.postalCode("Strada")
 				.businessAddress("")
@@ -2609,7 +2609,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getInvalidCharactersBusinessAddressVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("dsfd4")
 				.bank("dsfd4")
 				.fiscalCode("54484")
@@ -2617,7 +2617,7 @@ public class TestDataDTOBuilder {
 				.currency("MDD")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-3")
 				.postalCode("15e3")
 				.businessAddress("Strada$#")
@@ -2628,7 +2628,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getToManyCharactersBusinessAddressVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.fiscalCode("12054353453453453")
@@ -2636,7 +2636,7 @@ public class TestDataDTOBuilder {
 				.currency("MDLDSFSF")
 				.vatCode("05434225")
 				.city("BS dsfdsf 4fefe fefe")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-3343-43-434-")
 				.postalCode("15dds")
 				.businessAddress("Strada fdfd s4re dsf sd ".repeat(20))
@@ -2647,14 +2647,14 @@ public class TestDataDTOBuilder {
 	
 	public VendorDTO getNullVendorTypeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("F1205")
 				.fiscalCode("0051")
 				.bankAccount("324")
 				.currency("DKf")
 				.vatCode("221")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.city("0Ds")
 				.phoneNumber("24-5")
 				.postalCode("Strada")
@@ -2665,7 +2665,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getBlankVendorTypeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("1205")
 				.fiscalCode("0051")
@@ -2673,7 +2673,7 @@ public class TestDataDTOBuilder {
 				.currency("DM")
 				.vatCode("12")
 				.city("DM")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("15-454")
 				.postalCode("Strada")
 				.businessAddress("FD df")
@@ -2684,7 +2684,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getEmptyVendorTypeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("1205")
 				.fiscalCode("0051")
@@ -2692,7 +2692,7 @@ public class TestDataDTOBuilder {
 				.currency("DF")
 				.vatCode("3244")
 				.city("DF")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("31-545")
 				.postalCode("Strada")
 				.businessAddress("FD df")
@@ -2703,7 +2703,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getInvalidCharactersVendorTypeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("dsfd4")
 				.bank("dsfd4")
 				.fiscalCode("54484")
@@ -2711,7 +2711,7 @@ public class TestDataDTOBuilder {
 				.currency("MDD")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-3")
 				.postalCode("15e3")
 				.businessAddress("Strada")
@@ -2722,7 +2722,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getToManyCharactersVendorTypeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.fiscalCode("12054353453453453")
@@ -2730,7 +2730,7 @@ public class TestDataDTOBuilder {
 				.currency("MDLDSFSF")
 				.vatCode("05434225")
 				.city("BS dsfdsf 4fefe fefe")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-3343-43-434-")
 				.postalCode("15dds")
 				.businessAddress("Strada fdfd s4re dsf sd ")
@@ -2741,14 +2741,14 @@ public class TestDataDTOBuilder {
 	
 	public VendorDTO getNullVendorLegalTypeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("F1205")
 				.fiscalCode("0051")
 				.bankAccount("324")
 				.currency("DKf")
 				.vatCode("221")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.city("0Ds")
 				.phoneNumber("24-5")
 				.postalCode("Strada")
@@ -2759,7 +2759,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getBlankVendorLegalTypeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("1205")
 				.fiscalCode("0051")
@@ -2767,7 +2767,7 @@ public class TestDataDTOBuilder {
 				.currency("DM")
 				.vatCode("12")
 				.city("DM")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("15-454")
 				.postalCode("Strada")
 				.businessAddress("FD df")
@@ -2778,7 +2778,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getEmptyVendorLegalTypeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Bank")
 				.bank("1205")
 				.fiscalCode("0051")
@@ -2786,7 +2786,7 @@ public class TestDataDTOBuilder {
 				.currency("DF")
 				.vatCode("3244")
 				.city("DF")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("31-545")
 				.postalCode("Strada")
 				.businessAddress("FD df")
@@ -2797,7 +2797,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getInvalidCharactersVendorLegalTypeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("dsfd4")
 				.bank("dsfd4")
 				.fiscalCode("54484")
@@ -2805,7 +2805,7 @@ public class TestDataDTOBuilder {
 				.currency("MDD")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-3")
 				.postalCode("15e3")
 				.businessAddress("Strada")
@@ -2816,7 +2816,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getToManyCharactersVendorLegalTypeVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.fiscalCode("12054353453453453")
@@ -2824,7 +2824,7 @@ public class TestDataDTOBuilder {
 				.currency("MDLDSFSF")
 				.vatCode("05434225")
 				.city("BS dsfdsf 4fefe fefe")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-3343-43-434-")
 				.postalCode("15dds")
 				.businessAddress("Strada fdfd s4re dsf sd ")
@@ -2835,7 +2835,7 @@ public class TestDataDTOBuilder {
 	
 	public VendorDTO getInvalidCharactersNoteVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("dsfd4")
 				.bank("dsfd4")
 				.fiscalCode("54484")
@@ -2843,7 +2843,7 @@ public class TestDataDTOBuilder {
 				.currency("MDD")
 				.vatCode("0545")
 				.city("BS")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-3")
 				.postalCode("15e3")
 				.businessAddress("Strada")
@@ -2855,7 +2855,7 @@ public class TestDataDTOBuilder {
 
 	public VendorDTO getToManyCharactersNoteVendorDTO() {
 		return VendorDTO.builder()
-				.id(1)
+				.id(1L)
 				.name("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.bank("Fdfdfds fdsfFd 5 ds sdfsd s")
 				.fiscalCode("12054353453453453")
@@ -2863,7 +2863,7 @@ public class TestDataDTOBuilder {
 				.currency("MDLDSFSF")
 				.vatCode("05434225")
 				.city("BS dsfdsf 4fefe fefe")
-				.region(RegionDTO.builder().id(1).name("A3 s").build())
+				.region(RegionDTO.builder().id(1L).name("A3 s").build())
 				.phoneNumber("00-55-3343-43-434-")
 				.postalCode("15dds")
 				.businessAddress("Strada fdfd s4re dsf sd ")

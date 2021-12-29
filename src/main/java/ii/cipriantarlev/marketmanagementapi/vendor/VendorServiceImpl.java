@@ -42,7 +42,7 @@ public class VendorServiceImpl implements VendorService {
 	}
 
 	@Override
-	public VendorDTO findById(Integer id) {
+	public VendorDTO findById(Long id) {
 		Optional<Vendor> vendor = vendorRepository.findById(id);
 
 		if (vendor.isPresent()) {
@@ -68,15 +68,15 @@ public class VendorServiceImpl implements VendorService {
 
 	@Override
 	public VendorDTO update(VendorDTO vendorDTO) {
-		var foundVendor = this.findById(vendorDTO.getId());
+		var foundVendor = vendorMapper.mapVendorDTOToVendor(this.findById(vendorDTO.getId()));
 		var vendor = vendorRepository.save(vendorMapper.mapVendorDTOToVendor(vendorDTO));
 		entitiesHistoryService.createEntityHistoryRecord(vendor, foundVendor, HistoryAction.UPDATE);
 		return vendorMapper.mapVendorToVendorDTO(vendor);
 	}
 
 	@Override
-	public void deleteById(Integer id) {
-		entitiesHistoryService.createEntityHistoryRecord(this.findById(id), null, HistoryAction.DELETE);
+	public void deleteById(Long id) {
+		entitiesHistoryService.createEntityHistoryRecord(vendorMapper.mapVendorDTOToVendor(this.findById(id)), null, HistoryAction.DELETE);
 		vendorRepository.deleteById(id);
 	}
 
@@ -86,7 +86,7 @@ public class VendorServiceImpl implements VendorService {
 				.map(vendor -> vendorMapper.mapEntityToVendorDTOOnlyName(vendor))
 				.collect(Collectors.toList());
 
-		if (vendorList == null || vendorList.isEmpty()) {
+		if (vendorList.isEmpty()) {
 			throw new DTOListNotFoundException("Vendor list not found");
 		}
 

@@ -65,14 +65,14 @@ public class BarcodeServiceImpl implements BarcodeService {
 
 	@Override
 	public void deleteById(Long id) {
-		var barcodeDTO = findById(id);
+		var barcodeDTO = barcodeMapper.mapDTOToEntity(findById(id));
 		entitiesHistoryService.createEntityHistoryRecord(barcodeDTO, null, HistoryAction.DELETE);
 		barcodeRepository.deleteById(id);
 	}
 
 	@Override
 	public void deleteBarcodeWithNullProductId() {
-		entitiesHistoryService.createEntityHistoryRecord(Barcode.class, null, HistoryAction.DELETE);
+		entitiesHistoryService.createEntityHistoryRecord(new Barcode("deleteBarcodeWithNullProductId"), null, HistoryAction.DELETE);
 		barcodeRepository.deleteAll(barcodeRepository.findAllByProductIdNull());
 	}
 

@@ -44,7 +44,7 @@ public class MeasuringUnitController {
 
 	@GetMapping(ID_PATH)
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<MeasuringUnitDTO> getMeasuringUnit(@PathVariable Integer id) {
+	public ResponseEntity<MeasuringUnitDTO> getMeasuringUnit(@PathVariable Long id) {
 		var measuringUnit = measuringUnitService.findById(id);
 		return new ResponseEntity<>(measuringUnit, HttpStatus.OK);
 	}
@@ -67,7 +67,7 @@ public class MeasuringUnitController {
 
 	@DeleteMapping(ID_PATH)
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Void> deleteVat(@PathVariable Integer id) {
+	public ResponseEntity<Void> deleteVat(@PathVariable Long id) {
 		measuringUnitService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

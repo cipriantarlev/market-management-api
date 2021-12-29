@@ -44,14 +44,14 @@ public class SubcategoryController {
 
 	@GetMapping(CATEGORY_CATEGORY_ID)
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<List<SubcategoryDTONoCategory>> getSubcategoriesByCategoryId(@PathVariable Integer categoryId) {
+	public ResponseEntity<List<SubcategoryDTONoCategory>> getSubcategoriesByCategoryId(@PathVariable Long categoryId) {
 		List<SubcategoryDTONoCategory> subcategories = subcategoryService.findAllByCategoryId(categoryId);
 		return new ResponseEntity<>(subcategories, HttpStatus.OK);
 	}
 
 	@GetMapping(ID_PATH)
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<SubcategoryDTO> getSubcategory(@PathVariable Integer id) {
+	public ResponseEntity<SubcategoryDTO> getSubcategory(@PathVariable Long id) {
 		var subcategory = subcategoryService.findById(id);
 		return new ResponseEntity<>(subcategory, HttpStatus.OK);
 	}
@@ -74,7 +74,7 @@ public class SubcategoryController {
 
 	@DeleteMapping(ID_PATH)
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Void> deleteSubcategory(@PathVariable Integer id) {
+	public ResponseEntity<Void> deleteSubcategory(@PathVariable Long id) {
 		subcategoryService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

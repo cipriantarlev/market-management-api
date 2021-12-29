@@ -45,7 +45,7 @@ public class UserController {
 
 	@GetMapping(ID_PATH)
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<UserDTO> getUser(@PathVariable Integer id) {
+	public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
 		var user = userService.findById(id);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
@@ -68,7 +68,7 @@ public class UserController {
 
 	@DeleteMapping(ID_PATH)
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
+	public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
 		userService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

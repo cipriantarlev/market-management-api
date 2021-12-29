@@ -41,7 +41,7 @@ public class DocumentTypeServiceImpl implements DocumentTypeService {
 	}
 
 	@Override
-	public DocumentTypeDTO findById(Integer id) {
+	public DocumentTypeDTO findById(Long id) {
 		var documentType = documentTypeRepository.findById(id);
 
 		if (documentType.isPresent()) {
@@ -69,15 +69,15 @@ public class DocumentTypeServiceImpl implements DocumentTypeService {
 
 	@Override
 	public DocumentTypeDTO update(DocumentTypeDTO documentTypeDTO) {
-		var foundDocumentTypeDTO = this.findById(documentTypeDTO.getId());
+		var foundDocumentType = documentTypeMapper.mapDTOToEntity(this.findById(documentTypeDTO.getId()));
 		var documentType = documentTypeRepository.save(documentTypeMapper.mapDTOToEntity(documentTypeDTO));
-		entitiesHistoryService.createEntityHistoryRecord(documentType, foundDocumentTypeDTO, HistoryAction.UPDATE);
+		entitiesHistoryService.createEntityHistoryRecord(documentType, foundDocumentType, HistoryAction.UPDATE);
 		return documentTypeMapper.mapEntityToDTO(documentType);
 	}
 
 	@Override
-	public void deleteById(Integer id) {
-		entitiesHistoryService.createEntityHistoryRecord(this.findById(id), null, HistoryAction.DELETE);
+	public void deleteById(Long id) {
+		entitiesHistoryService.createEntityHistoryRecord(documentTypeMapper.mapDTOToEntity(this.findById(id)), null, HistoryAction.DELETE);
 		documentTypeRepository.deleteById(id);
 	}
 }

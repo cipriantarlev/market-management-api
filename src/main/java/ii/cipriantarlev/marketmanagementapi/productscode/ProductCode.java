@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import ii.cipriantarlev.marketmanagementapi.core.SuperEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,12 +22,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ProductCode {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
+public class ProductCode extends SuperEntity {
 
 	@Column(name = "value")
 	private String value;

@@ -22,7 +22,7 @@ import lombok.*;
 public class VatDTO {
 
 	@Positive
-	private Integer id;
+	private Long id;
 
 	@NotNull(message = "Vat value should not be null")
 	@Max(value = 99, message = "Vat value max value is {value}")
