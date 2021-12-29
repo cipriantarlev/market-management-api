@@ -6,6 +6,9 @@ package ii.cipriantarlev.marketmanagementapi.invoiceproduct;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import ii.cipriantarlev.marketmanagementapi.invoice.InvoiceService;
+import ii.cipriantarlev.marketmanagementapi.product.ProductDTO;
+import ii.cipriantarlev.marketmanagementapi.vendor.VendorDTOOnlyName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +28,9 @@ public class InvoiceProductServiceImpl implements InvoiceProductService {
 
 	@Autowired
 	private ProductService productService;
+
+	@Autowired
+	private InvoiceService invoiceService;
 
 	@Override
 	public List<InvoiceProductDTO> findAllByInvoiceId(Long invoiceId) {
@@ -63,7 +69,7 @@ public class InvoiceProductServiceImpl implements InvoiceProductService {
 		}
 
 		var invoiceProduct = invoiceProductRepository.save(invoiceProductMapper.mapDTOToEntity(invoiceProductDTO));
-		productService.update(invoiceProductDTO.getProduct());
+		updateProduct(invoiceProductDTO);
 		return invoiceProductMapper.mapEntityToDTO(invoiceProduct);
 	}
 
@@ -81,5 +87,18 @@ public class InvoiceProductServiceImpl implements InvoiceProductService {
 		product.setStock(product.getStock().subtract(invoiceProduct.getQuantity()));
 		productService.update(product);
 		invoiceProductRepository.deleteById(id);
+	}
+
+	private void updateProduct(InvoiceProductDTO invoiceProductDTO) {
+		var invoice = invoiceService.findById(invoiceProductDTO.getInvoice().getId());
+		var product = invoiceProductDTO.getProduct();
+		product.setDefaultVendorId(invoice.getVendor().getId());
+		var collectedList = product.getVendors().stream()
+				.filter(vendorDTOOnlyName -> vendorDTOOnlyName.getId() != null)
+				.collect(Collectors.toList());
+		collectedList.add(VendorDTOOnlyName.builder().id(invoice.getVendor().getId()).build());
+		product.setVendors(collectedList);
+		productService.update(product);
+		System.out.println("Saved product: " + product);
 	}
 }

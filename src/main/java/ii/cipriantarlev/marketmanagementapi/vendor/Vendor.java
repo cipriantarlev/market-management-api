@@ -3,23 +3,18 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.vendor;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ii.cipriantarlev.marketmanagementapi.core.SuperEntity;
+import ii.cipriantarlev.marketmanagementapi.product.Product;
 import ii.cipriantarlev.marketmanagementapi.region.Region;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.List;
 
 @Entity
 @Table(name = "vendors")
@@ -72,22 +67,10 @@ public class Vendor extends SuperEntity {
 	@Column(name = "note")
 	private String note;
 
-	public Vendor(String name, String bank, String fiscalCode, String bankAccount, String currency, String vatCode,
-			String city, Region region, String phoneNumber, String postalCode, String businessAddress,
-			String vendorType, String vendorLegalType, String note) {
-		this.name = name;
-		this.bank = bank;
-		this.fiscalCode = fiscalCode;
-		this.bankAccount = bankAccount;
-		this.currency = currency;
-		this.vatCode = vatCode;
-		this.city = city;
-		this.region = region;
-		this.phoneNumber = phoneNumber;
-		this.postalCode = postalCode;
-		this.businessAddress = businessAddress;
-		this.vendorType = vendorType;
-		this.vendorLegalType = vendorLegalType;
-		this.note = note;
-	}
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH })
+	@JoinTable(name = "vendors_products",
+			joinColumns=@JoinColumn(name="vendor_id"),
+			inverseJoinColumns = @JoinColumn(name = "product_id"))
+	private List<Product> products;
 }
