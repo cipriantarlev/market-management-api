@@ -93,10 +93,11 @@ public class InvoiceProductServiceImpl implements InvoiceProductService {
 		var invoice = invoiceService.findById(invoiceProductDTO.getInvoice().getId());
 		var product = invoiceProductDTO.getProduct();
 		product.setDefaultVendorId(invoice.getVendor().getId());
+		product.getVendors().add(VendorDTOOnlyName.builder().id(invoice.getVendor().getId()).build());
 		var collectedList = product.getVendors().stream()
 				.filter(vendorDTOOnlyName -> vendorDTOOnlyName.getId() != null)
+				.distinct()
 				.collect(Collectors.toList());
-		collectedList.add(VendorDTOOnlyName.builder().id(invoice.getVendor().getId()).build());
 		product.setVendors(collectedList);
 		productService.update(product);
 	}

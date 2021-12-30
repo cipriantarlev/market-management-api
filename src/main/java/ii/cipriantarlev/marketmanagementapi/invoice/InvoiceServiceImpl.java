@@ -72,7 +72,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 	public InvoiceDTO update(InvoiceDTO invoiceDTO) {
 		var foundInvoiceDTO = invoiceMapper.mapDTOToEntity(this.findById(invoiceDTO.getId()));
 		var savedInvoice = invoiceRepository.save(invoiceMapper.mapDTOToEntity(invoiceDTO));
-		entitiesHistoryService.createEntityHistoryRecord(savedInvoice, foundInvoiceDTO, HistoryAction.UPDATE);
+		entitiesHistoryService.createEntityHistoryRecord(invoiceMapper.mapDTOToEntity(invoiceDTO), foundInvoiceDTO, HistoryAction.UPDATE);
 		return invoiceMapper.mapEntityToDTO(savedInvoice);
 	}
 
