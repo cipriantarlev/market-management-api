@@ -3,7 +3,6 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.history;
 
-import ii.cipriantarlev.marketmanagementapi.core.SuperEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,9 +29,6 @@ public class History {
 
     @Column(name = "action")
     private String action;
-
-    @Column(name = "entity_name")
-    private String entityName;
 
     @Column(name = "created")
     private LocalDateTime created;
