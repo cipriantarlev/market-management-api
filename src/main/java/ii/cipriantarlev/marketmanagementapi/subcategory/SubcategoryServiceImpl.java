@@ -42,12 +42,12 @@ public class SubcategoryServiceImpl implements SubcategoryService {
 	}
 
 	@Override
-	public List<SubcategoryDTONoCategory> findAllByCategoryId(Integer id) {
+	public List<SubcategoryDTONoCategory> findAllByCategoryId(Long id) {
 		List<SubcategoryDTONoCategory> subcategories = subcategoryRepository.findAllByCategoryId(id).stream()
 				.map(subcategory -> subcategoryMapper.mapEntityToNoCategoryDTO(subcategory))
 				.collect(Collectors.toList());
 
-		if (subcategories == null || subcategories.isEmpty()) {
+		if (subcategories.isEmpty()) {
 			throw new DTOListNotFoundException("Subcategory list not found");
 		}
 
@@ -55,7 +55,7 @@ public class SubcategoryServiceImpl implements SubcategoryService {
 	}
 
 	@Override
-	public SubcategoryDTO findById(Integer id) {
+	public SubcategoryDTO findById(Long id) {
 		Optional<Subcategory> subcategory = subcategoryRepository.findById(id);
 
 		if (subcategory.isPresent()) {
@@ -77,23 +77,21 @@ public class SubcategoryServiceImpl implements SubcategoryService {
 		}
 
 		var subcategory = subcategoryRepository.save(subcategoryMapper.mapDTOToEntity(subcategoryDTO));
-		var savedSubcategoryDTO = subcategoryMapper.mapEntityToDTO(subcategory);
-		entitiesHistoryService.createEntityHistoryRecord(savedSubcategoryDTO, null, HistoryAction.CREATE);
-		return savedSubcategoryDTO;
+		entitiesHistoryService.createEntityHistoryRecord(subcategory, null, HistoryAction.CREATE);
+		return subcategoryMapper.mapEntityToDTO(subcategory);
 	}
 
 	@Override
 	public SubcategoryDTO update(SubcategoryDTO subcategoryDTO) {
-		var foundCategory = this.findById(subcategoryDTO.getId());
-		var category = subcategoryRepository.save(subcategoryMapper.mapDTOToEntity(subcategoryDTO));
-		var sentSubcategoryDTO = subcategoryMapper.mapEntityToDTO(category);
-		entitiesHistoryService.createEntityHistoryRecord(sentSubcategoryDTO, foundCategory, HistoryAction.UPDATE);
-		return sentSubcategoryDTO;
+		var foundSubcategory = subcategoryMapper.mapDTOToEntity(this.findById(subcategoryDTO.getId()));
+		var subcategory = subcategoryRepository.save(subcategoryMapper.mapDTOToEntity(subcategoryDTO));
+		entitiesHistoryService.createEntityHistoryRecord(subcategory, foundSubcategory, HistoryAction.UPDATE);
+		return subcategoryMapper.mapEntityToDTO(subcategory);
 	}
 
 	@Override
-	public void deleteById(Integer id) {
-		entitiesHistoryService.createEntityHistoryRecord(this.findById(id), null, HistoryAction.DELETE);
+	public void deleteById(Long id) {
+		entitiesHistoryService.createEntityHistoryRecord(subcategoryMapper.mapDTOToEntity(this.findById(id)), null, HistoryAction.DELETE);
 		subcategoryRepository.deleteById(id);
 	}
 

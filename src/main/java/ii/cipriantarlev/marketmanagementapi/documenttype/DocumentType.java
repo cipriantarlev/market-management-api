@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import ii.cipriantarlev.marketmanagementapi.core.SuperEntity;
 import lombok.*;
 
 @Entity
@@ -20,13 +21,12 @@ import lombok.*;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @ToString
-public class DocumentType {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+public class DocumentType extends SuperEntity {
 
 	@Column(name = "name")
 	private String name;
+
+	public DocumentType(long id) {
+		super(id);
+	}
 }

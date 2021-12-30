@@ -22,6 +22,7 @@ import ii.cipriantarlev.marketmanagementapi.plu.PluDTO;
 import ii.cipriantarlev.marketmanagementapi.productscode.ProductCodeDTO;
 import ii.cipriantarlev.marketmanagementapi.subcategory.SubcategoryDTONoCategory;
 import ii.cipriantarlev.marketmanagementapi.vat.VatDTO;
+import ii.cipriantarlev.marketmanagementapi.vendor.VendorDTOOnlyName;
 import lombok.*;
 
 @Getter
@@ -86,4 +87,9 @@ public class ProductDTO {
 	@Valid
 	@NotNull(message = "ProductCodeDTO should not be null")
 	private ProductCodeDTO productCode;
+
+	@Positive
+	private Long defaultVendorId;
+
+	private List<VendorDTOOnlyName> vendors;
 }

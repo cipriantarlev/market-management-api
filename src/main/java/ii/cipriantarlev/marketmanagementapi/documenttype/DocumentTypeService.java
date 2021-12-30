@@ -9,11 +9,11 @@ public interface DocumentTypeService {
 
 	List<DocumentTypeDTO> findAll();
 
-	DocumentTypeDTO findById(Integer id);
+	DocumentTypeDTO findById(Long id);
 
 	DocumentTypeDTO save(DocumentTypeDTO documentTypeDTO);
 
 	DocumentTypeDTO update(DocumentTypeDTO documentTypeDTO);
 
-	void deleteById(Integer id);
+	void deleteById(Long id);
 }

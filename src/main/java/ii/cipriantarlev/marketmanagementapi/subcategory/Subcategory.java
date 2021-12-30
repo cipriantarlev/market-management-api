@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import ii.cipriantarlev.marketmanagementapi.category.Category;
+import ii.cipriantarlev.marketmanagementapi.core.SuperEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,12 +29,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Subcategory {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+public class Subcategory extends SuperEntity {
 	
 	@Column(name="name")
 	private String name;

@@ -67,7 +67,7 @@ public class PluServiceImpl implements PluService {
 
 	@Override
 	public void deleteById(Integer id) {
-		entitiesHistoryService.createEntityHistoryRecord(this.findById(id), null, HistoryAction.DELETE);
+		entitiesHistoryService.createEntityHistoryRecord(pluMapper.mapDTOToEntity(this.findById(id)), null, HistoryAction.DELETE);
 		pluRepository.deleteById(id);
 	}
 

@@ -34,7 +34,7 @@ public class MyOrganizationServiceImpl implements MyOrganizationService {
 				.map(myOrganization -> myOrganizationMapper.mapEntityToDTO(myOrganization))
 				.collect(Collectors.toList());
 
-		if (myOrganizations == null || myOrganizations.isEmpty()) {
+		if (myOrganizations.isEmpty()) {
 			throw new DTOListNotFoundException("My Organization list not found");
 		}
 
@@ -42,7 +42,7 @@ public class MyOrganizationServiceImpl implements MyOrganizationService {
 	}
 
 	@Override
-	public MyOrganizationDTO findById(Integer id) {
+	public MyOrganizationDTO findById(Long id) {
 		Optional<MyOrganization> myOrganization = myOrganizationRepository.findById(id);
 
 		if (myOrganization.isPresent()) {
@@ -72,7 +72,7 @@ public class MyOrganizationServiceImpl implements MyOrganizationService {
 
 	@Override
 	public MyOrganizationDTO update(MyOrganizationDTO myOrganizationDTO) {
-		var foundMyOrganization = this.findById(myOrganizationDTO.getId());
+		var foundMyOrganization = myOrganizationMapper.mapDTOToEntity(this.findById(myOrganizationDTO.getId()));
 		var myOrganization = myOrganizationRepository
 				.save(myOrganizationMapper.mapDTOToEntity(myOrganizationDTO));
 		entitiesHistoryService.createEntityHistoryRecord(myOrganization, foundMyOrganization, HistoryAction.UPDATE);
@@ -80,8 +80,8 @@ public class MyOrganizationServiceImpl implements MyOrganizationService {
 	}
 
 	@Override
-	public void deleteById(Integer id) {
-		entitiesHistoryService.createEntityHistoryRecord(this.findById(id), null, HistoryAction.DELETE);
+	public void deleteById(Long id) {
+		entitiesHistoryService.createEntityHistoryRecord(myOrganizationMapper.mapDTOToEntity(this.findById(id)), null, HistoryAction.DELETE);
 		myOrganizationRepository.deleteById(id);
 	}
 
@@ -91,7 +91,7 @@ public class MyOrganizationServiceImpl implements MyOrganizationService {
 				.map(myOrganization -> myOrganizationMapper.mapEntityToMyOrganizationDTOOnlyName(myOrganization))
 				.collect(Collectors.toList());
 
-		if (myOrganizationList == null || myOrganizationList.isEmpty()) {
+		if (myOrganizationList.isEmpty()) {
 			throw new DTOListNotFoundException("Measuring unit list not found");
 		}
 

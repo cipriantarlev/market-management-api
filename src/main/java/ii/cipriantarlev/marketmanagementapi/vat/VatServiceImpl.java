@@ -34,7 +34,7 @@ public class VatServiceImpl implements VatService {
 				.map(vat -> vatMapper.mapVatToVatDTO(vat))
 				.collect(Collectors.toList());
 
-		if (vatList == null || vatList.isEmpty()) {
+		if (vatList.isEmpty()) {
 			throw new DTOListNotFoundException("VAT list not found");
 		}
 
@@ -42,7 +42,7 @@ public class VatServiceImpl implements VatService {
 	}
 
 	@Override
-	public VatDTO findById(Integer id) {
+	public VatDTO findById(Long id) {
 		Optional<Vat> vat = vatRepository.findById(id);
 
 		if (vat.isPresent()) {
@@ -68,15 +68,15 @@ public class VatServiceImpl implements VatService {
 
 	@Override
 	public VatDTO update(VatDTO vatDTO) {
-		var foundVat = this.findById(vatDTO.getId());
+		var foundVat = vatMapper.mapVatDTOToVat(this.findById(vatDTO.getId()));
 		var vat = vatRepository.save(vatMapper.mapVatDTOToVat(vatDTO));
 		entitiesHistoryService.createEntityHistoryRecord(vat, foundVat, HistoryAction.UPDATE);
 		return vatMapper.mapVatToVatDTO(vat);
 	}
 
 	@Override
-	public void deleteById(Integer id) {
-		entitiesHistoryService.createEntityHistoryRecord(this.findById(id), null, HistoryAction.DELETE);
+	public void deleteById(Long id) {
+		entitiesHistoryService.createEntityHistoryRecord(vatMapper.mapVatDTOToVat(this.findById(id)), null, HistoryAction.DELETE);
 		vatRepository.deleteById(id);
 	}
 }

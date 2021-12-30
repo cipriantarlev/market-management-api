@@ -9,11 +9,11 @@ public interface CategoryService {
 
 	List<CategoryDTO> findAll();
 
-	CategoryDTO findById(Integer id);
+	CategoryDTO findById(Long id);
 
 	CategoryDTO update(CategoryDTO categoryDTO);
 
 	CategoryDTO save(CategoryDTO categoryDTO);
 
-	void deleteById(Integer id);
+	void deleteById(Long id);
 }

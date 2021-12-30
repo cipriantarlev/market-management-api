@@ -19,7 +19,7 @@ import lombok.*;
 public class RegionDTO {
 
 	@Positive
-	private Integer id;
+	private Long id;
 
 	@NotBlank(message = "Region name should not be blank or null")
 	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "Region name should contain only letters and numbers")

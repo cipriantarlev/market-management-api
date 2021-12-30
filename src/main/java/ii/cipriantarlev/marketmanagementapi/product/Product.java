@@ -6,18 +6,9 @@ package ii.cipriantarlev.marketmanagementapi.product;
 import java.math.BigDecimal;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ii.cipriantarlev.marketmanagementapi.barcode.Barcode;
 import ii.cipriantarlev.marketmanagementapi.category.Category;
 import ii.cipriantarlev.marketmanagementapi.invoiceproduct.InvoiceProduct;
@@ -26,6 +17,7 @@ import ii.cipriantarlev.marketmanagementapi.plu.Plu;
 import ii.cipriantarlev.marketmanagementapi.productscode.ProductCode;
 import ii.cipriantarlev.marketmanagementapi.subcategory.Subcategory;
 import ii.cipriantarlev.marketmanagementapi.vat.Vat;
+import ii.cipriantarlev.marketmanagementapi.vendor.Vendor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,7 +28,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class Product {
 
 	@Id
@@ -93,21 +84,13 @@ public class Product {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
 	private List<InvoiceProduct> invoiceProducts;
 
-	public Product(String nameRom, String nameRus, Category category, Subcategory subcategory,
-			BigDecimal discountPrice, BigDecimal retailPrice, BigDecimal tradeMargin, MeasuringUnit measuringUnit,
-			Vat vat, List<Barcode> barCodes, Plu plu, BigDecimal stock, ProductCode productCode) {
-		this.nameRom = nameRom;
-		this.nameRus = nameRus;
-		this.category = category;
-		this.subcategory = subcategory;
-		this.discountPrice = discountPrice;
-		this.retailPrice = retailPrice;
-		this.tradeMargin = tradeMargin;
-		this.measuringUnit = measuringUnit;
-		this.vat = vat;
-		this.barCodes = barCodes;
-		this.plu = plu;
-		this.stock = stock;
-		this.productCode = productCode;
-	}
+	@Column(name = "default_vendor_id")
+	private Long defaultVendorId;
+
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH })
+	@JoinTable(name = "vendors_products",
+			joinColumns=@JoinColumn(name="product_id"),
+			inverseJoinColumns = @JoinColumn(name = "vendor_id"))
+	private List<Vendor> vendors;
 }

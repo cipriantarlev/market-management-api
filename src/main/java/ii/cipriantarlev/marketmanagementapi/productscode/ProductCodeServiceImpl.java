@@ -33,7 +33,7 @@ public class ProductCodeServiceImpl implements ProductCodeService {
 				.map(productCode -> productCodeMapper.mapEntityToDTO(productCode))
 				.collect(Collectors.toList());
 
-		if (productCodes == null || productCodes.isEmpty()) {
+		if (productCodes.isEmpty()) {
 			throw new DTOListNotFoundException("ProductCode list not found");
 		}
 
@@ -69,7 +69,7 @@ public class ProductCodeServiceImpl implements ProductCodeService {
 
 	@Override
 	public void deleteById(Long id) {
-		entitiesHistoryService.createEntityHistoryRecord(this.findById(id), null, HistoryAction.DELETE);
+		entitiesHistoryService.createEntityHistoryRecord(productCodeMapper.mapDTOToEntity(this.findById(id)), null, HistoryAction.DELETE);
 		productCodeRepository.deleteById(id);
 	}
 

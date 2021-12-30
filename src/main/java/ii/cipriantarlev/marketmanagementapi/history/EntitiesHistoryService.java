@@ -3,7 +3,9 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.history;
 
+import ii.cipriantarlev.marketmanagementapi.core.SuperEntity;
+
 public interface EntitiesHistoryService {
 
-    <T> void createEntityHistoryRecord(T newEntity, T oldEntity, HistoryAction action);
+    <T extends SuperEntity> void createEntityHistoryRecord(T newEntity, T oldEntity, HistoryAction action);
 }

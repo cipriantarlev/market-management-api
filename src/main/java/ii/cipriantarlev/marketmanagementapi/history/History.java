@@ -3,11 +3,9 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.history;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -31,15 +29,6 @@ public class History {
 
     @Column(name = "action")
     private String action;
-
-    @Column(name = "entity_name")
-    private String entityName;
-
-    @Column(name = "new_entity")
-    private String newEntity;
-
-    @Column(name = "old_entity")
-    private String oldEntity;
 
     @Column(name = "created")
     private LocalDateTime created;

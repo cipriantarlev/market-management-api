@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import ii.cipriantarlev.marketmanagementapi.core.SuperEntity;
 import lombok.*;
 
 @Entity
@@ -18,12 +19,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class MeasuringUnit {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+public class MeasuringUnit extends SuperEntity {
 
 	@Column(name = "name")
 	private String name;

@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import ii.cipriantarlev.marketmanagementapi.core.SuperEntity;
 import ii.cipriantarlev.marketmanagementapi.documenttype.DocumentType;
 import ii.cipriantarlev.marketmanagementapi.invoiceproduct.InvoiceProduct;
 import ii.cipriantarlev.marketmanagementapi.myorganization.MyOrganization;
@@ -33,13 +34,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
-public class Invoice {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
+public class Invoice extends SuperEntity {
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "document_type_id")

@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDTO findById(Integer id) {
+	public UserDTO findById(Long id) {
 		Optional<User> user = userRepository.findById(id);
 
 		if (user.isPresent()) {
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO update(UserDTO userDTO) {
-		var foundUser = this.findById(userDTO.getId());
+		var foundUser = userMapper.mapUserDTOToUser(this.findById(userDTO.getId()));
 		if (userDTO.getUsername() != null && userRepository.findByUsername(userDTO.getUsername()) != null
 				&& !userDTO.getUsername().equalsIgnoreCase(foundUser.getUsername())) {
 
@@ -80,8 +80,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteById(Integer id) {
-		entitiesHistoryService.createEntityHistoryRecord(this.findById(id), null, HistoryAction.DELETE);
+	public void deleteById(Long id) {
+		entitiesHistoryService.createEntityHistoryRecord(userMapper.mapUserDTOToUser(this.findById(id)), null, HistoryAction.DELETE);
 		userRepository.deleteById(id);
 	}
 

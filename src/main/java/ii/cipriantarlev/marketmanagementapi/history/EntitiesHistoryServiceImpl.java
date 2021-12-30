@@ -4,6 +4,7 @@
 package ii.cipriantarlev.marketmanagementapi.history;
 
 import ii.cipriantarlev.marketmanagementapi.core.AuthenticationInformation;
+import ii.cipriantarlev.marketmanagementapi.core.SuperEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +20,13 @@ public class EntitiesHistoryServiceImpl implements EntitiesHistoryService {
     private AuthenticationInformation authenticationInformation;
 
     @Override
-    public <T> void createEntityHistoryRecord(T newEntity, T oldEntity, HistoryAction action) {
+    public <T extends SuperEntity> void createEntityHistoryRecord(T newEntity, T oldEntity, HistoryAction action) {
         EntitiesHistory entitiesHistory = new EntitiesHistory();
         entitiesHistory.setUsername(authenticationInformation.getAuthentication().getName());
         entitiesHistory.setAction(action.getAction());
         entitiesHistory.setEntityName(newEntity.getClass().getSimpleName());
-        entitiesHistory.setNewEntity(newEntity.toString());
-        entitiesHistory.setOldEntity(oldEntity != null ? oldEntity.toString() : null);
+        entitiesHistory.setNewEntity(newEntity);
+        entitiesHistory.setOldEntity(oldEntity);
         entitiesHistory.setCreated(LocalDateTime.now());
         entitiesHistoryRepository.save(entitiesHistory);
     }

@@ -9,13 +9,13 @@ public interface SubcategoryService {
 
 	List<SubcategoryDTO> findAll();
 
-	List<SubcategoryDTONoCategory> findAllByCategoryId(Integer id);
+	List<SubcategoryDTONoCategory> findAllByCategoryId(Long id);
 
-	SubcategoryDTO findById(Integer id);
+	SubcategoryDTO findById(Long id);
 
 	SubcategoryDTO save(SubcategoryDTO subcategoryDTO);
 
 	SubcategoryDTO update(SubcategoryDTO subcategoryDTO);
 
-	void deleteById(Integer id);
+	void deleteById(Long id);
 }

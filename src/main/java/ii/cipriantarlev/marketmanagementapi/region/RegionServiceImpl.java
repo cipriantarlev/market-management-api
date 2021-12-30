@@ -26,7 +26,7 @@ public class RegionServiceImpl implements RegionService {
 				.map(region -> regionMapper.mapRegionToRegionDTO(region))
 				.collect(Collectors.toList());
 
-		if (regions == null || regions.isEmpty()) {
+		if (regions.isEmpty()) {
 			throw new DTOListNotFoundException("Region list not found");
 		}
 

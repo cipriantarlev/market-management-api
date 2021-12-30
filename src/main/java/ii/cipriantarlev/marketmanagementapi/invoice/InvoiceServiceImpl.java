@@ -70,30 +70,31 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 	@Override
 	public InvoiceDTO update(InvoiceDTO invoiceDTO) {
-		var foundInvoiceDTO = this.findById(invoiceDTO.getId());
+		var foundInvoiceDTO = invoiceMapper.mapDTOToEntity(this.findById(invoiceDTO.getId()));
 		var savedInvoice = invoiceRepository.save(invoiceMapper.mapDTOToEntity(invoiceDTO));
-		entitiesHistoryService.createEntityHistoryRecord(savedInvoice, foundInvoiceDTO, HistoryAction.UPDATE);
+		entitiesHistoryService.createEntityHistoryRecord(invoiceMapper.mapDTOToEntity(invoiceDTO), foundInvoiceDTO, HistoryAction.UPDATE);
 		return invoiceMapper.mapEntityToDTO(savedInvoice);
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		entitiesHistoryService.createEntityHistoryRecord(this.findById(id), null, HistoryAction.DELETE);
+		entitiesHistoryService.createEntityHistoryRecord(invoiceMapper.mapDTOToEntity(this.findById(id)), null, HistoryAction.DELETE);
 		invoiceRepository.deleteById(id);
 	}
 
 	@Override
 	public int updateIsApprovedMarker(boolean isApproved, Long id) {
-		var foundInvoice = this.findById(id);
+		var foundInvoice = invoiceMapper.mapDTOToEntity(this.findById(id));
 		foundInvoice.setApproved(isApproved);
-		entitiesHistoryService.createEntityHistoryRecord(foundInvoice, this.findById(id), HistoryAction.UPDATE);
+		entitiesHistoryService.createEntityHistoryRecord(
+				foundInvoice, invoiceMapper.mapDTOToEntity(this.findById(id)), HistoryAction.UPDATE);
 		return invoiceRepository.updateIsApprovedMarker(isApproved, id);
 	}
 
 	@Override
 	public List<InvoiceDTO> findAllIncomeInvoices() {
 		List<InvoiceDTO> invoices = invoiceRepository
-				.findAllByDocumentType(DocumentType.builder().id(1).build()).stream()
+				.findAllByDocumentType(new DocumentType(1L)).stream()
 				.map(invoice -> invoiceMapper.mapEntityToDTO(invoice)).collect(Collectors.toList());
 
 		if (invoices == null || invoices.isEmpty()) {
@@ -106,7 +107,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 	@Override
 	public List<InvoiceDTO> findAllOutcomeInvoices() {
 		List<InvoiceDTO> invoices = invoiceRepository
-				.findAllByDocumentType(DocumentType.builder().id(2).build()).stream()
+				.findAllByDocumentType(new DocumentType(2L)).stream()
 				.map(invoice -> invoiceMapper.mapEntityToDTO(invoice)).collect(Collectors.toList());
 
 		if (invoices == null || invoices.isEmpty()) {

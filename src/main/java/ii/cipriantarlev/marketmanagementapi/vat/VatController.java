@@ -44,7 +44,7 @@ public class VatController {
 
 	@GetMapping(ID_PATH)
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<VatDTO> getVatById(@PathVariable Integer id) {
+	public ResponseEntity<VatDTO> getVatById(@PathVariable Long id) {
 		VatDTO vat = vatService.findById(id);
 		return new ResponseEntity<>(vat, HttpStatus.OK);
 	}
@@ -60,13 +60,13 @@ public class VatController {
 	@PutMapping
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<VatDTO> updateDTO(@Valid @RequestBody VatDTO vatDTO) {
-		var savedVat = vatService.save(vatDTO);
+		var savedVat = vatService.update(vatDTO);
 		return new ResponseEntity<>(savedVat, HttpStatus.OK);
 	}
 
 	@DeleteMapping(ID_PATH)
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Void> deleteVat(@PathVariable Integer id) {
+	public ResponseEntity<Void> deleteVat(@PathVariable Long id) {
 		vatService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
