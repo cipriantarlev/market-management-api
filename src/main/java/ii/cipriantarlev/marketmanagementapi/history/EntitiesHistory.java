@@ -23,6 +23,9 @@ import javax.persistence.Table;
 @TypeDef(name = "json", typeClass = JsonType.class)
 public class EntitiesHistory extends History {
 
+    @Column(name = "entity_name")
+    private String entityName;
+
     @Type(type = "json")
     @Column(name = "new_entity", columnDefinition = "jsonb")
     private SuperEntity newEntity;

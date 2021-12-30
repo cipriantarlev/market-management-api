@@ -6,6 +6,8 @@ package ii.cipriantarlev.marketmanagementapi.product;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
+import ii.cipriantarlev.marketmanagementapi.product.history.ProductHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private BarcodeService barcodeService;
+
+	@Autowired
+	private ProductHistoryService productHistoryService;
 
 	@Override
 	public List<ProductDTOForList> findAll() {
@@ -60,7 +65,9 @@ public class ProductServiceImpl implements ProductService {
 
 		var product = productRepository.save(productMapper.mapDTOToEntity(productDTO));
 		barcodeService.deleteBarcodeWithNullProductId();
-		return productMapper.mapEntityToDTO(product);
+		var foundProductDTO = productMapper.mapEntityToDTO(product);
+		productHistoryService.createProductHistoryRecord(foundProductDTO, HistoryAction.CREATE);
+		return foundProductDTO;
 	}
 
 	@Override
@@ -68,12 +75,14 @@ public class ProductServiceImpl implements ProductService {
 		this.findById(productDTO.getId());
 		var product = productRepository.save(productMapper.mapDTOToEntity(productDTO));
 		barcodeService.deleteBarcodeWithNullProductId();
-		return productMapper.mapEntityToDTO(product);
+		var foundProductDTO = productMapper.mapEntityToDTO(product);
+		productHistoryService.createProductHistoryRecord(foundProductDTO, HistoryAction.UPDATE);
+		return foundProductDTO;
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		this.findById(id);
+		productHistoryService.createProductHistoryRecord(this.findById(id), HistoryAction.DELETE);
 		productRepository.deleteById(id);
 	}
 

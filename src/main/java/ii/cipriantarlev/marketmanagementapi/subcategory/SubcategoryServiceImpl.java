@@ -83,10 +83,10 @@ public class SubcategoryServiceImpl implements SubcategoryService {
 
 	@Override
 	public SubcategoryDTO update(SubcategoryDTO subcategoryDTO) {
-		var foundCategory = subcategoryMapper.mapDTOToEntity(this.findById(subcategoryDTO.getId()));
-		var category = subcategoryRepository.save(subcategoryMapper.mapDTOToEntity(subcategoryDTO));
-		entitiesHistoryService.createEntityHistoryRecord(category, foundCategory, HistoryAction.UPDATE);
-		return subcategoryMapper.mapEntityToDTO(category);
+		var foundSubcategory = subcategoryMapper.mapDTOToEntity(this.findById(subcategoryDTO.getId()));
+		var subcategory = subcategoryRepository.save(subcategoryMapper.mapDTOToEntity(subcategoryDTO));
+		entitiesHistoryService.createEntityHistoryRecord(subcategory, foundSubcategory, HistoryAction.UPDATE);
+		return subcategoryMapper.mapEntityToDTO(subcategory);
 	}
 
 	@Override

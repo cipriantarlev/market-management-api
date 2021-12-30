@@ -72,7 +72,6 @@ public class BarcodeServiceImpl implements BarcodeService {
 
 	@Override
 	public void deleteBarcodeWithNullProductId() {
-		entitiesHistoryService.createEntityHistoryRecord(new Barcode("deleteBarcodeWithNullProductId"), null, HistoryAction.DELETE);
 		barcodeRepository.deleteAll(barcodeRepository.findAllByProductIdNull());
 	}
 

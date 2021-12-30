@@ -99,6 +99,5 @@ public class InvoiceProductServiceImpl implements InvoiceProductService {
 		collectedList.add(VendorDTOOnlyName.builder().id(invoice.getVendor().getId()).build());
 		product.setVendors(collectedList);
 		productService.update(product);
-		System.out.println("Saved product: " + product);
 	}
 }

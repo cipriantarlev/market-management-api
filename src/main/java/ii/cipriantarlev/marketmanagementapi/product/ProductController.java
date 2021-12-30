@@ -5,9 +5,12 @@ package ii.cipriantarlev.marketmanagementapi.product;
 
 import static ii.cipriantarlev.marketmanagementapi.utils.Constants.*;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
+import ii.cipriantarlev.marketmanagementapi.product.history.ProductHistory;
+import ii.cipriantarlev.marketmanagementapi.product.history.ProductHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +36,9 @@ public class ProductController {
 
 	@Autowired
 	private RestControllerUtil restControllerUtil;
+
+	@Autowired
+	private ProductHistoryService productHistoryService;
 
 	@GetMapping
 	public ResponseEntity<List<ProductDTOForList>> getProducts() {
@@ -79,5 +85,11 @@ public class ProductController {
 	@GetMapping(PRODUCT_BY_NAME_RUS)
 	public ResponseEntity<Boolean> checkIfNameRusExists(@PathVariable String value) {
 		return new ResponseEntity<>(productService.checkIfNameRusExists(value), HttpStatus.OK);
+	}
+
+	@GetMapping(PRODUCT_HISTORY_BY_ID)
+	public ResponseEntity<Set<ProductHistory>> getProducts(@PathVariable Long productId) {
+		var products = productHistoryService.findProductPriceHistory(productId);
+		return new ResponseEntity<>(products, HttpStatus.OK);
 	}
 }
