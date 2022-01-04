@@ -33,7 +33,7 @@ public class PluController {
 	}
 
 	@GetMapping(ID_PATH)
-	public ResponseEntity<PluDTO> getPlu(@PathVariable Integer id) {
+	public ResponseEntity<PluDTO> getPlu(@PathVariable Long id) {
 		var plu = pluService.findById(id);
 		return new ResponseEntity<>(plu, HttpStatus.OK);
 	}
@@ -45,7 +45,7 @@ public class PluController {
 	}
 
 	@DeleteMapping(ID_PATH)
-	public ResponseEntity<Void> deletePlu(@PathVariable Integer id) {
+	public ResponseEntity<Void> deletePlu(@PathVariable Long id) {
 		pluService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

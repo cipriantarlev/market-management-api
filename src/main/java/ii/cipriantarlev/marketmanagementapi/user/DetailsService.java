@@ -39,5 +39,4 @@ public class DetailsService implements UserDetailsService {
 		var array = new String[roleList.size()];
 		return roleList.toArray(array);
 	}
-
 }

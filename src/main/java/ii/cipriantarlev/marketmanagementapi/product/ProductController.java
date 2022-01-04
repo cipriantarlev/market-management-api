@@ -3,7 +3,6 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.product;
 
-import static ii.cipriantarlev.marketmanagementapi.utils.Constants.*;
 import java.util.List;
 import java.util.Set;
 
@@ -25,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ii.cipriantarlev.marketmanagementapi.utils.RestControllerUtil;
+
+import static ii.cipriantarlev.marketmanagementapi.utils.Constants.*;
 
 @CrossOrigin(LOCAL_HOST)
 @RestController
@@ -88,7 +89,7 @@ public class ProductController {
 	}
 
 	@GetMapping(PRODUCT_HISTORY_BY_ID)
-	public ResponseEntity<Set<ProductHistory>> getProducts(@PathVariable Long productId) {
+	public ResponseEntity<Set<ProductHistory>> getProductHistory(@PathVariable Long productId) {
 		var products = productHistoryService.findProductPriceHistory(productId);
 		return new ResponseEntity<>(products, HttpStatus.OK);
 	}

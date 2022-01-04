@@ -61,7 +61,7 @@ public class SubcategoryController {
 	public ResponseEntity<SubcategoryDTO> createSubcategory(@Valid @RequestBody SubcategoryDTO subcategoryDTO) {
 		var subcategory = subcategoryService.save(subcategoryDTO);
 		var headers = restControllerUtil.setHttpsHeaderLocation(SUBCATEGORIES_ROOT_PATH.concat(ID_PATH),
-				subcategory.getId().longValue());
+				subcategory.getId());
 		return new ResponseEntity<>(subcategory, headers, HttpStatus.OK);
 	}
 

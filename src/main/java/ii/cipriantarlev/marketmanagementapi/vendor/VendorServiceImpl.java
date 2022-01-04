@@ -83,7 +83,7 @@ public class VendorServiceImpl implements VendorService {
 	@Override
 	public List<VendorDTOOnlyName> findAllVendorDTOOnlyName() {
 		List<VendorDTOOnlyName> vendorList = vendorRepository.findAllByOrderByIdAsc().stream()
-				.map(vendor -> vendorMapper.mapEntityToVendorDTOOnlyName(vendor))
+				.map(vendor -> vendorMapper.mapVendorToVendorDTOOnlyName(vendor))
 				.collect(Collectors.toList());
 
 		if (vendorList.isEmpty()) {

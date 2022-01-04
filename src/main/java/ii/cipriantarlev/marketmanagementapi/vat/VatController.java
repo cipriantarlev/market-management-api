@@ -3,8 +3,6 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.vat;
 
-import static ii.cipriantarlev.marketmanagementapi.utils.Constants.*;
-
 import java.util.List;
 
 import javax.validation.Valid;
@@ -24,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ii.cipriantarlev.marketmanagementapi.utils.RestControllerUtil;
+
+import static ii.cipriantarlev.marketmanagementapi.utils.Constants.*;
 
 @CrossOrigin(LOCAL_HOST)
 @RestController
@@ -53,7 +53,7 @@ public class VatController {
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<VatDTO> createVat(@Valid @RequestBody VatDTO vatDTO) {
 		var vat = vatService.save(vatDTO);
-		var headers = restControllerUtil.setHttpsHeaderLocation(VAT_ROOT_PATH.concat(ID_PATH), vat.getId().longValue());
+		var headers = restControllerUtil.setHttpsHeaderLocation(VAT_ROOT_PATH.concat(ID_PATH), vat.getId());
 		return new ResponseEntity<>(vat, headers, HttpStatus.OK);
 	}
 

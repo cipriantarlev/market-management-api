@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistoryService;
 import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
+import ii.cipriantarlev.marketmanagementapi.utils.MarketManagementFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,9 @@ public class ProductCodeServiceImpl implements ProductCodeService {
 
 	@Autowired
 	private EntitiesHistoryService entitiesHistoryService;
+
+	@Autowired
+	private MarketManagementFactory factory;
 
 	@Override
 	public List<ProductCodeDTO> findAll() {
@@ -55,21 +59,23 @@ public class ProductCodeServiceImpl implements ProductCodeService {
 	public ProductCodeDTO generateNewProductCode() {
 		var lastProductCode = productCodeRepository.findFirst1ByOrderByValueDesc();
 
-		if (lastProductCode == null) {
-			var savedProductCode = productCodeRepository.save(new ProductCode("MD00000000"));
-			return productCodeMapper.mapEntityToDTO(savedProductCode);
+		if (lastProductCode != null) {
+			Long generatedValue = Long.parseLong(lastProductCode.getValue().substring(2)) + 1;
+			var generatedProductCode =
+					productCodeRepository.save(factory.getProductCode("MD" + String.format("%08d", generatedValue)));
+			entitiesHistoryService.createEntityHistoryRecord(generatedProductCode, null, HistoryAction.CREATE);
+			return productCodeMapper.mapEntityToDTO(generatedProductCode);
 		}
 
-		Long generatedValue = Long.parseLong(lastProductCode.getValue().substring(2)) + 1;
-		var generatedProductCode =
-				productCodeRepository.save(new ProductCode("MD" + String.format("%08d", generatedValue)));
-		entitiesHistoryService.createEntityHistoryRecord(generatedProductCode, null, HistoryAction.CREATE);
-		return productCodeMapper.mapEntityToDTO(generatedProductCode);
+		var savedProductCode = productCodeRepository.save(factory.getProductCode("MD00000000"));
+		return productCodeMapper.mapEntityToDTO(savedProductCode);
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		entitiesHistoryService.createEntityHistoryRecord(productCodeMapper.mapDTOToEntity(this.findById(id)), null, HistoryAction.DELETE);
+		entitiesHistoryService.createEntityHistoryRecord(
+				productCodeMapper.mapDTOToEntity(this.findById(id)),
+				null, HistoryAction.DELETE);
 		productCodeRepository.deleteById(id);
 	}
 
