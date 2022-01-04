@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
 	 * should contain only letters", "timeStamp": "2021-10-08T11:47:34.2024948",
 	 * "field": "name" }
 	 * 
-	 * @param MethodArgumentNotValidException
+	 * @param exception to be intercepted
 	 * @return Response entity with a list of violated constraints.
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -70,7 +70,7 @@ public class GlobalExceptionHandler {
 	 * The message example: { "statusCode": 400, "message": " Key (name)=(Income
 	 * Invoice) already exists", "timeStamp": "2021-10-08T11:42:57.8501775" }
 	 * 
-	 * @param DataIntegrityViolationException
+	 * @param exception to be intercepted
 	 * @return Response entity with a list of violated constraints.
 	 */
 	@ExceptionHandler(DataIntegrityViolationException.class)
@@ -98,7 +98,7 @@ public class GlobalExceptionHandler {
 	 * The message example: { "statusCode": 404, "message": "Barcode with 188888 not
 	 * found", "timeStamp": "2021-10-08T12:35:21.4593327", "id": 188888 }
 	 * 
-	 * @param DTONotFoundException
+	 * @param exception to be intercepted
 	 * @return Response entity with a list of object that are not found.
 	 */
 	@ExceptionHandler(DTONotFoundException.class)
@@ -123,7 +123,7 @@ public class GlobalExceptionHandler {
 	 * The message example: { "statusCode": 400, "message": "Barcode list not found",
 	 *  "timeStamp": "2021-10-08T11:42:57.8501775" }
 	 * 
-	 * @param DTOListNotFoundException
+	 * @param exception to be intercepted
 	 * @return Response entity with a list of object that are not found.
 	 */
 	@ExceptionHandler(DTOListNotFoundException.class)
@@ -148,7 +148,7 @@ public class GlobalExceptionHandler {
 	 * already exists in database. Please use update in order to save the changes in database", 
 	 * "timeStamp": "2021-10-08T12:35:21.4593327", "id": 188888 }
 	 * 
-	 * @param DTONotFoundException
+	 * @param exception to be intercepted
 	 * @return Response entity with a list of object that are not found.
 	 */
 	@ExceptionHandler(DTOFoundWhenSaveException.class)
@@ -161,7 +161,7 @@ public class GlobalExceptionHandler {
 		errorResponse.setMessage(exception.getMessage());
 		errorResponse.setTimeStamp(LocalDateTime.now());
 
-		log.error("DTO not found: {}", errorResponse);
+		log.error("Found DTO during saving: {}", errorResponse);
 
 		return new ResponseEntity<>(Collections.singletonList(errorResponse), HttpStatus.NOT_FOUND);
 	}

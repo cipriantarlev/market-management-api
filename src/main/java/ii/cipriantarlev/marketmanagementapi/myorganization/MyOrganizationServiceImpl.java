@@ -81,7 +81,8 @@ public class MyOrganizationServiceImpl implements MyOrganizationService {
 
 	@Override
 	public void deleteById(Long id) {
-		entitiesHistoryService.createEntityHistoryRecord(myOrganizationMapper.mapDTOToEntity(this.findById(id)), null, HistoryAction.DELETE);
+		entitiesHistoryService.createEntityHistoryRecord(myOrganizationMapper
+				.mapDTOToEntity(this.findById(id)), null, HistoryAction.DELETE);
 		myOrganizationRepository.deleteById(id);
 	}
 

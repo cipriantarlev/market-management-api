@@ -14,6 +14,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+  DTO class of {@link Barcode}.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,9 +24,15 @@ import lombok.Setter;
 @Builder(toBuilder = true)
 public class BarcodeDTO {
 
+	/**
+	 * The value of id which should be always positive.
+	 */
 	@Positive
 	private Long id;
 
+	/**
+	 * Barcode value.
+	 */
 	@NotBlank(message = "Barcode value should not be blank or null")
 	@Size(min = 1, max = 13, message = "Barcode value length should be between {min} and {max}")
 	@Pattern(regexp = "^[0-9]*$", message = "Barcode value should contain only numbers")

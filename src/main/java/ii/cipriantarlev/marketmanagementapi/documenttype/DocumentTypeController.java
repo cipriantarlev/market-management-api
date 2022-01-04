@@ -54,7 +54,7 @@ public class DocumentTypeController {
 	public ResponseEntity<DocumentTypeDTO> createDocumentType(@Valid @RequestBody DocumentTypeDTO documentTypeDTO) {
 		var documentType = documentTypeService.save(documentTypeDTO);
 		var headers = restControllerUtil.setHttpsHeaderLocation(DOCUMENT_TYPE_ROOT_PATH,
-				documentType.getId().longValue());
+				documentType.getId());
 		return new ResponseEntity<>(documentType, headers, HttpStatus.OK);
 	}
 

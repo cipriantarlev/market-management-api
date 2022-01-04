@@ -45,7 +45,7 @@ public class MyOrganizationController {
 
 	@GetMapping(ID_PATH)
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<MyOrganizationDTO> getMyOrganizationDTO(@PathVariable Long id) {
+	public ResponseEntity<MyOrganizationDTO> getMyOrganization(@PathVariable Long id) {
 		var myOrganization = myOrganizationService.findById(id);
 		return new ResponseEntity<>(myOrganization, HttpStatus.OK);
 	}
@@ -56,20 +56,20 @@ public class MyOrganizationController {
 			@Valid @RequestBody MyOrganizationDTO myOrganizationDTO) {
 		var savedMyOrganization = myOrganizationService.save(myOrganizationDTO);
 		var headers = restControllerUtil
-				.setHttpsHeaderLocation(MY_ORGANIZATIONS_ROOT_PATH.concat(ID_PATH), savedMyOrganization.getId().longValue());
-		return new ResponseEntity<>(savedMyOrganization, headers, HttpStatus.CREATED);
+				.setHttpsHeaderLocation(MY_ORGANIZATIONS_ROOT_PATH.concat(ID_PATH), savedMyOrganization.getId());
+		return new ResponseEntity<>(savedMyOrganization, headers, HttpStatus.OK);
 	}
 
 	@PutMapping
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<MyOrganizationDTO> updateUser(@Valid @RequestBody MyOrganizationDTO myOrganizationDTO) {
+	public ResponseEntity<MyOrganizationDTO> updateMyOrganization(@Valid @RequestBody MyOrganizationDTO myOrganizationDTO) {
 		var savedMyOrganization = myOrganizationService.update(myOrganizationDTO);
 		return new ResponseEntity<>(savedMyOrganization, HttpStatus.OK);
 	}
 
 	@DeleteMapping(ID_PATH)
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Void> deletedUser(@PathVariable Long id) {
+	public ResponseEntity<Void> deletedMyOrganization(@PathVariable Long id) {
 		myOrganizationService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

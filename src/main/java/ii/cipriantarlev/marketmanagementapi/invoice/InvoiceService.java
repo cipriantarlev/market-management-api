@@ -3,15 +3,15 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.invoice;
 
+import ii.cipriantarlev.marketmanagementapi.documenttype.DocumentType;
+
 import java.util.List;
 
 public interface InvoiceService {
 
 	List<InvoiceDTO> findAll();
 
-	List<InvoiceDTO> findAllIncomeInvoices();
-
-	List<InvoiceDTO> findAllOutcomeInvoices();
+	List<InvoiceDTO> findInvoicesByDocumentType(DocumentType documentType);
 
 	InvoiceDTO findById(Long id);
 

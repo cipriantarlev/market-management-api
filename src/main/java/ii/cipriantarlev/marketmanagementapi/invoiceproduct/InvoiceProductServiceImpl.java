@@ -90,15 +90,15 @@ public class InvoiceProductServiceImpl implements InvoiceProductService {
 	}
 
 	private void updateProduct(InvoiceProductDTO invoiceProductDTO) {
-		var invoice = invoiceService.findById(invoiceProductDTO.getInvoice().getId());
-		var product = invoiceProductDTO.getProduct();
-		product.setDefaultVendorId(invoice.getVendor().getId());
-		product.getVendors().add(VendorDTOOnlyName.builder().id(invoice.getVendor().getId()).build());
-		var collectedList = product.getVendors().stream()
+		var invoiceDTO = invoiceService.findById(invoiceProductDTO.getInvoice().getId());
+		var productDTO = invoiceProductDTO.getProduct();
+		productDTO.setDefaultVendorId(invoiceDTO.getVendor().getId());
+		productDTO.getVendors().add(VendorDTOOnlyName.builder().id(invoiceDTO.getVendor().getId()).build());
+		var collectedList = productDTO.getVendors().stream()
 				.filter(vendorDTOOnlyName -> vendorDTOOnlyName.getId() != null)
 				.distinct()
 				.collect(Collectors.toList());
-		product.setVendors(collectedList);
-		productService.update(product);
+		productDTO.setVendors(collectedList);
+		productService.update(productDTO);
 	}
 }

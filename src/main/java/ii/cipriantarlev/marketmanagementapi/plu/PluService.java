@@ -9,9 +9,9 @@ public interface PluService {
 
 	List<PluDTO> findAll();
 
-	PluDTO findById(Integer id);
+	PluDTO findById(Long id);
 
 	PluDTO generateNewPlu();
 
-	void deleteById(Integer id);
+	void deleteById(Long id);
 }

@@ -62,22 +62,13 @@ public class ProductServiceImpl implements ProductService {
 							+ "Please use update in order to save the changes in database", productDTO.getId()),
 					productDTO.getId());
 		}
-
-		var product = productRepository.save(productMapper.mapDTOToEntity(productDTO));
-		barcodeService.deleteBarcodeWithNullProductId();
-		var foundProductDTO = productMapper.mapEntityToDTO(product);
-		productHistoryService.createProductHistoryRecord(foundProductDTO, HistoryAction.CREATE);
-		return foundProductDTO;
+		return saveProduct(productDTO, HistoryAction.CREATE);
 	}
 
 	@Override
 	public ProductDTO update(ProductDTO productDTO) {
 		this.findById(productDTO.getId());
-		var product = productRepository.save(productMapper.mapDTOToEntity(productDTO));
-		barcodeService.deleteBarcodeWithNullProductId();
-		var foundProductDTO = productMapper.mapEntityToDTO(product);
-		productHistoryService.createProductHistoryRecord(foundProductDTO, HistoryAction.UPDATE);
-		return foundProductDTO;
+		return saveProduct(productDTO, HistoryAction.UPDATE);
 	}
 
 	@Override
@@ -94,7 +85,7 @@ public class ProductServiceImpl implements ProductService {
 			return productMapper.mapEntityToDTO(product);
 		}
 
-		throw new DTONotFoundException(String.format("Product with %s not found", Long.parseLong(barcodeValue)),
+		throw new DTONotFoundException(String.format("Product with id %s not found", Long.parseLong(barcodeValue)),
 				Long.parseLong(barcodeValue));
 	}
 
@@ -106,5 +97,13 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public boolean checkIfNameRusExists(String nameRus) {
 		return productRepository.findByNameRus(nameRus) != null;
+	}
+
+	private ProductDTO saveProduct(ProductDTO productDTO, HistoryAction create) {
+		var product = productRepository.save(productMapper.mapDTOToEntity(productDTO));
+		barcodeService.deleteBarcodeWithNullProductId();
+		var savedProductDTO = productMapper.mapEntityToDTO(product);
+		productHistoryService.createProductHistoryRecord(savedProductDTO, create);
+		return savedProductDTO;
 	}
 }

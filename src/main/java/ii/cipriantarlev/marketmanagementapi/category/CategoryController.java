@@ -54,7 +54,7 @@ public class CategoryController {
 	public ResponseEntity<CategoryDTO> createCategory(@Valid @RequestBody CategoryDTO categoryDTO) {
 		var category = categoryService.save(categoryDTO);
 		var headers = restControllerUtil
-				.setHttpsHeaderLocation(CATEGORIES_ROOT_PATH, category.getId().longValue());
+				.setHttpsHeaderLocation(CATEGORIES_ROOT_PATH, category.getId());
 		return new ResponseEntity<>(category, headers, HttpStatus.OK);
 	}
 

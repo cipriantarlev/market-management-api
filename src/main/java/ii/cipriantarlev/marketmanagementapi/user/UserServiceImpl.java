@@ -85,11 +85,6 @@ public class UserServiceImpl implements UserService {
 		userRepository.deleteById(id);
 	}
 
-	public UserDTO hideUserPassword(User user) {
-		user.setPassword("");
-		return userMapper.mapUserToUserDTO(user);
-	}
-
 	@Override
 	public UserDTO findByUsername(String username) {
 		var user = userRepository.findByUsername(username);
@@ -99,5 +94,10 @@ public class UserServiceImpl implements UserService {
 		}
 
 		throw new DTONotFoundException(String.format("User with username %s not found", username));
+	}
+
+	private UserDTO hideUserPassword(User user) {
+		user.setPassword("");
+		return userMapper.mapUserToUserDTO(user);
 	}
 }

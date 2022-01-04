@@ -15,15 +15,28 @@ import org.springframework.stereotype.Service;
 import ii.cipriantarlev.marketmanagementapi.exceptions.DTOListNotFoundException;
 import ii.cipriantarlev.marketmanagementapi.exceptions.DTONotFoundException;
 
+/**
+ * Class to implement {@link BarcodeService} interface.
+ */
 @Service
 public class BarcodeServiceImpl implements BarcodeService {
 
+	/**
+	 * {@link BarcodeRepository} used to connect with database.
+	 */
 	@Autowired
 	private BarcodeRepository barcodeRepository;
 
+	/**
+	 * {@link BarcodeMapper} used to map entity to dto and vice-versa.
+	 */
 	@Autowired
 	private BarcodeMapper barcodeMapper;
 
+	/**
+	 * {@link EntitiesHistoryService} used to create {@link ii.cipriantarlev.marketmanagementapi.history.EntitiesHistory}
+	 * records in database based on action performed on {@link Barcode}.
+	 */
 	@Autowired
 	private EntitiesHistoryService entitiesHistoryService;
 
@@ -32,7 +45,7 @@ public class BarcodeServiceImpl implements BarcodeService {
 		List<BarcodeDTO> barcodes = barcodeRepository.findAll().stream()
 				.map(barcode -> barcodeMapper.mapEntityToDTO(barcode)).collect(Collectors.toList());
 
-		if (barcodes == null || barcodes.isEmpty()) {
+		if (barcodes.isEmpty()) {
 			throw new DTOListNotFoundException("Barcode list not found");
 		}
 
@@ -65,8 +78,8 @@ public class BarcodeServiceImpl implements BarcodeService {
 
 	@Override
 	public void deleteById(Long id) {
-		var barcodeDTO = barcodeMapper.mapDTOToEntity(findById(id));
-		entitiesHistoryService.createEntityHistoryRecord(barcodeDTO, null, HistoryAction.DELETE);
+		var barcode = barcodeMapper.mapDTOToEntity(findById(id));
+		entitiesHistoryService.createEntityHistoryRecord(barcode, null, HistoryAction.DELETE);
 		barcodeRepository.deleteById(id);
 	}
 
@@ -80,6 +93,13 @@ public class BarcodeServiceImpl implements BarcodeService {
 		return barcodeRepository.findByValue(value) != null;
 	}
 
+	/**
+	 * Method used to generated new barcode value based on the last value in the database.
+	 *
+	 * @param barcodeDTO sent from ui.
+	 * @param generatedBarcodeValue value on which will be based the generated value.
+	 * @return {@link BarcodeDTO} with generated value.
+	 */
 	private BarcodeDTO getGeneratedBarcode(BarcodeDTO barcodeDTO, String generatedBarcodeValue) {
 		var lastBarcode = barcodeRepository.findFirst1ByValueStartingWithOrderByValueDesc(barcodeDTO.getValue());
 		if (lastBarcode == null) {
