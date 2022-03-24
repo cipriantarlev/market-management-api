@@ -7,6 +7,7 @@ package ii.cipriantarlev.marketmanagementapi.data;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import ii.cipriantarlev.marketmanagementapi.barcode.BarcodeDTO;
@@ -1492,7 +1493,7 @@ public class TestDataDTOBuilder {
 		return UserDTO.builder()
 				.id(1L)
 				.password("ciprian")
-				.roles(new ArrayList<RoleDTO>())
+				.roles(new ArrayList<>())
 				.email("email@email.com")
 				.build();
 	}
@@ -1502,7 +1503,7 @@ public class TestDataDTOBuilder {
 				.id(1L)
 				.username(" ")
 				.password("ciprian")
-				.roles(new ArrayList<RoleDTO>())
+				.roles(new ArrayList<>())
 				.email("email@email.com")
 				.build();
 	}
@@ -1512,7 +1513,7 @@ public class TestDataDTOBuilder {
 				.id(1L)
 				.username("")
 				.password("ciprian")
-				.roles(new ArrayList<RoleDTO>())
+				.roles(new ArrayList<>())
 				.email("email@email.com")
 				.build();
 	}
@@ -1522,7 +1523,7 @@ public class TestDataDTOBuilder {
 				.id(1L)
 				.username("ciprian#")
 				.password("ciprian")
-				.roles(new ArrayList<RoleDTO>())
+				.roles(new ArrayList<>())
 				.email("email@email.com")
 				.build();
 	}
@@ -1532,7 +1533,7 @@ public class TestDataDTOBuilder {
 				.id(1L)
 				.username("ciprianciprianciprianciprian".repeat(10))
 				.password("ciprian")
-				.roles(new ArrayList<RoleDTO>())
+				.roles(new ArrayList<>())
 				.email("email@email.com")
 				.build();
 	}
@@ -1541,7 +1542,7 @@ public class TestDataDTOBuilder {
 		return UserDTO.builder()
 				.id(1L)
 				.username("ciprian")
-				.roles(new ArrayList<RoleDTO>())
+				.roles(new ArrayList<>())
 				.email("email@email.com")
 				.build();
 	}
@@ -1551,7 +1552,7 @@ public class TestDataDTOBuilder {
 				.id(1L)
 				.username("ciprian")
 				.password(" ")
-				.roles(new ArrayList<RoleDTO>())
+				.roles(new ArrayList<>())
 				.email("email@email.com")
 				.build();
 	}
@@ -1561,7 +1562,7 @@ public class TestDataDTOBuilder {
 				.id(1L)
 				.username("ciprian")
 				.password("")
-				.roles(new ArrayList<RoleDTO>())
+				.roles(new ArrayList<>())
 				.email("email@email.com")
 				.build();
 	}
@@ -1571,7 +1572,7 @@ public class TestDataDTOBuilder {
 				.id(1L)
 				.username("ciprian")
 				.password("ciprianciprianciprianciprian".repeat(10))
-				.roles(new ArrayList<RoleDTO>())
+				.roles(new ArrayList<>())
 				.email("email@email.com")
 				.build();
 	}
@@ -1581,7 +1582,7 @@ public class TestDataDTOBuilder {
 				.id(1L)
 				.username("ciprian")
 				.password("ciprian")
-				.roles(new ArrayList<RoleDTO>())
+				.roles(new ArrayList<>())
 				.build();
 	}
 
@@ -1590,7 +1591,7 @@ public class TestDataDTOBuilder {
 				.id(1L)
 				.username("ciprian")
 				.password("ciprian")
-				.roles(new ArrayList<RoleDTO>())
+				.roles(new ArrayList<>())
 				.email(" ")
 				.build();
 	}
@@ -1600,7 +1601,7 @@ public class TestDataDTOBuilder {
 				.id(1L)
 				.username("ciprian")
 				.password("ciprian")
-				.roles(new ArrayList<RoleDTO>())
+				.roles(new ArrayList<>())
 				.email("")
 				.build();
 	}
@@ -1610,7 +1611,7 @@ public class TestDataDTOBuilder {
 				.id(1L)
 				.username("ciprian")
 				.password("ciprian")
-				.roles(new ArrayList<RoleDTO>())
+				.roles(new ArrayList<>())
 				.email("email@email")
 				.build();
 	}
@@ -1620,7 +1621,7 @@ public class TestDataDTOBuilder {
 				.id(1L)
 				.username("ciprianciprianciprianciprian")
 				.password("ciprian")
-				.roles(new ArrayList<RoleDTO>())
+				.roles(new ArrayList<>())
 				.email("emddddddail@emaiddddl.com".repeat(10))
 				.build();
 	}
@@ -2874,10 +2875,8 @@ public class TestDataDTOBuilder {
 	}
 
 	private List<BarcodeDTO> getBarcodeList() {
-		List<BarcodeDTO> barcodes = new ArrayList<BarcodeDTO>();
 		BarcodeDTO barcode = BarcodeDTO.builder().value("222").build();
-		barcodes.add(barcode);
-		return barcodes;
+		return Collections.singletonList(barcode);
 	}
 	
 	private InvoiceDTO geInvoiceDTO() {

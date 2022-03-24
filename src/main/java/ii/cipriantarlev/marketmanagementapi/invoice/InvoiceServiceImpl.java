@@ -70,9 +70,9 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 	@Override
 	public InvoiceDTO update(InvoiceDTO invoiceDTO) {
-		var foundInvoiceDTO = invoiceMapper.mapDTOToEntity(this.findById(invoiceDTO.getId()));
+		var foundInvoice = invoiceMapper.mapDTOToEntity(this.findById(invoiceDTO.getId()));
 		var savedInvoice = invoiceRepository.save(invoiceMapper.mapDTOToEntity(invoiceDTO));
-		entitiesHistoryService.createEntityHistoryRecord(invoiceMapper.mapDTOToEntity(invoiceDTO), foundInvoiceDTO, HistoryAction.UPDATE);
+		entitiesHistoryService.createEntityHistoryRecord(invoiceMapper.mapDTOToEntity(invoiceDTO), foundInvoice, HistoryAction.UPDATE);
 		return invoiceMapper.mapEntityToDTO(savedInvoice);
 	}
 
@@ -92,22 +92,9 @@ public class InvoiceServiceImpl implements InvoiceService {
 	}
 
 	@Override
-	public List<InvoiceDTO> findAllIncomeInvoices() {
+	public List<InvoiceDTO> findInvoicesByDocumentType(DocumentType documentType) {
 		List<InvoiceDTO> invoices = invoiceRepository
-				.findAllByDocumentType(new DocumentType(1L)).stream()
-				.map(invoice -> invoiceMapper.mapEntityToDTO(invoice)).collect(Collectors.toList());
-
-		if (invoices == null || invoices.isEmpty()) {
-			throw new DTOListNotFoundException("Invoice list not found");
-		}
-
-		return invoices;
-	}
-
-	@Override
-	public List<InvoiceDTO> findAllOutcomeInvoices() {
-		List<InvoiceDTO> invoices = invoiceRepository
-				.findAllByDocumentType(new DocumentType(2L)).stream()
+				.findAllByDocumentType(documentType).stream()
 				.map(invoice -> invoiceMapper.mapEntityToDTO(invoice)).collect(Collectors.toList());
 
 		if (invoices == null || invoices.isEmpty()) {

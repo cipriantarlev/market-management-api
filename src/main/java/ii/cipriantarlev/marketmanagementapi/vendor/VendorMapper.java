@@ -25,7 +25,7 @@ public class VendorMapper {
 		return modelMapper.map(vendor, VendorDTONoRegions.class);
 	}
 
-	public VendorDTOOnlyName mapEntityToVendorDTOOnlyName(Vendor vendor) {
+	public VendorDTOOnlyName mapVendorToVendorDTOOnlyName(Vendor vendor) {
 		return modelMapper.map(vendor, VendorDTOOnlyName.class);
 	}
 }

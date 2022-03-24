@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import ii.cipriantarlev.marketmanagementapi.documenttype.DocumentType;
+import ii.cipriantarlev.marketmanagementapi.utils.MarketManagementFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +47,9 @@ public class InvoiceController {
 	@Autowired
 	private RestControllerUtil restControllerUtil;
 
+	@Autowired
+	private MarketManagementFactory factory;
+
 	@GetMapping
 	public ResponseEntity<List<InvoiceDTO>> getInvoices() {
 		var invoices = invoiceService.findAll();
@@ -53,13 +58,13 @@ public class InvoiceController {
 
 	@GetMapping(INCOME_INVOICES)
 	public ResponseEntity<List<InvoiceDTO>> getIncomeInvoices() {
-		var invoices = invoiceService.findAllIncomeInvoices();
+		var invoices = invoiceService.findInvoicesByDocumentType(factory.getNewDocumentType(1L));
 		return new ResponseEntity<>(invoices, HttpStatus.OK);
 	}
 
 	@GetMapping(OUTCOME_INVOICES)
 	public ResponseEntity<List<InvoiceDTO>> getOutcomeInvoices() {
-		var invoices = invoiceService.findAllOutcomeInvoices();
+		var invoices = invoiceService.findInvoicesByDocumentType(factory.getNewDocumentType(2L));
 		return new ResponseEntity<>(invoices, HttpStatus.OK);
 	}
 
@@ -96,8 +101,8 @@ public class InvoiceController {
 
 	@PutMapping(IS_APPROVED_INVOICE)
 	public ResponseEntity<Integer> updateInvoiceIsApprovedMarker(@PathVariable Long id, @PathVariable boolean isApproved) {
-		var savedInvoice = invoiceService.updateIsApprovedMarker(isApproved, id);
-		return new ResponseEntity<>(savedInvoice, HttpStatus.OK);
+		var updatedRows = invoiceService.updateIsApprovedMarker(isApproved, id);
+		return new ResponseEntity<>(updatedRows, HttpStatus.OK);
 	}
 
 	@DeleteMapping(ID_PATH)

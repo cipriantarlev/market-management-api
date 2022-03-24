@@ -5,7 +5,7 @@ package ii.cipriantarlev.marketmanagementapi.plu;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PluRepository extends JpaRepository<Plu, Integer> {
+public interface PluRepository extends JpaRepository<Plu, Long> {
 
 	Plu findFirst1ByOrderByValueDesc();
 }

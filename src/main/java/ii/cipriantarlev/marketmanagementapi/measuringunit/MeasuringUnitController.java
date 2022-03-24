@@ -54,7 +54,7 @@ public class MeasuringUnitController {
 	public ResponseEntity<MeasuringUnitDTO> createMeasuringUnit(@Valid @RequestBody MeasuringUnitDTO measuringUnitDTO) {
 		var measuringUnit = measuringUnitService.save(measuringUnitDTO);
 		var headers = restControllerUtil.setHttpsHeaderLocation(MEASURING_UNITS_ROOT_PATH.concat(ID_PATH),
-				measuringUnit.getId().longValue());
+				measuringUnit.getId());
 		return new ResponseEntity<>(measuringUnit, headers, HttpStatus.OK);
 	}
 
@@ -67,7 +67,7 @@ public class MeasuringUnitController {
 
 	@DeleteMapping(ID_PATH)
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Void> deleteVat(@PathVariable Long id) {
+	public ResponseEntity<Void> deleteMeasuringUnit(@PathVariable Long id) {
 		measuringUnitService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
