@@ -4,6 +4,7 @@
 package ii.cipriantarlev.marketmanagementapi.product;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -58,25 +59,6 @@ public class ProductController {
 		var product = productService.findByBarcodeValue(barcodeValue);
 		return new ResponseEntity<>(product, HttpStatus.OK);
 	}
-
-	@PostMapping
-	public ResponseEntity<ProductDTO> createProduct(@Valid @RequestBody ProductDTO productDTO) {
-		var product = productService.save(productDTO);
-		var headers = restControllerUtil.setHttpsHeaderLocation(PRODUCTS_ROOT_PATH.concat(ID_PATH), product.getId());
-		return new ResponseEntity<>(product, headers, HttpStatus.OK);
-	}
-
-	@PutMapping
-	public ResponseEntity<ProductDTO> updateProduct(@Valid @RequestBody ProductDTO productDTO) {
-		var savedProduct = productService.update(productDTO);
-		return new ResponseEntity<>(savedProduct, HttpStatus.OK);
-	}
-
-	@DeleteMapping(ID_PATH)
-	public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-		productService.deleteById(id);
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
 	
 	@GetMapping(PRODUCT_BY_NAME_ROM)
 	public ResponseEntity<Boolean> checkIfNameRomExists(@PathVariable String value) {
@@ -92,5 +74,30 @@ public class ProductController {
 	public ResponseEntity<Set<ProductHistory>> getProductHistory(@PathVariable Long productId) {
 		var products = productHistoryService.findProductPriceHistory(productId);
 		return new ResponseEntity<>(products, HttpStatus.OK);
+	}
+
+	@PostMapping
+	public ResponseEntity<ProductDTO> createProduct(@Valid @RequestBody ProductDTO productDTO) {
+		var product = productService.save(productDTO);
+		var headers = restControllerUtil.setHttpsHeaderLocation(PRODUCTS_ROOT_PATH.concat(ID_PATH), product.getId());
+		return new ResponseEntity<>(product, headers, HttpStatus.OK);
+	}
+
+	@PutMapping
+	public ResponseEntity<ProductDTO> updateProduct(@Valid @RequestBody ProductDTO productDTO) {
+		var savedProduct = productService.update(productDTO);
+		return new ResponseEntity<>(savedProduct, HttpStatus.OK);
+	}
+
+	@PutMapping(IS_CHECKED_PRODUCT)
+	public ResponseEntity<Integer> updateIsCheckedMarker(@RequestBody Map<Boolean, List<Long>> productsToUpdate) {
+		var updatedRows = productService.updateIsCheckedMarker(productsToUpdate);
+		return new ResponseEntity<>(updatedRows, HttpStatus.OK);
+	}
+
+	@DeleteMapping(ID_PATH)
+	public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+		productService.deleteById(id);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

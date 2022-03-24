@@ -4,7 +4,10 @@
 package ii.cipriantarlev.marketmanagementapi.product;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+
+import javax.transaction.Transactional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
@@ -14,4 +17,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	Product findByNameRom(String nameRom);
 	
 	Product findByNameRus(String nameRus);
+
+	@Transactional
+	@Modifying
+	@Query("update Product u set u.isChecked = ?1 where u.id = ?2")
+	int updateIsCheckedMarker(boolean isChecked, Long invoiceId);
 }

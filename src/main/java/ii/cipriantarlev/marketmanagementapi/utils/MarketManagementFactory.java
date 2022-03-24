@@ -1,6 +1,7 @@
 package ii.cipriantarlev.marketmanagementapi.utils;
 
 import ii.cipriantarlev.marketmanagementapi.documenttype.DocumentType;
+import ii.cipriantarlev.marketmanagementapi.invoice.Invoice;
 import ii.cipriantarlev.marketmanagementapi.plu.Plu;
 import ii.cipriantarlev.marketmanagementapi.product.history.ProductHistory;
 import ii.cipriantarlev.marketmanagementapi.productscode.ProductCode;
@@ -23,5 +24,9 @@ public class MarketManagementFactory {
 
     public ProductCode getProductCode(String value) {
         return new ProductCode(value);
+    }
+
+    public Invoice getClonedInvoice(Invoice sourceInvoice) {
+        return new Invoice(sourceInvoice);
     }
 }

@@ -185,7 +185,7 @@ class ProductDTOTest {
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
 				.validate(TestDataDTOBuilder.getWrongRangeDiscountPriceProductDTO());
 
-		assertEquals("Discount Price fromat should have 5 integer digits and 2 digits",
+		assertEquals("Discount Price format should have 5 integer digits and 2 digits",
 				constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
 	}
@@ -206,7 +206,7 @@ class ProductDTOTest {
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
 				.validate(TestDataDTOBuilder.getWrongRangeRetailPriceProductDTO());
 
-		assertEquals("Retail Price fromat should have 5 integer digits and 2 digits",
+		assertEquals("Retail Price format should have 5 integer digits and 2 digits",
 				constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
 	}
@@ -227,7 +227,7 @@ class ProductDTOTest {
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
 				.validate(TestDataDTOBuilder.getWrongRangeTradeMarginProductDTO());
 
-		assertEquals("Trade margin fromat should have 3 integer digits and 2 digits",
+		assertEquals("Trade margin format should have 3 integer digits and 2 digits",
 				constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
 	}
@@ -288,7 +288,7 @@ class ProductDTOTest {
 		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
 				.validate(TestDataDTOBuilder.getWrongRangeStockProductDTO());
 
-		assertEquals("Stock fromat should have 6 integer digits and 4 digits",
+		assertEquals("Stock format should have 6 integer digits and 4 digits",
 				constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
 	}

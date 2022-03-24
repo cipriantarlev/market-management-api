@@ -13,7 +13,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestClientException;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,7 +54,7 @@ class InvoiceControllerIntegrationTest extends IntegrationTestConfiguration {
 
     @Test
     void getIncomeInvoices() throws Exception {
-        HttpEntity<List<InvoiceDTO>> entity = new HttpEntity<List<InvoiceDTO>>(null, new HttpHeaders());
+        HttpEntity<List<InvoiceDTO>> entity = new HttpEntity<>(null, new HttpHeaders());
 
         var response = getRestTemplateWithAuth()
                 .exchange(createUri(INVOICES_ROOT_PATH.concat(INCOME_INVOICES)),
@@ -67,7 +69,7 @@ class InvoiceControllerIntegrationTest extends IntegrationTestConfiguration {
 
     @Test
     void getOutcomeInvoices() throws Exception {
-        HttpEntity<List<InvoiceDTO>> entity = new HttpEntity<List<InvoiceDTO>>(null, new HttpHeaders());
+        HttpEntity<List<InvoiceDTO>> entity = new HttpEntity<>(null, new HttpHeaders());
 
         var response = getRestTemplateWithAuth()
                 .exchange(createUri(INVOICES_ROOT_PATH.concat(OUTCOME_INVOICES)),
@@ -168,14 +170,17 @@ class InvoiceControllerIntegrationTest extends IntegrationTestConfiguration {
         invoiceDTO.setId(BAD_ID);
 
         HttpEntity<InvoiceDTO> entity = new HttpEntity<>(invoiceDTO, new HttpHeaders());
+
+        assertThrows(RestClientException.class, throwException(entity, INVOICES_ROOT_PATH, HttpMethod.PUT));
     }
 
     @Test
     void updateInvoiceIsApprovedMarkerWhenOk() throws Exception {
-        HttpEntity<Integer> entity = new HttpEntity<>(null, new HttpHeaders());
+        Map<Boolean, List<Long>> invoicesToUpdate = Collections.singletonMap(true, Collections.singletonList(GOOD_ID));
+        HttpEntity<Map<Boolean, List<Long>>> entity = new HttpEntity<>(invoicesToUpdate, new HttpHeaders());
 
         var response = getRestTemplateWithAuth()
-                .exchange(createUri(INVOICES_ROOT_PATH.concat(String.format("/isApproved/%d/%s", GOOD_ID, true))),
+                .exchange(createUri(INVOICES_ROOT_PATH.concat(IS_APPROVED_INVOICE)),
                         HttpMethod.PUT,
                         entity,
                         Integer.class);
@@ -186,12 +191,13 @@ class InvoiceControllerIntegrationTest extends IntegrationTestConfiguration {
 
     @Test
     void updateInvoiceIsApprovedMarkerWhenNotFound() throws Exception {
-        HttpEntity<Integer> entity = new HttpEntity<>(null, new HttpHeaders());
+        Map<Boolean, List<Long>> invoicesToUpdate = Collections.singletonMap(true, Collections.singletonList(GOOD_ID));
+        HttpEntity<Map<Boolean, List<Long>>> entity = new HttpEntity<>(invoicesToUpdate, new HttpHeaders());
 
         assertThrows(RestClientException.class,
                 throwException(
                         entity,
-                        INVOICES_ROOT_PATH.concat(String.format("/isApproved/%d/%s", BAD_ID, true)),
+                        INVOICES_ROOT_PATH.concat(IS_APPROVED_INVOICE),
                         HttpMethod.PUT));
     }
 

@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -156,5 +157,18 @@ class ProductControllerTest {
         verify(productHistoryService).findProductPriceHistory(id);
         assertEquals(ok, response.getStatusCodeValue());
         assertEquals(productHistorySet, response.getBody());
+    }
+
+    @Test
+    void updateIsCheckedMarker() throws Exception {
+        Map<Boolean, List<Long>> productsToUpdate = Collections.singletonMap(true, Collections.singletonList(id));
+
+        when(service.updateIsCheckedMarker(productsToUpdate)).thenReturn(1);
+
+        var response = controller.updateIsCheckedMarker(productsToUpdate);
+
+        verify(service).updateIsCheckedMarker(productsToUpdate);
+        assertEquals(1, response.getBody());
+        assertEquals(ok, response.getStatusCodeValue());
     }
 }

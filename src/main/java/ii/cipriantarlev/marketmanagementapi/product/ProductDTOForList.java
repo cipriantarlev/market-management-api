@@ -35,11 +35,11 @@ public class ProductDTOForList {
 	private String nameRom;
 
 	@DecimalMin(value = "0.0", inclusive = false, message = "Discount Price min value should be {value}")
-	@Digits(integer = 5, fraction = 2, message = "Discount Price fromat should have {integer} integer digits and {fraction} digits")
+	@Digits(integer = 5, fraction = 2, message = "Discount Price format should have {integer} integer digits and {fraction} digits")
 	private BigDecimal discountPrice;
 
 	@DecimalMin(value = "0.0", inclusive = false, message = "Retail Price min value should be {value}")
-	@Digits(integer = 5, fraction = 2, message = "Retail Price fromat should have {integer} integer digits and {fraction} digits")
+	@Digits(integer = 5, fraction = 2, message = "Retail Price format should have {integer} integer digits and {fraction} digits")
 	private BigDecimal retailPrice;
 
 	@Valid
@@ -47,6 +47,8 @@ public class ProductDTOForList {
 	private List<BarcodeDTO> barcodes;
 
 	@DecimalMin(value = "0.0", inclusive = false, message = "Stock min value should be {value}")
-	@Digits(integer = 6, fraction = 2, message = "Stock fromat should have {integer} integer digits and {fraction} digits")
+	@Digits(integer = 6, fraction = 2, message = "Stock format should have {integer} integer digits and {fraction} digits")
 	private BigDecimal stock;
+
+	private boolean isChecked;
 }

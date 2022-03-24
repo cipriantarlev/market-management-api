@@ -4,10 +4,12 @@
 package ii.cipriantarlev.marketmanagementapi.product;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import ii.cipriantarlev.marketmanagementapi.product.history.ProductHistoryService;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductHistoryService productHistoryService;
+
+	@Setter
+	private int updatedRows;
 
 	@Override
 	public List<ProductDTOForList> findAll() {
@@ -97,6 +102,21 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public boolean checkIfNameRusExists(String nameRus) {
 		return productRepository.findByNameRus(nameRus) != null;
+	}
+
+	@Override
+	public int updateIsCheckedMarker(Map<Boolean, List<Long>> productsToUpdate) {
+		setUpdatedRows(0);
+        productsToUpdate.forEach((isChecked, idList) -> idList.forEach(id -> {
+			var foundProduct = productMapper.mapDTOToEntity(this.findById(id));
+			foundProduct.setChecked(isChecked);
+			productHistoryService
+					.createProductHistoryRecord(productMapper.mapEntityToDTO(foundProduct), HistoryAction.UPDATE);
+			productRepository.updateIsCheckedMarker(isChecked, id);
+			setUpdatedRows(idList.size());
+		}));
+
+		return updatedRows;
 	}
 
 	private ProductDTO saveProduct(ProductDTO productDTO, HistoryAction create) {

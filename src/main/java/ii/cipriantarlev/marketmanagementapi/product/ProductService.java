@@ -4,6 +4,7 @@
 package ii.cipriantarlev.marketmanagementapi.product;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductService {
 
@@ -22,4 +23,6 @@ public interface ProductService {
 	boolean checkIfNameRomExists(String nameRom);
 	
 	boolean checkIfNameRusExists(String nameRus);
+
+	int updateIsCheckedMarker(Map<Boolean, List<Long>> productsToUpdate);
 }

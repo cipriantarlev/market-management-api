@@ -12,6 +12,7 @@ import org.mockito.Mock;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -221,5 +222,36 @@ class ProductServiceTest {
         when(repository.findByNameRus("Тест")).thenReturn(product);
 
         assertTrue(service.checkIfNameRusExists("Тест"));
+    }
+
+    @Test
+    void updateIsCheckedMarker() throws Exception {
+        var productOptional = Optional.of(product);
+        Map<Boolean, List<Long>> productsToUpdate = Collections.singletonMap(true, Collections.singletonList(id));
+
+        when(repository.findById(id)).thenReturn(productOptional);
+        when(mapper.mapDTOToEntity(productDTO)).thenReturn(product);
+        when(mapper.mapEntityToDTO(productOptional.get())).thenReturn(productDTO);
+        doNothing().when(productHistoryService).createProductHistoryRecord(productDTO, HistoryAction.UPDATE);
+        when(repository.updateIsCheckedMarker(true, id)).thenReturn(1);
+
+        var updatedRows = service.updateIsCheckedMarker(productsToUpdate);
+
+        verify(repository).findById(id);
+        verify(mapper, times(2)).mapEntityToDTO(productOptional.get());
+        verify(mapper).mapDTOToEntity(productDTO);
+        verify(productHistoryService).createProductHistoryRecord(productDTO, HistoryAction.UPDATE);
+        verify(repository).updateIsCheckedMarker(true, id);
+        assertEquals(1, updatedRows);
+    }
+
+    @Test
+    void updateIsCheckedMarkerWhenNotFounde() throws Exception {
+        Map<Boolean, List<Long>> productsToUpdate = Collections.singletonMap(true, Collections.singletonList(id));
+
+        when(repository.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(DTONotFoundException.class, () -> service.updateIsCheckedMarker(productsToUpdate));
+        verify(repository).findById(id);
     }
 }

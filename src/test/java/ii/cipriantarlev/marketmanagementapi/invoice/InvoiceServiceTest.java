@@ -7,6 +7,7 @@ import ii.cipriantarlev.marketmanagementapi.exceptions.DTOListNotFoundException;
 import ii.cipriantarlev.marketmanagementapi.exceptions.DTONotFoundException;
 import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistoryService;
 import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
+import ii.cipriantarlev.marketmanagementapi.utils.MarketManagementFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -14,6 +15,7 @@ import org.mockito.Mock;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,6 +35,9 @@ class InvoiceServiceTest {
 
     @Mock
     private EntitiesHistoryService entitiesHistoryService;
+
+    @Mock
+    private MarketManagementFactory factory;
 
     private InvoiceDTO invoiceDTO;
     private Invoice invoice;
@@ -231,28 +236,33 @@ class InvoiceServiceTest {
     @Test
     void updateIsApprovedMarker() throws Exception {
         var invoiceOptional = Optional.of(invoice);
+        Map<Boolean, List<Long>> invoicesToUpdate = Collections.singletonMap(true, Collections.singletonList(id));
 
         when(repository.findById(id)).thenReturn(invoiceOptional);
         when(mapper.mapEntityToDTO(invoiceOptional.get())).thenReturn(invoiceDTO);
         when(mapper.mapDTOToEntity(invoiceDTO)).thenReturn(invoice);
+        when(factory.getClonedInvoice(invoice)).thenReturn(invoice);
         doNothing().when(entitiesHistoryService).createEntityHistoryRecord(invoice, invoice, HistoryAction.UPDATE);
         when(repository.updateIsApprovedMarker(true, id)).thenReturn(1);
 
-        var updatedRows = invoiceService.updateIsApprovedMarker(true, id);
+        var updatedRows = invoiceService.updateIsApprovedMarker(invoicesToUpdate);
 
-        verify(repository, times(2)).findById(id);
-        verify(mapper, times(2)).mapEntityToDTO(invoiceOptional.get());
-        verify(mapper, times(2)).mapDTOToEntity(invoiceDTO);
+        verify(repository).findById(id);
+        verify(mapper).mapEntityToDTO(invoiceOptional.get());
+        verify(mapper).mapDTOToEntity(invoiceDTO);
         verify(entitiesHistoryService).createEntityHistoryRecord(invoice, invoice, HistoryAction.UPDATE);
         verify(repository).updateIsApprovedMarker(true, id);
+        verify(factory).getClonedInvoice(invoice);
         assertEquals(1, updatedRows);
     }
 
     @Test
     void updateIsApprovedMarkerWhenNotFound() throws Exception {
+        Map<Boolean, List<Long>> invoicesToUpdate = Collections.singletonMap(true, Collections.singletonList(id));
+
         when(repository.findById(id)).thenReturn(Optional.empty());
 
-        assertThrows(DTONotFoundException.class, () -> invoiceService.updateIsApprovedMarker(true, id));
+        assertThrows(DTONotFoundException.class, () -> invoiceService.updateIsApprovedMarker(invoicesToUpdate));
         verify(repository).findById(id);
     }
 }

@@ -4,10 +4,13 @@
 package ii.cipriantarlev.marketmanagementapi.invoice;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistoryService;
 import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
+import ii.cipriantarlev.marketmanagementapi.utils.MarketManagementFactory;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +30,12 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 	@Autowired
 	private EntitiesHistoryService entitiesHistoryService;
+
+	@Autowired
+	private MarketManagementFactory factory;
+
+	@Setter
+	private int updatedRows;
 
 	@Override
 	public List<InvoiceDTO> findAll() {
@@ -83,12 +92,19 @@ public class InvoiceServiceImpl implements InvoiceService {
 	}
 
 	@Override
-	public int updateIsApprovedMarker(boolean isApproved, Long id) {
-		var foundInvoice = invoiceMapper.mapDTOToEntity(this.findById(id));
-		foundInvoice.setApproved(isApproved);
-		entitiesHistoryService.createEntityHistoryRecord(
-				foundInvoice, invoiceMapper.mapDTOToEntity(this.findById(id)), HistoryAction.UPDATE);
-		return invoiceRepository.updateIsApprovedMarker(isApproved, id);
+	public int updateIsApprovedMarker(Map<Boolean, List<Long>> invoicesToUpdate) {
+		setUpdatedRows(0);
+		invoicesToUpdate.forEach((isApproved, idList) -> idList.forEach(id -> {
+			var foundInvoice = invoiceMapper.mapDTOToEntity(this.findById(id));
+			var copyOfFoundInvoice = factory.getClonedInvoice(foundInvoice);
+			foundInvoice.setApproved(isApproved);
+			entitiesHistoryService.createEntityHistoryRecord(
+					foundInvoice, copyOfFoundInvoice, HistoryAction.UPDATE);
+			invoiceRepository.updateIsApprovedMarker(isApproved, id);
+			setUpdatedRows(idList.size());
+		}));
+
+		return updatedRows;
 	}
 
 	@Override
