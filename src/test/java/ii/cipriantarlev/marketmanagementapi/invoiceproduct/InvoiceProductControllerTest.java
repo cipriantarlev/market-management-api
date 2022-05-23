@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -102,5 +103,18 @@ class InvoiceProductControllerTest {
 
         assertEquals(ok, response.getStatusCodeValue());
         verify(service).deleteById(id);
+    }
+
+    @Test
+    void updateIsCheckedMarker() throws Exception {
+        Map<Boolean, List<Long>> productsToUpdate = Collections.singletonMap(true, Collections.singletonList(id));
+
+        when(service.updateIsProductChecked(productsToUpdate)).thenReturn(1);
+
+        var response = controller.updateIsCheckedMarker(productsToUpdate);
+
+        verify(service).updateIsProductChecked(productsToUpdate);
+        assertEquals(1, response.getBody());
+        assertEquals(ok, response.getStatusCodeValue());
     }
 }

@@ -4,6 +4,7 @@
 package ii.cipriantarlev.marketmanagementapi.invoiceproduct;
 
 import java.util.List;
+import java.util.Map;
 
 public interface InvoiceProductService {
 
@@ -14,6 +15,8 @@ public interface InvoiceProductService {
 	InvoiceProductDTO save(InvoiceProductDTO invoiceProductDTO);
 
 	InvoiceProductDTO update(InvoiceProductDTO invoiceProductDTO);
+
+	int updateIsProductChecked(Map<Boolean, List<Long>> productsToUpdate);
 
 	void deleteById(Long id);
 }

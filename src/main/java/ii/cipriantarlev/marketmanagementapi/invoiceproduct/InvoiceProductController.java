@@ -6,6 +6,7 @@ package ii.cipriantarlev.marketmanagementapi.invoiceproduct;
 import static ii.cipriantarlev.marketmanagementapi.utils.Constants.*;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -64,6 +65,12 @@ public class InvoiceProductController {
 
 		var savedInvoiceProduct = invoiceProductService.update(invoiceProductDTO);
 		return new ResponseEntity<>(savedInvoiceProduct, HttpStatus.OK);
+	}
+
+	@PutMapping(IS_CHECKED_PRODUCT)
+	public ResponseEntity<Integer> updateIsCheckedMarker(@RequestBody Map<Boolean, List<Long>> productsToUpdate) {
+		var updatedRows = invoiceProductService.updateIsProductChecked(productsToUpdate);
+		return new ResponseEntity<>(updatedRows, HttpStatus.OK);
 	}
 
 	@DeleteMapping(PRODUCT_PATH + PRODUCT_ID_PATH)
