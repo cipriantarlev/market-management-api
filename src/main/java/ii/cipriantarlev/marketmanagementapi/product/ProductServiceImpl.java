@@ -107,14 +107,15 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int updateIsCheckedMarker(Map<Boolean, List<Long>> productsToUpdate) {
 		setUpdatedRows(0);
-        productsToUpdate.forEach((isChecked, idList) -> idList.forEach(id -> {
+        productsToUpdate.forEach((isChecked, idList) -> {idList.forEach(id -> {
 			var foundProduct = productMapper.mapDTOToEntity(this.findById(id));
 			foundProduct.setChecked(isChecked);
 			productHistoryService
 					.createProductHistoryRecord(productMapper.mapEntityToDTO(foundProduct), HistoryAction.UPDATE);
 			productRepository.updateIsCheckedMarker(isChecked, id);
-			setUpdatedRows(idList.size());
-		}));
+		});
+			setUpdatedRows(updatedRows + idList.size());
+		});
 
 		return updatedRows;
 	}

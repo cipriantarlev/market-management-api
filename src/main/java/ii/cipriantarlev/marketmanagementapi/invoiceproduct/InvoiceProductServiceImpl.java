@@ -35,10 +35,6 @@ public class InvoiceProductServiceImpl implements InvoiceProductService {
     @Autowired
     private InvoiceService invoiceService;
 
-    private List<Long> listOfIds = new ArrayList<>();
-
-    private boolean isChecked;
-
     @Override
     public List<InvoiceProductDTO> findAllByInvoiceId(Long invoiceId) {
         List<InvoiceProductDTO> invoiceProductList = invoiceProductRepository.findAllByInvoiceId(invoiceId).stream()
@@ -89,13 +85,7 @@ public class InvoiceProductServiceImpl implements InvoiceProductService {
 
     @Override
     public int updateIsProductChecked(Map<Boolean, List<Long>> productsToUpdate) {
-        listOfIds.clear();
-        productsToUpdate.forEach((checked, idList) -> {
-            listOfIds.addAll(invoiceProductRepository.findAllById(idList)
-                    .stream().map(invoiceProduct -> invoiceProduct.getProduct().getId()).collect(Collectors.toList()));
-            isChecked = checked;
-        });
-        return productService.updateIsCheckedMarker(Collections.singletonMap(isChecked, listOfIds));
+        return productService.updateIsCheckedMarker(productsToUpdate);
     }
 
     @Override

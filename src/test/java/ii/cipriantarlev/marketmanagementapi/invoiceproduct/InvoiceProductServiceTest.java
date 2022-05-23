@@ -190,19 +190,13 @@ class InvoiceProductServiceTest {
 
     @Test
     void updateIsProductChecked() throws Exception {
-        Product product = new Product();
-        product.setId(id);
-        invoiceProduct.setProduct(product);
-        var invoiceProductList = Collections.singletonList(invoiceProduct);
         var longList = Collections.singletonList(id);
         Map<Boolean, List<Long>> productsToUpdate = Collections.singletonMap(true, longList);
 
-        when(repository.findAllById(longList)).thenReturn(invoiceProductList);
         when(productService.updateIsCheckedMarker(productsToUpdate)).thenReturn(1);
 
         var updatedRows = service.updateIsProductChecked(productsToUpdate);
 
-        verify(repository).findAllById(longList);
         verify(productService).updateIsCheckedMarker(productsToUpdate);
         assertEquals(1, updatedRows);
     }
