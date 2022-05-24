@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
@@ -22,4 +23,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	@Modifying
 	@Query("update Product u set u.isChecked = ?1 where u.id = ?2")
 	int updateIsCheckedMarker(boolean isChecked, Long invoiceId);
+
+	List<Product> findByIsCheckedTrue();
 }

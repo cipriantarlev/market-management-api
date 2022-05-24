@@ -171,4 +171,17 @@ class ProductControllerTest {
         assertEquals(1, response.getBody());
         assertEquals(ok, response.getStatusCodeValue());
     }
+
+    @Test
+    void getMarkedProducts() throws Exception {
+        List<ProductDTOForList> productDTOList = Collections.singletonList(new ProductDTOForList());
+
+        when(service.findAllMarkedProduct()).thenReturn(productDTOList);
+
+        var response = controller.getMarkedProducts();
+
+        verify(service).findAllMarkedProduct();
+        assertEquals(ok, response.getStatusCodeValue());
+        assertEquals(productDTOList, response.getBody());
+    }
 }

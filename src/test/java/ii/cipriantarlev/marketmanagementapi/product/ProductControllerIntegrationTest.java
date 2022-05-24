@@ -246,4 +246,19 @@ class ProductControllerIntegrationTest extends IntegrationTestConfiguration {
                         PRODUCTS_ROOT_PATH.concat(IS_CHECKED_PRODUCT),
                         HttpMethod.PUT));
     }
+
+    @Test
+    void getMarkedProducts() {
+        HttpEntity<List<ProductDTOForList>> entity = new HttpEntity<>(null, new HttpHeaders());
+
+        var response = getRestTemplateWithAuth()
+                .exchange(createUri(PRODUCTS_ROOT_PATH.concat(IS_CHECKED_PRODUCT)),
+                        HttpMethod.GET,
+                        entity,
+                        new ParameterizedTypeReference<List<ProductDTOForList>>() {
+                        });
+
+        assertEquals(2, Objects.requireNonNull(response.getBody()).size());
+        assertEquals(OK, response.getStatusCodeValue());
+    }
 }

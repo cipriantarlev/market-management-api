@@ -246,12 +246,28 @@ class ProductServiceTest {
     }
 
     @Test
-    void updateIsCheckedMarkerWhenNotFounde() throws Exception {
+    void updateIsCheckedMarkerWhenNotFound() throws Exception {
         Map<Boolean, List<Long>> productsToUpdate = Collections.singletonMap(true, Collections.singletonList(id));
 
         when(repository.findById(id)).thenReturn(Optional.empty());
 
         assertThrows(DTONotFoundException.class, () -> service.updateIsCheckedMarker(productsToUpdate));
         verify(repository).findById(id);
+    }
+
+    @Test
+    void findAllMarkedProduct() throws Exception {
+        List<Product> products = Collections.singletonList(product);
+        productDTOForList = new ProductDTOForList();
+
+        when(repository.findByIsCheckedTrue()).thenReturn(products);
+        when(mapper.mapEntityToDTOForList(products.get(0))).thenReturn(productDTOForList);
+
+        var resultedProductList = service.findAllMarkedProduct();
+
+        verify(repository).findByIsCheckedTrue();
+        verify(mapper).mapEntityToDTOForList(products.get(0));
+        assertFalse(resultedProductList.isEmpty());
+        assertEquals(1, resultedProductList.size());
     }
 }

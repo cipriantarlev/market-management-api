@@ -16,6 +16,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import ii.cipriantarlev.marketmanagementapi.barcode.BarcodeDTO;
+import ii.cipriantarlev.marketmanagementapi.plu.PluDTO;
 import lombok.*;
 
 @Getter
@@ -51,4 +52,6 @@ public class ProductDTOForList {
 	private BigDecimal stock;
 
 	private boolean isChecked;
+
+	private PluDTO plu;
 }

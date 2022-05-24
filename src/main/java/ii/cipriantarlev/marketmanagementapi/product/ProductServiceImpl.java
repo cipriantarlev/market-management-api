@@ -3,6 +3,7 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.product;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -119,6 +120,22 @@ public class ProductServiceImpl implements ProductService {
 
 		return updatedRows;
 	}
+
+    @Override
+    public List<ProductDTOForList> findAllMarkedProduct() {
+        List<ProductDTOForList> products = productRepository.findByIsCheckedTrue().stream()
+                .map(product -> productMapper.mapEntityToDTOForList(product))
+                .map(productDTOForList -> {
+                    productDTOForList.setStock(BigDecimal.ONE);
+                    return productDTOForList;
+                })
+                .collect(Collectors.toList());
+
+        if (!products.isEmpty()) {
+            return products;
+        }
+        throw new DTOListNotFoundException("Product list not found");
+    }
 
 	private ProductDTO saveProduct(ProductDTO productDTO, HistoryAction create) {
 		var product = productRepository.save(productMapper.mapDTOToEntity(productDTO));

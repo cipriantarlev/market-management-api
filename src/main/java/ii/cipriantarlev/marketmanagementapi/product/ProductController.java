@@ -76,6 +76,11 @@ public class ProductController {
 		return new ResponseEntity<>(products, HttpStatus.OK);
 	}
 
+	@GetMapping(IS_CHECKED_PRODUCT)
+	public ResponseEntity<List<ProductDTOForList>> getMarkedProducts() {
+		return new ResponseEntity<>(productService.findAllMarkedProduct(), HttpStatus.OK);
+	}
+
 	@PostMapping
 	public ResponseEntity<ProductDTO> createProduct(@Valid @RequestBody ProductDTO productDTO) {
 		var product = productService.save(productDTO);

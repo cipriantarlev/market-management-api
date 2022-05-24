@@ -25,4 +25,6 @@ public interface ProductService {
 	boolean checkIfNameRusExists(String nameRus);
 
 	int updateIsCheckedMarker(Map<Boolean, List<Long>> productsToUpdate);
+
+	List<ProductDTOForList> findAllMarkedProduct();
 }
