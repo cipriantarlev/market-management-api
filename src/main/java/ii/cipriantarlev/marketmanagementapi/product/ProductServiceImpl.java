@@ -4,9 +4,11 @@
 package ii.cipriantarlev.marketmanagementapi.product;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import ii.cipriantarlev.marketmanagementapi.product.history.ProductHistoryService;
@@ -37,6 +39,8 @@ public class ProductServiceImpl implements ProductService {
 	@Setter
 	private int updatedRows;
 
+    private final List<ProductDTOForList> markedProductsForPrint = new ArrayList<>();
+
 	@Override
 	public List<ProductDTOForList> findAll() {
 		List<ProductDTOForList> products = productRepository.findAll().stream()
@@ -52,12 +56,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ProductDTO findById(Long id) {
-		var product = productRepository.findById(id);
-
-		if (product.isPresent()) {
-			return productMapper.mapEntityToDTO(product.get());
-		}
-		throw new DTONotFoundException(String.format("Product with %d not found", id), id);
+		return productMapper.mapEntityToDTO(productRepository.findById(id).orElseThrow(() ->
+                new DTONotFoundException(String.format("Product with %d not found", id), id)));
 	}
 
 	@Override
@@ -136,6 +136,16 @@ public class ProductServiceImpl implements ProductService {
         }
         throw new DTOListNotFoundException("Product list not found");
     }
+
+	@Override
+	public List<ProductDTOForList> printMarkedProducts(Map<Long, Integer> productsToPrint) {
+        markedProductsForPrint.clear();
+		productsToPrint.forEach((id, qty) -> IntStream.rangeClosed(1, qty)
+                .forEach(element -> markedProductsForPrint
+                        .add(productMapper.mapEntityToDTOForList(productRepository.findById(id).orElseThrow(() ->
+                            new DTONotFoundException(String.format("Product with %d not found", id), id))))));
+        return markedProductsForPrint;
+	}
 
 	private ProductDTO saveProduct(ProductDTO productDTO, HistoryAction create) {
 		var product = productRepository.save(productMapper.mapDTOToEntity(productDTO));

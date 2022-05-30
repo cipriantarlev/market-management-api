@@ -88,6 +88,11 @@ public class ProductController {
 		return new ResponseEntity<>(product, headers, HttpStatus.OK);
 	}
 
+	@PostMapping(PRINT_PRODUCTS)
+	public ResponseEntity<List<ProductDTOForList>> printMarkedProducts(@RequestBody Map<Long, Integer> productsToPrint) {
+		return new ResponseEntity<>(productService.printMarkedProducts(productsToPrint), HttpStatus.OK);
+	}
+
 	@PutMapping
 	public ResponseEntity<ProductDTO> updateProduct(@Valid @RequestBody ProductDTO productDTO) {
 		var savedProduct = productService.update(productDTO);

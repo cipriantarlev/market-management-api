@@ -27,4 +27,6 @@ public interface ProductService {
 	int updateIsCheckedMarker(Map<Boolean, List<Long>> productsToUpdate);
 
 	List<ProductDTOForList> findAllMarkedProduct();
+
+	List<ProductDTOForList> printMarkedProducts(Map<Long, Integer> productsToPrint);
 }

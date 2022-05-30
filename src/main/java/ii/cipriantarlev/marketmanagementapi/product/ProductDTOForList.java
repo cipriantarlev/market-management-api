@@ -35,6 +35,11 @@ public class ProductDTOForList {
 	@Size(min = 1, max = 300, message = "Romanian Name length should be between {min} and {max}")
 	private String nameRom;
 
+	@NotBlank(message = "Russian Name should not be blank or null")
+	@Pattern(regexp = "^[a-zA-ZА-Яа-я0-9-\\s.]+$", message = "Russian Name should contain only letters, numbers, dash and dot")
+	@Size(min = 1, max = 300, message = "Russian Name length should be between {min} and {max}")
+	private String nameRus;
+
 	@DecimalMin(value = "0.0", inclusive = false, message = "Discount Price min value should be {value}")
 	@Digits(integer = 5, fraction = 2, message = "Discount Price format should have {integer} integer digits and {fraction} digits")
 	private BigDecimal discountPrice;

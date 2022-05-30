@@ -51,4 +51,5 @@ public class Constants {
 	public final String IS_APPROVED_INVOICE = "/isApproved";
 	public final String PRODUCT_HISTORY_BY_ID = "/product-history/{productId}";
 	public final String IS_CHECKED_PRODUCT = "/isChecked";
+	public final String PRINT_PRODUCTS = "/printProducts";
 }
