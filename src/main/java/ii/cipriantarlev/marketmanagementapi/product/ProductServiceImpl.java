@@ -12,6 +12,7 @@ import java.util.stream.IntStream;
 
 import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import ii.cipriantarlev.marketmanagementapi.product.history.ProductHistoryService;
+import ii.cipriantarlev.marketmanagementapi.utils.CreateLabel;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductHistoryService productHistoryService;
+
+	@Autowired
+	private CreateLabel createLabel;
 
 	@Setter
 	private int updatedRows;
@@ -144,6 +148,9 @@ public class ProductServiceImpl implements ProductService {
                 .forEach(element -> markedProductsForPrint
                         .add(productMapper.mapEntityToDTOForList(productRepository.findById(id).orElseThrow(() ->
                             new DTONotFoundException(String.format("Product with %d not found", id), id))))));
+
+		createLabel.generatePriceLabel(markedProductsForPrint);
+				
         return markedProductsForPrint;
 	}
 
