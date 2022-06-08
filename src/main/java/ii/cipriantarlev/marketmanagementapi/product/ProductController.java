@@ -3,6 +3,7 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.product;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,6 +14,7 @@ import ii.cipriantarlev.marketmanagementapi.product.history.ProductHistory;
 import ii.cipriantarlev.marketmanagementapi.product.history.ProductHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -59,12 +61,12 @@ public class ProductController {
 		var product = productService.findByBarcodeValue(barcodeValue);
 		return new ResponseEntity<>(product, HttpStatus.OK);
 	}
-	
+
 	@GetMapping(PRODUCT_BY_NAME_ROM)
 	public ResponseEntity<Boolean> checkIfNameRomExists(@PathVariable String value) {
 		return new ResponseEntity<>(productService.checkIfNameRomExists(value), HttpStatus.OK);
 	}
-	
+
 	@GetMapping(PRODUCT_BY_NAME_RUS)
 	public ResponseEntity<Boolean> checkIfNameRusExists(@PathVariable String value) {
 		return new ResponseEntity<>(productService.checkIfNameRusExists(value), HttpStatus.OK);
@@ -89,7 +91,7 @@ public class ProductController {
 	}
 
 	@PostMapping(PRINT_PRODUCTS)
-	public ResponseEntity<List<ProductDTOForList>> printMarkedProducts(@RequestBody Map<Long, Integer> productsToPrint) {
+	public ResponseEntity<byte[]> printMarkedProducts(@RequestBody Map<Long, Integer> productsToPrint) {
 		return new ResponseEntity<>(productService.printMarkedProducts(productsToPrint), HttpStatus.OK);
 	}
 

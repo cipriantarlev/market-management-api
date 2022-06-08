@@ -3,6 +3,7 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.product;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -28,5 +29,5 @@ public interface ProductService {
 
 	List<ProductDTOForList> findAllMarkedProduct();
 
-	List<ProductDTOForList> printMarkedProducts(Map<Long, Integer> productsToPrint);
+	byte[] printMarkedProducts(Map<Long, Integer> productsToPrint);
 }

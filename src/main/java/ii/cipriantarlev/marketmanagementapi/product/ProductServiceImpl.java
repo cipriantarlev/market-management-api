@@ -3,6 +3,7 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.product;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -142,16 +143,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
 	@Override
-	public List<ProductDTOForList> printMarkedProducts(Map<Long, Integer> productsToPrint) {
+	public byte[] printMarkedProducts(Map<Long, Integer> productsToPrint) {
         markedProductsForPrint.clear();
 		productsToPrint.forEach((id, qty) -> IntStream.rangeClosed(1, qty)
                 .forEach(element -> markedProductsForPrint
                         .add(productMapper.mapEntityToDTOForList(productRepository.findById(id).orElseThrow(() ->
                             new DTONotFoundException(String.format("Product with %d not found", id), id))))));
 
-		createLabel.generatePriceLabel(markedProductsForPrint);
-				
-        return markedProductsForPrint;
+        return createLabel.generatePriceLabel(markedProductsForPrint);
 	}
 
 	private ProductDTO saveProduct(ProductDTO productDTO, HistoryAction create) {
