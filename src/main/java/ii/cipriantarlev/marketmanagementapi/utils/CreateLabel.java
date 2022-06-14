@@ -19,14 +19,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Component
 public class CreateLabel {
 
-    public byte[] generatePriceLabel(List<ProductDTOForList> productToPrint) {
-        File priceLabelDoc = new File("helloWorld2.docx");
-        byte[] priceLabelBytes = new byte[0];
+    public Optional<byte[]> generatePriceLabel(List<ProductDTOForList> productToPrint) {
+        File priceLabelDoc = new File("priceLabel.docx");
+        Optional<byte[]> priceLabel = Optional.empty();
         try {
             log.info("Generating price label...");
 
@@ -44,18 +45,16 @@ public class CreateLabel {
             mainDocumentPart.setJaxbElement(wmlDocumentEl);
             wordPackage.addTargetPart(mainDocumentPart);
 
-            Files.createTempFile("helloWorld2", ".docx");
-
             wordPackage.save(priceLabelDoc);
             log.info("Generating price label... Done!");
-            priceLabelBytes = Files.readAllBytes(priceLabelDoc.toPath());
+            priceLabel = Optional.of(Files.readAllBytes(priceLabelDoc.toPath()));
             Files.deleteIfExists(priceLabelDoc.toPath());
             log.info("Deleted price label doc and sent byte array.");
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error in CreateLabel.generatePriceLabel(). " + e.getMessage());
         }
 
-        return priceLabelBytes;
+        return priceLabel;
     }
 
     private void setDocumentSizeAndOrientation(ObjectFactory factory, Body body) {

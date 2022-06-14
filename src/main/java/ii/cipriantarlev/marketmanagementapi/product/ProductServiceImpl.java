@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import ii.cipriantarlev.marketmanagementapi.exceptions.PriceLabelGenerationException;
 import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import ii.cipriantarlev.marketmanagementapi.product.history.ProductHistoryService;
 import ii.cipriantarlev.marketmanagementapi.utils.CreateLabel;
@@ -148,9 +149,11 @@ public class ProductServiceImpl implements ProductService {
 		productsToPrint.forEach((id, qty) -> IntStream.rangeClosed(1, qty)
                 .forEach(element -> markedProductsForPrint
                         .add(productMapper.mapEntityToDTOForList(productRepository.findById(id).orElseThrow(() ->
-                            new DTONotFoundException(String.format("Product with %d not found", id), id))))));
+                            new DTONotFoundException(
+									String.format("Product with %d not found during price label generation.", id), id))))));
 
-        return createLabel.generatePriceLabel(markedProductsForPrint);
+        return createLabel.generatePriceLabel(markedProductsForPrint).orElseThrow(()
+				-> new PriceLabelGenerationException("Unable to generate price label. Please try again."));
 	}
 
 	private ProductDTO saveProduct(ProductDTO productDTO, HistoryAction create) {

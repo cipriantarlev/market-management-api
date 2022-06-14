@@ -184,4 +184,18 @@ class ProductControllerTest {
         assertEquals(ok, response.getStatusCodeValue());
         assertEquals(productDTOList, response.getBody());
     }
+
+    @Test
+    void printMarkedProducts() throws Exception {
+        Map<Long, Integer> productsToPrint = Collections.singletonMap(id, 1);
+
+        byte[] priceLabelBytes = new byte[8];
+        when(service.printMarkedProducts(productsToPrint)).thenReturn(priceLabelBytes);
+
+        var response = controller.printMarkedProducts(productsToPrint);
+
+        verify(service).printMarkedProducts(productsToPrint);
+        assertEquals(ok, response.getStatusCodeValue());
+        assertEquals(priceLabelBytes, response.getBody());
+    }
 }

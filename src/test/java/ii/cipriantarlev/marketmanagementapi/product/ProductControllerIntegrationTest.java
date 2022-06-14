@@ -261,4 +261,31 @@ class ProductControllerIntegrationTest extends IntegrationTestConfiguration {
         assertEquals(2, Objects.requireNonNull(response.getBody()).size());
         assertEquals(OK, response.getStatusCodeValue());
     }
+
+    @Test
+    void printMarkedProducts() {
+        Map<Long, Integer> productsToPrint = Collections.singletonMap(GOOD_ID, 1);
+        HttpEntity<Map<Long, Integer>> entity = new HttpEntity<>(productsToPrint, new HttpHeaders());
+
+        var response = getRestTemplateWithAuth()
+                .exchange(createUri(PRODUCTS_ROOT_PATH.concat(PRINT_PRODUCTS)),
+                        HttpMethod.POST,
+                        entity,
+                        new ParameterizedTypeReference<byte[]>() {
+                        });
+
+        assertEquals(OK, response.getStatusCodeValue());
+    }
+
+    @Test
+    void printMarkedProductsWhenIdNotFound() throws Exception {
+        Map<Long, Integer> productsToPrint = Collections.singletonMap(BAD_ID, 1);
+        HttpEntity<Map<Long, Integer>> entity = new HttpEntity<>(productsToPrint, new HttpHeaders());
+
+        assertThrows(RestClientException.class,
+                throwException(
+                        entity,
+                        PRODUCTS_ROOT_PATH.concat(PRINT_PRODUCTS),
+                        HttpMethod.POST));
+    }
 }
