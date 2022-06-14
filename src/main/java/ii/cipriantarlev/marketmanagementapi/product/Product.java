@@ -18,14 +18,15 @@ import ii.cipriantarlev.marketmanagementapi.productscode.ProductCode;
 import ii.cipriantarlev.marketmanagementapi.subcategory.Subcategory;
 import ii.cipriantarlev.marketmanagementapi.vat.Vat;
 import ii.cipriantarlev.marketmanagementapi.vendor.Vendor;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Table(name = "products")
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class Product {
@@ -93,4 +94,7 @@ public class Product {
 			joinColumns=@JoinColumn(name="product_id"),
 			inverseJoinColumns = @JoinColumn(name = "vendor_id"))
 	private List<Vendor> vendors;
+
+	@Column(name = "is_checked")
+	private boolean isChecked;
 }

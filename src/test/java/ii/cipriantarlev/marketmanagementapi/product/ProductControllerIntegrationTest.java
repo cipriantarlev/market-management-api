@@ -16,10 +16,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestClientException;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static ii.cipriantarlev.marketmanagementapi.utils.Constants.*;
@@ -221,5 +218,74 @@ class ProductControllerIntegrationTest extends IntegrationTestConfiguration {
 
         assertEquals(OK, response.getStatusCodeValue());
         assertEquals(returnValue, response.getBody());
+    }
+
+    @Test
+    void updateIsCheckedMarkerWhenOk() throws Exception {
+        Map<Boolean, List<Long>> productsToUpdate = Collections.singletonMap(true, Collections.singletonList(GOOD_ID));
+        HttpEntity<Map<Boolean, List<Long>>> entity = new HttpEntity<>(productsToUpdate, new HttpHeaders());
+
+        var response = getRestTemplateWithAuth()
+                .exchange(createUri(PRODUCTS_ROOT_PATH.concat(IS_CHECKED_PRODUCT)),
+                        HttpMethod.PUT,
+                        entity,
+                        Integer.class);
+
+        assertEquals(OK, response.getStatusCodeValue());
+        assertEquals(1, response.getBody());
+    }
+
+    @Test
+    void updateIsCheckedMarkerWhenNotFound() throws Exception {
+        Map<Boolean, List<Long>> productsToUpdate = Collections.singletonMap(true, Collections.singletonList(BAD_ID));
+        HttpEntity<Map<Boolean, List<Long>>> entity = new HttpEntity<>(productsToUpdate, new HttpHeaders());
+
+        assertThrows(RestClientException.class,
+                throwException(
+                        entity,
+                        PRODUCTS_ROOT_PATH.concat(IS_CHECKED_PRODUCT),
+                        HttpMethod.PUT));
+    }
+
+    @Test
+    void getMarkedProducts() {
+        HttpEntity<List<ProductDTOForList>> entity = new HttpEntity<>(null, new HttpHeaders());
+
+        var response = getRestTemplateWithAuth()
+                .exchange(createUri(PRODUCTS_ROOT_PATH.concat(IS_CHECKED_PRODUCT)),
+                        HttpMethod.GET,
+                        entity,
+                        new ParameterizedTypeReference<List<ProductDTOForList>>() {
+                        });
+
+        assertEquals(2, Objects.requireNonNull(response.getBody()).size());
+        assertEquals(OK, response.getStatusCodeValue());
+    }
+
+    @Test
+    void printMarkedProducts() {
+        Map<Long, Integer> productsToPrint = Collections.singletonMap(GOOD_ID, 1);
+        HttpEntity<Map<Long, Integer>> entity = new HttpEntity<>(productsToPrint, new HttpHeaders());
+
+        var response = getRestTemplateWithAuth()
+                .exchange(createUri(PRODUCTS_ROOT_PATH.concat(PRINT_PRODUCTS)),
+                        HttpMethod.POST,
+                        entity,
+                        new ParameterizedTypeReference<byte[]>() {
+                        });
+
+        assertEquals(OK, response.getStatusCodeValue());
+    }
+
+    @Test
+    void printMarkedProductsWhenIdNotFound() throws Exception {
+        Map<Long, Integer> productsToPrint = Collections.singletonMap(BAD_ID, 1);
+        HttpEntity<Map<Long, Integer>> entity = new HttpEntity<>(productsToPrint, new HttpHeaders());
+
+        assertThrows(RestClientException.class,
+                throwException(
+                        entity,
+                        PRODUCTS_ROOT_PATH.concat(PRINT_PRODUCTS),
+                        HttpMethod.POST));
     }
 }

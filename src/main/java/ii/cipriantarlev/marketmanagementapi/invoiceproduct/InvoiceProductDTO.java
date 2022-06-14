@@ -35,21 +35,21 @@ public class InvoiceProductDTO {
 
 	@NotNull(message = "Quantity should not be null")
 	@DecimalMin(value = "0.0", inclusive = false, message = "Quantity min value should be {value}")
-	@Digits(integer = 6, fraction = 4, message = "Quantity fromat should have {integer} integer digits and {fraction} digits")
+	@Digits(integer = 6, fraction = 4, message = "Quantity format should have {integer} integer digits and {fraction} digits")
 	private BigDecimal quantity;
 
 	@NotNull(message = "Vat sum should not be null")
 	@DecimalMin(value = "0.0", message = "Vat sum min value should be {value}")
-	@Digits(integer = 6, fraction = 2, message = "Vat sum fromat should have {integer} integer digits and {fraction} digits")
+	@Digits(integer = 6, fraction = 2, message = "Vat sum format should have {integer} integer digits and {fraction} digits")
 	private BigDecimal vatSum;
 
 	@NotNull(message = "Total Discount Price should not be null")
 	@DecimalMin(value = "0.0", message = "Total Discount Price min value should be {value}")
-	@Digits(integer = 6, fraction = 2, message = "Total Discount Price fromat should have {integer} integer digits and {fraction} digits")
+	@Digits(integer = 6, fraction = 2, message = "Total Discount Price format should have {integer} integer digits and {fraction} digits")
 	private BigDecimal totalDiscountPrice;
 
 	@NotNull(message = "Total Retail Price should not be null")
 	@DecimalMin(value = "0.0", message = "Total Retail Price min value should be {value}")
-	@Digits(integer = 6, fraction = 2, message = "Total Retail Price fromat should have {integer} integer digits and {fraction} digits")
+	@Digits(integer = 6, fraction = 2, message = "Total Retail Price format should have {integer} integer digits and {fraction} digits")
 	private BigDecimal totalRetailPrice;
 }

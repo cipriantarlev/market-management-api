@@ -162,7 +162,8 @@ CREATE TABLE IF NOT EXISTS products
     plu_id INT,
     product_code_id INT NOT NULL,
     stock numeric(8,4) DEFAULT 0.0000,
-    default_vendor_id INT
+    default_vendor_id INT,
+    is_checked boolean
 );
 
 DROP TABLE IF EXISTS vat;

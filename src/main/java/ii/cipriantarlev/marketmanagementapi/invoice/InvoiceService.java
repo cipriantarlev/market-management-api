@@ -6,6 +6,7 @@ package ii.cipriantarlev.marketmanagementapi.invoice;
 import ii.cipriantarlev.marketmanagementapi.documenttype.DocumentType;
 
 import java.util.List;
+import java.util.Map;
 
 public interface InvoiceService {
 
@@ -21,5 +22,5 @@ public interface InvoiceService {
 
 	void deleteById(Long id);
 
-	int updateIsApprovedMarker(boolean isApproved, Long id);
+	int updateIsApprovedMarker(Map<Boolean, List<Long>> invoicesToUpdate);
 }

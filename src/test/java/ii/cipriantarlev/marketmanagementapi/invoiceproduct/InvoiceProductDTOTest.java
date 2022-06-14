@@ -69,7 +69,7 @@ class InvoiceProductDTOTest {
 		Set<ConstraintViolation<InvoiceProductDTO>> constraintViolationSet = validator
 				.validate(TestDataDTOBuilder.getWorngRangeQunatity());
 
-		assertEquals("Quantity fromat should have 6 integer digits and 4 digits",
+		assertEquals("Quantity format should have 6 integer digits and 4 digits",
 				constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
 	}
@@ -102,7 +102,7 @@ class InvoiceProductDTOTest {
 		Set<ConstraintViolation<InvoiceProductDTO>> constraintViolationSet = validator
 				.validate(TestDataDTOBuilder.getWorngRangeVatSumInvoiceProduct());
 
-		assertEquals("Vat sum fromat should have 6 integer digits and 2 digits",
+		assertEquals("Vat sum format should have 6 integer digits and 2 digits",
 				constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
 	}
@@ -135,7 +135,7 @@ class InvoiceProductDTOTest {
 		Set<ConstraintViolation<InvoiceProductDTO>> constraintViolationSet = validator
 				.validate(TestDataDTOBuilder.getWorngRangeTotalDiscountPricemInvoiceProduct());
 
-		assertEquals("Total Discount Price fromat should have 6 integer digits and 2 digits",
+		assertEquals("Total Discount Price format should have 6 integer digits and 2 digits",
 				constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
 	}
@@ -168,7 +168,7 @@ class InvoiceProductDTOTest {
 		Set<ConstraintViolation<InvoiceProductDTO>> constraintViolationSet = validator
 				.validate(TestDataDTOBuilder.getWorngRangeTotalRetailPricemInvoiceProduct());
 
-		assertEquals("Total Retail Price fromat should have 6 integer digits and 2 digits",
+		assertEquals("Total Retail Price format should have 6 integer digits and 2 digits",
 				constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
 	}

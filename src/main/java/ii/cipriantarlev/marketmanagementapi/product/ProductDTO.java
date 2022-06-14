@@ -55,15 +55,15 @@ public class ProductDTO {
 	private SubcategoryDTONoCategory subcategory;
 
 	@DecimalMin(value = "0.0", message = "Discount Price min value should be {value}")
-	@Digits(integer = 5, fraction = 2, message = "Discount Price fromat should have {integer} integer digits and {fraction} digits")
+	@Digits(integer = 5, fraction = 2, message = "Discount Price format should have {integer} integer digits and {fraction} digits")
 	private BigDecimal discountPrice;
 
 	@DecimalMin(value = "0.0", message = "Retail Price min value should be {value}")
-	@Digits(integer = 5, fraction = 2, message = "Retail Price fromat should have {integer} integer digits and {fraction} digits")
+	@Digits(integer = 5, fraction = 2, message = "Retail Price format should have {integer} integer digits and {fraction} digits")
 	private BigDecimal retailPrice;
 
 	@DecimalMin(value = "0.0", message = "Trade margin min value should be {value}")
-	@Digits(integer = 3, fraction = 2, message = "Trade margin fromat should have {integer} integer digits and {fraction} digits")
+	@Digits(integer = 3, fraction = 2, message = "Trade margin format should have {integer} integer digits and {fraction} digits")
 	private BigDecimal tradeMargin;
 
 	@Valid
@@ -81,7 +81,7 @@ public class ProductDTO {
 	private PluDTO plu;
 
 	@DecimalMin(value = "0.0", message = "Stock min value should be {value}")
-	@Digits(integer = 6, fraction = 4, message = "Stock fromat should have {integer} integer digits and {fraction} digits")
+	@Digits(integer = 6, fraction = 4, message = "Stock format should have {integer} integer digits and {fraction} digits")
 	private BigDecimal stock;
 
 	@Valid
@@ -92,4 +92,6 @@ public class ProductDTO {
 	private Long defaultVendorId;
 
 	private List<VendorDTOOnlyName> vendors;
+
+	private boolean isChecked;
 }

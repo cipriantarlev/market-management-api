@@ -3,16 +3,16 @@ package ii.cipriantarlev.marketmanagementapi.product;
 import ii.cipriantarlev.marketmanagementapi.barcode.BarcodeService;
 import ii.cipriantarlev.marketmanagementapi.exceptions.DTOFoundWhenSaveException;
 import ii.cipriantarlev.marketmanagementapi.exceptions.DTONotFoundException;
+import ii.cipriantarlev.marketmanagementapi.exceptions.PriceLabelGenerationException;
 import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import ii.cipriantarlev.marketmanagementapi.product.history.ProductHistoryService;
+import ii.cipriantarlev.marketmanagementapi.utils.CreateLabel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -35,10 +35,14 @@ class ProductServiceTest {
     @Mock
     private ProductHistoryService productHistoryService;
 
+    @Mock
+    private CreateLabel createLabel;
+
     private Product product;
     private ProductDTO productDTO;
     private final long id = 1L;
     private ProductDTOForList productDTOForList;
+    List<ProductDTOForList> markedProductsForPrint = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
@@ -221,5 +225,100 @@ class ProductServiceTest {
         when(repository.findByNameRus("Тест")).thenReturn(product);
 
         assertTrue(service.checkIfNameRusExists("Тест"));
+    }
+
+    @Test
+    void updateIsCheckedMarker() throws Exception {
+        var productOptional = Optional.of(product);
+        Map<Boolean, List<Long>> productsToUpdate = Collections.singletonMap(true, Collections.singletonList(id));
+
+        when(repository.findById(id)).thenReturn(productOptional);
+        when(mapper.mapDTOToEntity(productDTO)).thenReturn(product);
+        when(mapper.mapEntityToDTO(productOptional.get())).thenReturn(productDTO);
+        doNothing().when(productHistoryService).createProductHistoryRecord(productDTO, HistoryAction.UPDATE);
+        when(repository.updateIsCheckedMarker(true, id)).thenReturn(1);
+
+        var updatedRows = service.updateIsCheckedMarker(productsToUpdate);
+
+        verify(repository).findById(id);
+        verify(mapper, times(2)).mapEntityToDTO(productOptional.get());
+        verify(mapper).mapDTOToEntity(productDTO);
+        verify(productHistoryService).createProductHistoryRecord(productDTO, HistoryAction.UPDATE);
+        verify(repository).updateIsCheckedMarker(true, id);
+        assertEquals(1, updatedRows);
+    }
+
+    @Test
+    void updateIsCheckedMarkerWhenNotFound() throws Exception {
+        Map<Boolean, List<Long>> productsToUpdate = Collections.singletonMap(true, Collections.singletonList(id));
+
+        when(repository.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(DTONotFoundException.class, () -> service.updateIsCheckedMarker(productsToUpdate));
+        verify(repository).findById(id);
+    }
+
+    @Test
+    void findAllMarkedProduct() throws Exception {
+        List<Product> products = Collections.singletonList(product);
+        productDTOForList = new ProductDTOForList();
+
+        when(repository.findByIsCheckedTrue()).thenReturn(products);
+        when(mapper.mapEntityToDTOForList(products.get(0))).thenReturn(productDTOForList);
+
+        var resultedProductList = service.findAllMarkedProduct();
+
+        verify(repository).findByIsCheckedTrue();
+        verify(mapper).mapEntityToDTOForList(products.get(0));
+        assertFalse(resultedProductList.isEmpty());
+        assertEquals(1, resultedProductList.size());
+    }
+
+    @Test
+    void printMarkedProducts() throws Exception {
+        Map<Long, Integer> productsToPrint = Collections.singletonMap(id, 1);
+        productDTOForList = ProductDTOForList.builder().id(id).build();
+        Optional<Product> productOptional = Optional.of(this.product);
+        Optional<byte[]> priceLabelBytes = Optional.of(new byte[8]);
+        markedProductsForPrint.add(productDTOForList);
+
+        when(repository.findById(id)).thenReturn(productOptional);
+        when(mapper.mapEntityToDTOForList(productOptional.get())).thenReturn(productDTOForList);
+        when(createLabel.generatePriceLabel(markedProductsForPrint)).thenReturn(priceLabelBytes);
+
+        byte[] bytes = service.printMarkedProducts(productsToPrint);
+
+        verify(repository).findById(id);
+        verify(mapper).mapEntityToDTOForList(productOptional.get());
+        verify(createLabel).generatePriceLabel(markedProductsForPrint);
+        assertEquals(8, bytes.length);
+    }
+
+    @Test
+    void printMarkedProductsWhenIdNotFound() throws Exception {
+        Map<Long, Integer> productsToPrint = Collections.singletonMap(id, 1);
+
+        when(repository.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(DTONotFoundException.class, () -> service.printMarkedProducts(productsToPrint));
+        verify(repository).findById(id);
+    }
+
+    @Test
+    void printMarkedProductsWhenErrorDuringGeneration() throws Exception {
+        Map<Long, Integer> productsToPrint = Collections.singletonMap(id, 1);
+        productDTOForList = ProductDTOForList.builder().id(id).build();
+        Optional<Product> productOptional = Optional.of(this.product);
+        Optional<byte[]> priceLabelBytes = Optional.empty();
+        markedProductsForPrint.add(productDTOForList);
+
+        when(repository.findById(id)).thenReturn(productOptional);
+        when(mapper.mapEntityToDTOForList(productOptional.get())).thenReturn(productDTOForList);
+        when(createLabel.generatePriceLabel(markedProductsForPrint)).thenReturn(priceLabelBytes);
+
+        assertThrows(PriceLabelGenerationException.class, () -> service.printMarkedProducts(productsToPrint));
+        verify(repository).findById(id);
+        verify(mapper).mapEntityToDTOForList(productOptional.get());
+        verify(createLabel).generatePriceLabel(markedProductsForPrint);
     }
 }

@@ -5,6 +5,7 @@ import ii.cipriantarlev.marketmanagementapi.exceptions.DTOListNotFoundException;
 import ii.cipriantarlev.marketmanagementapi.exceptions.DTONotFoundException;
 import ii.cipriantarlev.marketmanagementapi.invoice.InvoiceDTO;
 import ii.cipriantarlev.marketmanagementapi.invoice.InvoiceService;
+import ii.cipriantarlev.marketmanagementapi.product.Product;
 import ii.cipriantarlev.marketmanagementapi.product.ProductDTO;
 import ii.cipriantarlev.marketmanagementapi.product.ProductService;
 import ii.cipriantarlev.marketmanagementapi.vendor.VendorDTOOnlyName;
@@ -14,10 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -188,5 +186,18 @@ class InvoiceProductServiceTest {
 
         assertThrows(DTONotFoundException.class, () -> service.deleteById(id));
         verify(repository).findById(id);
+    }
+
+    @Test
+    void updateIsProductChecked() throws Exception {
+        var longList = Collections.singletonList(id);
+        Map<Boolean, List<Long>> productsToUpdate = Collections.singletonMap(true, longList);
+
+        when(productService.updateIsCheckedMarker(productsToUpdate)).thenReturn(1);
+
+        var updatedRows = service.updateIsProductChecked(productsToUpdate);
+
+        verify(productService).updateIsCheckedMarker(productsToUpdate);
+        assertEquals(1, updatedRows);
     }
 }

@@ -21,10 +21,7 @@ import org.springframework.web.client.RestClientException;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static ii.cipriantarlev.marketmanagementapi.utils.Constants.*;
@@ -137,6 +134,33 @@ class InvoiceProductControllerIntegrationTest extends IntegrationTestConfigurati
                 entity,
                 INVOICE_PRODUCT_ROOT_PATH.concat(PRODUCT_PATH).concat(BAD_ID_PATH),
                 HttpMethod.DELETE));
+    }
+
+    @Test
+    void updateIsCheckedMarkerWhenOk() throws Exception {
+        Map<Boolean, List<Long>> productsToUpdate = Collections.singletonMap(true, Collections.singletonList(GOOD_ID));
+        HttpEntity<Map<Boolean, List<Long>>> entity = new HttpEntity<>(productsToUpdate, new HttpHeaders());
+
+        var response = getRestTemplateWithAuth()
+                .exchange(createUri(INVOICE_PRODUCT_ROOT_PATH.concat(IS_CHECKED_PRODUCT)),
+                        HttpMethod.PUT,
+                        entity,
+                        Integer.class);
+
+        assertEquals(OK, response.getStatusCodeValue());
+        assertEquals(1, response.getBody());
+    }
+
+    @Test
+    void updateIsCheckedMarkerWhenNotFound() throws Exception {
+        Map<Boolean, List<Long>> productsToUpdate = Collections.singletonMap(true, Collections.singletonList(BAD_ID));
+        HttpEntity<Map<Boolean, List<Long>>> entity = new HttpEntity<>(productsToUpdate, new HttpHeaders());
+
+        assertThrows(RestClientException.class,
+                throwException(
+                        entity,
+                        INVOICE_PRODUCT_ROOT_PATH.concat(IS_CHECKED_PRODUCT),
+                        HttpMethod.PUT));
     }
 
     private InvoiceProductDTO getInvoiceProductDTO() {

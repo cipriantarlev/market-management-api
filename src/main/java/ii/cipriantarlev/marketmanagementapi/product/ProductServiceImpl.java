@@ -3,11 +3,19 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.product;
 
+import java.io.File;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
+import ii.cipriantarlev.marketmanagementapi.exceptions.PriceLabelGenerationException;
 import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import ii.cipriantarlev.marketmanagementapi.product.history.ProductHistoryService;
+import ii.cipriantarlev.marketmanagementapi.utils.CreateLabel;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +39,14 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductHistoryService productHistoryService;
 
+	@Autowired
+	private CreateLabel createLabel;
+
+	@Setter
+	private int updatedRows;
+
+    private final List<ProductDTOForList> markedProductsForPrint = new ArrayList<>();
+
 	@Override
 	public List<ProductDTOForList> findAll() {
 		List<ProductDTOForList> products = productRepository.findAll().stream()
@@ -46,12 +62,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ProductDTO findById(Long id) {
-		var product = productRepository.findById(id);
-
-		if (product.isPresent()) {
-			return productMapper.mapEntityToDTO(product.get());
-		}
-		throw new DTONotFoundException(String.format("Product with %d not found", id), id);
+		return productMapper.mapEntityToDTO(productRepository.findById(id).orElseThrow(() ->
+                new DTONotFoundException(String.format("Product with %d not found", id), id)));
 	}
 
 	@Override
@@ -97,6 +109,51 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public boolean checkIfNameRusExists(String nameRus) {
 		return productRepository.findByNameRus(nameRus) != null;
+	}
+
+	@Override
+	public int updateIsCheckedMarker(Map<Boolean, List<Long>> productsToUpdate) {
+		setUpdatedRows(0);
+        productsToUpdate.forEach((isChecked, idList) -> {idList.forEach(id -> {
+			var foundProduct = productMapper.mapDTOToEntity(this.findById(id));
+			foundProduct.setChecked(isChecked);
+			productHistoryService
+					.createProductHistoryRecord(productMapper.mapEntityToDTO(foundProduct), HistoryAction.UPDATE);
+			productRepository.updateIsCheckedMarker(isChecked, id);
+		});
+			setUpdatedRows(updatedRows + idList.size());
+		});
+
+		return updatedRows;
+	}
+
+    @Override
+    public List<ProductDTOForList> findAllMarkedProduct() {
+        List<ProductDTOForList> products = productRepository.findByIsCheckedTrue().stream()
+                .map(product -> productMapper.mapEntityToDTOForList(product))
+                .map(productDTOForList -> {
+                    productDTOForList.setStock(BigDecimal.ONE);
+                    return productDTOForList;
+                })
+                .collect(Collectors.toList());
+
+        if (!products.isEmpty()) {
+            return products;
+        }
+        throw new DTOListNotFoundException("Product list not found");
+    }
+
+	@Override
+	public byte[] printMarkedProducts(Map<Long, Integer> productsToPrint) {
+        markedProductsForPrint.clear();
+		productsToPrint.forEach((id, qty) -> IntStream.rangeClosed(1, qty)
+                .forEach(element -> markedProductsForPrint
+                        .add(productMapper.mapEntityToDTOForList(productRepository.findById(id).orElseThrow(() ->
+                            new DTONotFoundException(
+									String.format("Product with %d not found during price label generation.", id), id))))));
+
+        return createLabel.generatePriceLabel(markedProductsForPrint).orElseThrow(()
+				-> new PriceLabelGenerationException("Unable to generate price label. Please try again."));
 	}
 
 	private ProductDTO saveProduct(ProductDTO productDTO, HistoryAction create) {

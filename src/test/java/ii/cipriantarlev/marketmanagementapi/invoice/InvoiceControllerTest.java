@@ -16,6 +16,7 @@ import org.springframework.http.HttpHeaders;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -168,13 +169,14 @@ class InvoiceControllerTest {
 
     @Test
     void updateInvoiceIsApprovedMarker() throws Exception {
-        when(invoiceService.updateIsApprovedMarker(true, id)).thenReturn(1);
+        Map<Boolean, List<Long>> invoicesToUpdate = Collections.singletonMap(true, Collections.singletonList(id));
+        when(invoiceService.updateIsApprovedMarker(invoicesToUpdate)).thenReturn(1);
 
-        var response = controller.updateInvoiceIsApprovedMarker(id, true);
+        var response = controller.updateInvoiceIsApprovedMarker(invoicesToUpdate);
 
         assertEquals(1, response.getBody());
         assertEquals(ok, response.getStatusCodeValue());
-        verify(invoiceService).updateIsApprovedMarker(true, id);
+        verify(invoiceService).updateIsApprovedMarker(invoicesToUpdate);
     }
 
     @Test

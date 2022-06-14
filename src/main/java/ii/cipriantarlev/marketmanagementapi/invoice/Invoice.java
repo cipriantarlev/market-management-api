@@ -11,9 +11,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -24,10 +21,7 @@ import ii.cipriantarlev.marketmanagementapi.documenttype.DocumentType;
 import ii.cipriantarlev.marketmanagementapi.invoiceproduct.InvoiceProduct;
 import ii.cipriantarlev.marketmanagementapi.myorganization.MyOrganization;
 import ii.cipriantarlev.marketmanagementapi.vendor.Vendor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @Table(name = "invoices")
@@ -83,9 +77,24 @@ public class Invoice extends SuperEntity {
 	@Column(name = "is_approved")
 	private boolean isApproved;
 
-	public Invoice(DocumentType documentType, MyOrganization myOrganization, Vendor vendor, LocalDate dateCreated,
-			String invoiceNumber, LocalDate invoiceDate, String note, BigDecimal totalDiscountPrice,
-			BigDecimal totalRetailPrice, BigDecimal totalTradeMargin, BigDecimal tradeMargin, BigDecimal vatSum) {
+	/**
+	 * Constructor to make a deep copy of invoice {@link Invoice}.
+	 *
+	 * @param invoice to be copied.
+	 */
+	public Invoice(Invoice invoice) {
+		this(invoice.getId(), invoice.getDocumentType(), invoice.getMyOrganization(), invoice.getVendor(),
+				invoice.getDateCreated(), invoice.getInvoiceNumber(), invoice.getInvoiceDate(),
+				invoice.getNote(), invoice.getTotalDiscountPrice(), invoice.getTotalRetailPrice(),
+				invoice.getTotalTradeMargin(), invoice.getTradeMargin(), invoice.getVatSum(),
+				invoice.getInvoiceProducts(), invoice.isApproved());
+	}
+
+	public Invoice(Long id, DocumentType documentType, MyOrganization myOrganization, Vendor vendor,
+				   LocalDate dateCreated, String invoiceNumber, LocalDate invoiceDate, String note,
+				   BigDecimal totalDiscountPrice, BigDecimal totalRetailPrice, BigDecimal totalTradeMargin,
+				   BigDecimal tradeMargin, BigDecimal vatSum, List<InvoiceProduct> invoiceProducts, boolean isApproved) {
+		super(id);
 		this.documentType = documentType;
 		this.myOrganization = myOrganization;
 		this.vendor = vendor;
@@ -98,5 +107,7 @@ public class Invoice extends SuperEntity {
 		this.totalTradeMargin = totalTradeMargin;
 		this.tradeMargin = tradeMargin;
 		this.vatSum = vatSum;
+		this.invoiceProducts = invoiceProducts;
+		this.isApproved = isApproved;
 	}
 }

@@ -120,7 +120,7 @@ public class GlobalExceptionHandler {
 	 * A method to catch DTOListNotFoundException when DTO list is not found
 	 * in the database.
 	 * 
-	 * The message example: { "statusCode": 400, "message": "Barcode list not found",
+	 * The message example: { "statusCode": 404, "message": "Barcode list not found",
 	 *  "timeStamp": "2021-10-08T11:42:57.8501775" }
 	 * 
 	 * @param exception to be intercepted
@@ -164,5 +164,29 @@ public class GlobalExceptionHandler {
 		log.error("Found DTO during saving: {}", errorResponse);
 
 		return new ResponseEntity<>(Collections.singletonList(errorResponse), HttpStatus.NOT_FOUND);
+	}
+
+	/**
+	 * A method to catch PriceLabelGenerationException when a price label generation
+	 * has thrown and IOException.
+	 *
+	 * The message example: { "statusCode": 400, "message": "Unable to generate price label. Please try again.",
+	 * "timeStamp": "2021-10-08T11:42:57.8501775" }
+	 *
+	 * @param exception to be intercepted
+	 * @return Response entity with a list of violated constraints.
+	 */
+	@ExceptionHandler(PriceLabelGenerationException.class)
+	public ResponseEntity<List<ErrorResponse>> handlePriceLabelGenerationException(
+			PriceLabelGenerationException exception) {
+
+		var errorResponse = new ErrorResponse();
+		errorResponse.setStatusCode(HttpStatus.BAD_REQUEST.value());
+		errorResponse.setMessage(exception.getMessage());
+		errorResponse.setTimeStamp(LocalDateTime.now());
+
+		log.error("Unable to generate price label: {}", errorResponse);
+
+		return new ResponseEntity<>(Collections.singletonList(errorResponse), HttpStatus.BAD_REQUEST);
 	}
 }

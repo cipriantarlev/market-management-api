@@ -6,6 +6,7 @@ package ii.cipriantarlev.marketmanagementapi.invoice;
 import static ii.cipriantarlev.marketmanagementapi.utils.Constants.*;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -100,8 +101,8 @@ public class InvoiceController {
 	}
 
 	@PutMapping(IS_APPROVED_INVOICE)
-	public ResponseEntity<Integer> updateInvoiceIsApprovedMarker(@PathVariable Long id, @PathVariable boolean isApproved) {
-		var updatedRows = invoiceService.updateIsApprovedMarker(isApproved, id);
+	public ResponseEntity<Integer> updateInvoiceIsApprovedMarker(@RequestBody Map<Boolean, List<Long>> invoicesToUpdate) {
+		var updatedRows = invoiceService.updateIsApprovedMarker(invoicesToUpdate);
 		return new ResponseEntity<>(updatedRows, HttpStatus.OK);
 	}
 

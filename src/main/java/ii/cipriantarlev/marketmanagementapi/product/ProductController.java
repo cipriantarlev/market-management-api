@@ -3,7 +3,9 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.product;
 
+import java.io.File;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -12,6 +14,7 @@ import ii.cipriantarlev.marketmanagementapi.product.history.ProductHistory;
 import ii.cipriantarlev.marketmanagementapi.product.history.ProductHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -59,30 +62,11 @@ public class ProductController {
 		return new ResponseEntity<>(product, HttpStatus.OK);
 	}
 
-	@PostMapping
-	public ResponseEntity<ProductDTO> createProduct(@Valid @RequestBody ProductDTO productDTO) {
-		var product = productService.save(productDTO);
-		var headers = restControllerUtil.setHttpsHeaderLocation(PRODUCTS_ROOT_PATH.concat(ID_PATH), product.getId());
-		return new ResponseEntity<>(product, headers, HttpStatus.OK);
-	}
-
-	@PutMapping
-	public ResponseEntity<ProductDTO> updateProduct(@Valid @RequestBody ProductDTO productDTO) {
-		var savedProduct = productService.update(productDTO);
-		return new ResponseEntity<>(savedProduct, HttpStatus.OK);
-	}
-
-	@DeleteMapping(ID_PATH)
-	public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-		productService.deleteById(id);
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
-	
 	@GetMapping(PRODUCT_BY_NAME_ROM)
 	public ResponseEntity<Boolean> checkIfNameRomExists(@PathVariable String value) {
 		return new ResponseEntity<>(productService.checkIfNameRomExists(value), HttpStatus.OK);
 	}
-	
+
 	@GetMapping(PRODUCT_BY_NAME_RUS)
 	public ResponseEntity<Boolean> checkIfNameRusExists(@PathVariable String value) {
 		return new ResponseEntity<>(productService.checkIfNameRusExists(value), HttpStatus.OK);
@@ -92,5 +76,40 @@ public class ProductController {
 	public ResponseEntity<Set<ProductHistory>> getProductHistory(@PathVariable Long productId) {
 		var products = productHistoryService.findProductPriceHistory(productId);
 		return new ResponseEntity<>(products, HttpStatus.OK);
+	}
+
+	@GetMapping(IS_CHECKED_PRODUCT)
+	public ResponseEntity<List<ProductDTOForList>> getMarkedProducts() {
+		return new ResponseEntity<>(productService.findAllMarkedProduct(), HttpStatus.OK);
+	}
+
+	@PostMapping
+	public ResponseEntity<ProductDTO> createProduct(@Valid @RequestBody ProductDTO productDTO) {
+		var product = productService.save(productDTO);
+		var headers = restControllerUtil.setHttpsHeaderLocation(PRODUCTS_ROOT_PATH.concat(ID_PATH), product.getId());
+		return new ResponseEntity<>(product, headers, HttpStatus.OK);
+	}
+
+	@PostMapping(PRINT_PRODUCTS)
+	public ResponseEntity<byte[]> printMarkedProducts(@RequestBody Map<Long, Integer> productsToPrint) {
+		return new ResponseEntity<>(productService.printMarkedProducts(productsToPrint), HttpStatus.OK);
+	}
+
+	@PutMapping
+	public ResponseEntity<ProductDTO> updateProduct(@Valid @RequestBody ProductDTO productDTO) {
+		var savedProduct = productService.update(productDTO);
+		return new ResponseEntity<>(savedProduct, HttpStatus.OK);
+	}
+
+	@PutMapping(IS_CHECKED_PRODUCT)
+	public ResponseEntity<Integer> updateIsCheckedMarker(@RequestBody Map<Boolean, List<Long>> productsToUpdate) {
+		var updatedRows = productService.updateIsCheckedMarker(productsToUpdate);
+		return new ResponseEntity<>(updatedRows, HttpStatus.OK);
+	}
+
+	@DeleteMapping(ID_PATH)
+	public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+		productService.deleteById(id);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

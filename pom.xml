@@ -16,7 +16,7 @@
 	<description>Application for Market Management</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 
@@ -102,6 +102,29 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<!-- Word Document utils-->
+
+		<dependency>
+			<groupId>org.docx4j</groupId>
+			<artifactId>docx4j-JAXB-Internal</artifactId>
+			<version>8.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.docx4j</groupId>
+			<artifactId>docx4j-JAXB-ReferenceImpl</artifactId>
+			<version>8.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.docx4j</groupId>
+			<artifactId>docx4j-JAXB-MOXy</artifactId>
+			<version>8.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.docx4j</groupId>
+			<artifactId>docx4j-export-fo</artifactId>
+			<version>8.0.0</version>
+		</dependency>
+
 		<!-- Testing dependencies -->
 
 		<dependency>
@@ -138,7 +161,7 @@
 					</excludes>
 				</configuration>
 			</plugin>
-		</plugins>
+        </plugins>
 	</build>
 
 </project>

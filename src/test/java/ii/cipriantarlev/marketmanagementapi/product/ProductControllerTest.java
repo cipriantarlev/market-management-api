@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -156,5 +157,45 @@ class ProductControllerTest {
         verify(productHistoryService).findProductPriceHistory(id);
         assertEquals(ok, response.getStatusCodeValue());
         assertEquals(productHistorySet, response.getBody());
+    }
+
+    @Test
+    void updateIsCheckedMarker() throws Exception {
+        Map<Boolean, List<Long>> productsToUpdate = Collections.singletonMap(true, Collections.singletonList(id));
+
+        when(service.updateIsCheckedMarker(productsToUpdate)).thenReturn(1);
+
+        var response = controller.updateIsCheckedMarker(productsToUpdate);
+
+        verify(service).updateIsCheckedMarker(productsToUpdate);
+        assertEquals(1, response.getBody());
+        assertEquals(ok, response.getStatusCodeValue());
+    }
+
+    @Test
+    void getMarkedProducts() throws Exception {
+        List<ProductDTOForList> productDTOList = Collections.singletonList(new ProductDTOForList());
+
+        when(service.findAllMarkedProduct()).thenReturn(productDTOList);
+
+        var response = controller.getMarkedProducts();
+
+        verify(service).findAllMarkedProduct();
+        assertEquals(ok, response.getStatusCodeValue());
+        assertEquals(productDTOList, response.getBody());
+    }
+
+    @Test
+    void printMarkedProducts() throws Exception {
+        Map<Long, Integer> productsToPrint = Collections.singletonMap(id, 1);
+
+        byte[] priceLabelBytes = new byte[8];
+        when(service.printMarkedProducts(productsToPrint)).thenReturn(priceLabelBytes);
+
+        var response = controller.printMarkedProducts(productsToPrint);
+
+        verify(service).printMarkedProducts(productsToPrint);
+        assertEquals(ok, response.getStatusCodeValue());
+        assertEquals(priceLabelBytes, response.getBody());
     }
 }

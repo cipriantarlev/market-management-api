@@ -16,6 +16,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import ii.cipriantarlev.marketmanagementapi.barcode.BarcodeDTO;
+import ii.cipriantarlev.marketmanagementapi.plu.PluDTO;
 import lombok.*;
 
 @Getter
@@ -34,12 +35,17 @@ public class ProductDTOForList {
 	@Size(min = 1, max = 300, message = "Romanian Name length should be between {min} and {max}")
 	private String nameRom;
 
+	@NotBlank(message = "Russian Name should not be blank or null")
+	@Pattern(regexp = "^[a-zA-ZА-Яа-я0-9-\\s.]+$", message = "Russian Name should contain only letters, numbers, dash and dot")
+	@Size(min = 1, max = 300, message = "Russian Name length should be between {min} and {max}")
+	private String nameRus;
+
 	@DecimalMin(value = "0.0", inclusive = false, message = "Discount Price min value should be {value}")
-	@Digits(integer = 5, fraction = 2, message = "Discount Price fromat should have {integer} integer digits and {fraction} digits")
+	@Digits(integer = 5, fraction = 2, message = "Discount Price format should have {integer} integer digits and {fraction} digits")
 	private BigDecimal discountPrice;
 
 	@DecimalMin(value = "0.0", inclusive = false, message = "Retail Price min value should be {value}")
-	@Digits(integer = 5, fraction = 2, message = "Retail Price fromat should have {integer} integer digits and {fraction} digits")
+	@Digits(integer = 5, fraction = 2, message = "Retail Price format should have {integer} integer digits and {fraction} digits")
 	private BigDecimal retailPrice;
 
 	@Valid
@@ -47,6 +53,10 @@ public class ProductDTOForList {
 	private List<BarcodeDTO> barcodes;
 
 	@DecimalMin(value = "0.0", inclusive = false, message = "Stock min value should be {value}")
-	@Digits(integer = 6, fraction = 2, message = "Stock fromat should have {integer} integer digits and {fraction} digits")
+	@Digits(integer = 6, fraction = 2, message = "Stock format should have {integer} integer digits and {fraction} digits")
 	private BigDecimal stock;
+
+	private boolean isChecked;
+
+	private PluDTO plu;
 }

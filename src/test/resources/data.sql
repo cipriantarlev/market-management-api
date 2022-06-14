@@ -74,10 +74,10 @@ postal_code, business_address, vendor_type, vendor_legal_type, note) VALUES
  (3, 5, '5%');
 
  INSERT INTO products(id, name_rom, name_rus, category_id, subcategory_id, discount_price, retail_price,
- trade_margin, measuring_unit_id, vat_id, plu_id, product_code_id, stock, default_vendor_id) VALUES
- (1, 'Naturalis 1L', 'Naturalis 1Л', 1, 3, '22.44', '22.44', '22.44', 2, 1, null, 1, 8, 1),
- (2, 'Tide Manual 1Kg', 'Tide Manual 1КГ', 2, 1, '22.44', '22.44', '22.44', 1, 2, null, 2, '7.540', 1),
- (3, 'Paste Barilla 400gr', 'Paste Barilla 400gr', 3, 2, '22.44', '22.44', '22.44', 2, 3, null, 3, 5, 1);
+ trade_margin, measuring_unit_id, vat_id, plu_id, product_code_id, stock, default_vendor_id, is_checked) VALUES
+ (1, 'Naturalis 1L', 'Naturalis 1Л', 1, 3, '22.44', '22.44', '22.44', 2, 1, null, 1, 8, 1, false),
+ (2, 'Tide Manual 1Kg', 'Tide Manual 1КГ', 2, 1, '22.44', '22.44', '22.44', 1, 2, null, 2, '7.540', 1, true),
+ (3, 'Paste Barilla 400gr', 'Paste Barilla 400gr', 3, 2, '22.44', '22.44', '22.44', 2, 3, null, 3, 5, 1, true);
 
  INSERT INTO invoice_products(id, invoice_id, product_id, quantity, vat_sum, total_discount_price, total_retail_price)
  VALUES
