@@ -36,6 +36,7 @@ public class Constants {
 	public final String SUBCATEGORIES_ROOT_PATH = "/subcategories";
 	public final String USERS_ROOT_PATH = "/users";
 	public final String VAT_ROOT_PATH = "/vat";
+	public final String PRICE_CHANGING_ACTS_ROOT_PATH = "/price-changing-acts";
 
 	/**
 	 * Single paths
@@ -48,8 +49,8 @@ public class Constants {
 	public final String BARCODE_BY_VALUE = "/barcode/{value}";
 	public final String PRODUCT_BY_NAME_ROM = "/product/name-rom/{value}";
 	public final String PRODUCT_BY_NAME_RUS = "/product/name-rus/{value}";
-	public final String IS_APPROVED_INVOICE = "/isApproved";
+	public final String IS_APPROVED = "/isApproved";
 	public final String PRODUCT_HISTORY_BY_ID = "/product-history/{productId}";
-	public final String IS_CHECKED_PRODUCT = "/isChecked";
+	public final String IS_CHECKED = "/isChecked";
 	public final String PRINT_PRODUCTS = "/printProducts";
 }

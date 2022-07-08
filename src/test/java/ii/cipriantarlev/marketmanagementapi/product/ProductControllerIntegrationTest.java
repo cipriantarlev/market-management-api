@@ -226,7 +226,7 @@ class ProductControllerIntegrationTest extends IntegrationTestConfiguration {
         HttpEntity<Map<Boolean, List<Long>>> entity = new HttpEntity<>(productsToUpdate, new HttpHeaders());
 
         var response = getRestTemplateWithAuth()
-                .exchange(createUri(PRODUCTS_ROOT_PATH.concat(IS_CHECKED_PRODUCT)),
+                .exchange(createUri(PRODUCTS_ROOT_PATH.concat(IS_CHECKED)),
                         HttpMethod.PUT,
                         entity,
                         Integer.class);
@@ -243,7 +243,7 @@ class ProductControllerIntegrationTest extends IntegrationTestConfiguration {
         assertThrows(RestClientException.class,
                 throwException(
                         entity,
-                        PRODUCTS_ROOT_PATH.concat(IS_CHECKED_PRODUCT),
+                        PRODUCTS_ROOT_PATH.concat(IS_CHECKED),
                         HttpMethod.PUT));
     }
 
@@ -252,7 +252,7 @@ class ProductControllerIntegrationTest extends IntegrationTestConfiguration {
         HttpEntity<List<ProductDTOForList>> entity = new HttpEntity<>(null, new HttpHeaders());
 
         var response = getRestTemplateWithAuth()
-                .exchange(createUri(PRODUCTS_ROOT_PATH.concat(IS_CHECKED_PRODUCT)),
+                .exchange(createUri(PRODUCTS_ROOT_PATH.concat(IS_CHECKED)),
                         HttpMethod.GET,
                         entity,
                         new ParameterizedTypeReference<List<ProductDTOForList>>() {

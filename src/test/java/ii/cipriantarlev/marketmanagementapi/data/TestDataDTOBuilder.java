@@ -6,6 +6,7 @@ package ii.cipriantarlev.marketmanagementapi.data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,6 +20,7 @@ import ii.cipriantarlev.marketmanagementapi.measuringunit.MeasuringUnitDTO;
 import ii.cipriantarlev.marketmanagementapi.myorganization.MyOrganizationDTO;
 import ii.cipriantarlev.marketmanagementapi.myorganization.MyOrganizationDTOOnlyName;
 import ii.cipriantarlev.marketmanagementapi.plu.PluDTO;
+import ii.cipriantarlev.marketmanagementapi.pricechangingact.PriceChangingActDTO;
 import ii.cipriantarlev.marketmanagementapi.product.ProductDTO;
 import ii.cipriantarlev.marketmanagementapi.productscode.ProductCodeDTO;
 import ii.cipriantarlev.marketmanagementapi.region.RegionDTO;
@@ -2874,6 +2876,74 @@ public class TestDataDTOBuilder {
 				.build();
 	}
 
+	public PriceChangingActDTO getNullDateCreatedPriceChangingActDTO() {
+		return PriceChangingActDTO.builder()
+				.myOrganization(MyOrganizationDTOOnlyName.builder().name("test").build())
+				.oldPrices(BigDecimal.valueOf(12.00))
+				.newPrices(BigDecimal.valueOf(12.00))
+				.pricesDifference(BigDecimal.valueOf(12.00))
+				.build();
+	}
+
+	public PriceChangingActDTO getMyOrganizationNullPriceChangingActDTO() {
+		return PriceChangingActDTO.builder()
+				.dateCreated(LocalDate.now())
+				.oldPrices(BigDecimal.valueOf(12.00))
+				.newPrices(BigDecimal.valueOf(12.00))
+				.pricesDifference(BigDecimal.valueOf(12.00))
+				.build();
+	}
+
+	public PriceChangingActDTO getNegativeOldPricePriceChangingActDTO() {
+		return PriceChangingActDTO.builder()
+				.myOrganization(MyOrganizationDTOOnlyName.builder().name("test").build())
+				.dateCreated(LocalDate.now())
+				.oldPrices(BigDecimal.valueOf(-12))
+				.newPrices(BigDecimal.valueOf(12.00))
+				.pricesDifference(BigDecimal.valueOf(12.00))
+				.build();
+	}
+
+	public PriceChangingActDTO getWrongFormatOldPricePriceChangingActDTO() {
+		return PriceChangingActDTO.builder()
+				.myOrganization(MyOrganizationDTOOnlyName.builder().name("test").build())
+				.dateCreated(LocalDate.now())
+				.oldPrices(BigDecimal.valueOf(12543634643.9999957665))
+				.newPrices(BigDecimal.valueOf(12.00))
+				.pricesDifference(BigDecimal.valueOf(12.00))
+				.build();
+	}
+
+	public PriceChangingActDTO getNegativeNewPricePriceChangingActDTO() {
+		return PriceChangingActDTO.builder()
+				.myOrganization(MyOrganizationDTOOnlyName.builder().name("test").build())
+				.dateCreated(LocalDate.now())
+				.oldPrices(BigDecimal.valueOf(12.00))
+				.newPrices(BigDecimal.valueOf(-12.00))
+				.pricesDifference(BigDecimal.valueOf(12.00))
+				.build();
+	}
+
+	public PriceChangingActDTO getWrongFormatNewPricePriceChangingActDTO() {
+		return PriceChangingActDTO.builder()
+				.myOrganization(MyOrganizationDTOOnlyName.builder().name("test").build())
+				.dateCreated(LocalDate.now())
+				.oldPrices(BigDecimal.valueOf(12.00))
+				.newPrices(BigDecimal.valueOf(1434342.03434340))
+				.pricesDifference(BigDecimal.valueOf(12.00))
+				.build();
+	}
+
+	public PriceChangingActDTO getWrongFormatPriceDifferencePriceChangingActDTO() {
+		return PriceChangingActDTO.builder()
+				.myOrganization(MyOrganizationDTOOnlyName.builder().name("test").build())
+				.dateCreated(LocalDate.now())
+				.oldPrices(BigDecimal.valueOf(125.00))
+				.newPrices(BigDecimal.valueOf(12.00))
+				.pricesDifference(BigDecimal.valueOf(34324212.0023423432))
+				.build();
+	}
+
 	private List<BarcodeDTO> getBarcodeList() {
 		BarcodeDTO barcode = BarcodeDTO.builder().value("222").build();
 		return Collections.singletonList(barcode);
@@ -2907,4 +2977,6 @@ public class TestDataDTOBuilder {
 				.productCode(ProductCodeDTO.builder().value("MD000").build())
 				.build();
 	}
+
+
 }

@@ -107,7 +107,7 @@ public class GlobalExceptionHandler {
 
 		var errorResponse = new NotFoundErrorResponse();
 		errorResponse.setStatusCode(HttpStatus.NOT_FOUND.value());
-		errorResponse.setId(exception.getDtoId());
+		errorResponse.setId(exception.getLongId());
 		errorResponse.setMessage(exception.getMessage());
 		errorResponse.setTimeStamp(LocalDateTime.now());
 
@@ -157,7 +157,7 @@ public class GlobalExceptionHandler {
 
 		var errorResponse = new DTOFoundErrorResponse();
 		errorResponse.setStatusCode(HttpStatus.NOT_FOUND.value());
-		errorResponse.setId(exception.getDtoId());
+		errorResponse.setId(exception.getLongId());
 		errorResponse.setMessage(exception.getMessage());
 		errorResponse.setTimeStamp(LocalDateTime.now());
 

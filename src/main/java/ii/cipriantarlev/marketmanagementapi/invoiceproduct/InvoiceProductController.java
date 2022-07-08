@@ -67,7 +67,7 @@ public class InvoiceProductController {
 		return new ResponseEntity<>(savedInvoiceProduct, HttpStatus.OK);
 	}
 
-	@PutMapping(IS_CHECKED_PRODUCT)
+	@PutMapping(IS_CHECKED)
 	public ResponseEntity<Integer> updateIsCheckedMarker(@RequestBody Map<Boolean, List<Long>> productsToUpdate) {
 		var updatedRows = invoiceProductService.updateIsProductChecked(productsToUpdate);
 		return new ResponseEntity<>(updatedRows, HttpStatus.OK);

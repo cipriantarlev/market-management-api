@@ -220,3 +220,17 @@ CREATE TABLE IF NOT EXISTS product_history
     retail_price numeric(7,2),
     created timestamp NOT NULL
 );
+
+DROP TABLE IF EXISTS price_changing_acts;
+
+CREATE TABLE IF NOT EXISTS price_changing_acts
+(
+    id UUID NOT NULL,
+    date_created date NOT NULL,
+    my_organization_id INT NOT NULL,
+    old_prices numeric(7,2),
+    new_prices numeric(7,2),
+    prices_difference numeric(7,2),
+    note VARCHAR(250),
+    is_approved boolean NOT NULL DEFAULT false
+);

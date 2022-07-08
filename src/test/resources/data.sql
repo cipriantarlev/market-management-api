@@ -94,3 +94,9 @@ postal_code, business_address, vendor_type, vendor_legal_type, note) VALUES
  ('0734a16b-0746-4a96-b55c-a2ea0e42c844', 'ciprian', 'update', JSON '{"id": 1}', 1, 12, 14, '2021-12-30 19:00:25.4324'),
  ('0b85d7b3-3ab0-48f7-8a50-1d542ccde4f6', 'ciprian', 'update', JSON '{"id": 1}', 1, 44, 66, '2021-12-30 19:00:55.3242'),
  ('1e623c30-a4d4-4f3b-b969-6e7a19286cf4', 'ciprian', 'update', JSON '{"id": 1}', 1, 33, 44, '2021-12-30 19:01:44.2342');
+
+INSERT INTO price_changing_acts(
+id, date_created, my_organization_id, old_prices, new_prices, prices_difference, note, is_approved) VALUES
+('5fd843b1-f782-4134-bf94-112b3790ec7f', '2022-07-06', 1, '65.96', '65.96', '65.96', null, false),
+('5fd843b1-f782-4134-bf94-112b3790ecf4', '2022-07-06', 1, '65.96', '65.96', '65.96', null, false),
+('5fd843b1-f782-4134-bf94-112b3790ec3f', '2022-07-06', 1, '65.96', '65.96', '65.96', null, false);

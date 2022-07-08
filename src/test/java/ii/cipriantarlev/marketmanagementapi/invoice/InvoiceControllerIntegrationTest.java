@@ -180,7 +180,7 @@ class InvoiceControllerIntegrationTest extends IntegrationTestConfiguration {
         HttpEntity<Map<Boolean, List<Long>>> entity = new HttpEntity<>(invoicesToUpdate, new HttpHeaders());
 
         var response = getRestTemplateWithAuth()
-                .exchange(createUri(INVOICES_ROOT_PATH.concat(IS_APPROVED_INVOICE)),
+                .exchange(createUri(INVOICES_ROOT_PATH.concat(IS_APPROVED)),
                         HttpMethod.PUT,
                         entity,
                         Integer.class);
@@ -197,7 +197,7 @@ class InvoiceControllerIntegrationTest extends IntegrationTestConfiguration {
         assertThrows(RestClientException.class,
                 throwException(
                         entity,
-                        INVOICES_ROOT_PATH.concat(IS_APPROVED_INVOICE),
+                        INVOICES_ROOT_PATH.concat(IS_APPROVED),
                         HttpMethod.PUT));
     }
 
