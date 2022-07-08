@@ -5,11 +5,7 @@ package ii.cipriantarlev.marketmanagementapi.myorganization;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
-
 import ii.cipriantarlev.marketmanagementapi.core.SuperEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -51,16 +47,6 @@ public class MyOrganization extends SuperEntity {
 	@Column(name = "note")
 	private String note;
 
-	public MyOrganization(String name, String bank, String fiscalCode, String bankAccount, String vatCode, String city,
-			String phoneNumber, String email, String note) {
-		this.name = name;
-		this.bank = bank;
-		this.fiscalCode = fiscalCode;
-		this.bankAccount = bankAccount;
-		this.vatCode = vatCode;
-		this.city = city;
-		this.phoneNumber = phoneNumber;
-		this.email = email;
-		this.note = note;
-	}
+	@Column(name = "is_default")
+	private boolean isDefault;
 }

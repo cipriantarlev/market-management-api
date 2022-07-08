@@ -48,6 +48,10 @@ public class ProductDTOForList {
 	@Digits(integer = 5, fraction = 2, message = "Retail Price format should have {integer} integer digits and {fraction} digits")
 	private BigDecimal retailPrice;
 
+	@DecimalMin(value = "0.0", message = "Trade margin min value should be {value}")
+	@Digits(integer = 3, fraction = 2, message = "Trade margin format should have {integer} integer digits and {fraction} digits")
+	private BigDecimal tradeMargin;
+
 	@Valid
 	@NotNull(message = "Barcode list should not be null")
 	private List<BarcodeDTO> barcodes;
@@ -59,4 +63,10 @@ public class ProductDTOForList {
 	private boolean isChecked;
 
 	private PluDTO plu;
+
+	private boolean isRetailPriceChanged;
+
+	@DecimalMin(value = "0.0", inclusive = false, message = "Old Retail Price min value should be {value}")
+	@Digits(integer = 5, fraction = 2, message = "Old Retail Price format should have {integer} integer digits and {fraction} digits")
+	private BigDecimal oldRetailPrice;
 }

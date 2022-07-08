@@ -3,15 +3,15 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.invoiceproduct;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import ii.cipriantarlev.marketmanagementapi.invoice.InvoiceService;
+import ii.cipriantarlev.marketmanagementapi.product.ProductDTO;
 import ii.cipriantarlev.marketmanagementapi.vendor.VendorDTOOnlyName;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +39,7 @@ public class InvoiceProductServiceImpl implements InvoiceProductService {
     public List<InvoiceProductDTO> findAllByInvoiceId(Long invoiceId) {
         List<InvoiceProductDTO> invoiceProductList = invoiceProductRepository.findAllByInvoiceId(invoiceId).stream()
                 .map(invoiceProduct -> invoiceProductMapper.mapEntityToDTO(invoiceProduct))
-                .collect(Collectors.toList());
+                .toList();
 
         if (invoiceProductList == null || invoiceProductList.isEmpty()) {
             throw new DTOListNotFoundException("InvoiceProduct list not found");
@@ -92,9 +92,18 @@ public class InvoiceProductServiceImpl implements InvoiceProductService {
     public void deleteById(Long id) {
         var invoiceProduct = this.findById(id);
         var product = invoiceProduct.getProduct();
-        product.setStock(product.getStock().subtract(invoiceProduct.getQuantity()));
+        resetDeletedProduct(invoiceProduct, product);
         productService.update(product);
         invoiceProductRepository.deleteById(id);
+    }
+
+    private void resetDeletedProduct(InvoiceProductDTO invoiceProduct, ProductDTO product) {
+        product.setStock(product.getStock().subtract(invoiceProduct.getQuantity()));
+        if(product.isRetailPriceChanged()) {
+            product.setRetailPrice(Objects.nonNull(product.getOldRetailPrice()) ? product.getOldRetailPrice() : BigDecimal.ZERO);
+            product.setOldRetailPrice(BigDecimal.ZERO);
+            product.setRetailPriceChanged(false);
+        }
     }
 
     private void updateProduct(InvoiceProductDTO invoiceProductDTO) {

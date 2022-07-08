@@ -38,9 +38,10 @@ class MyOrganizationServiceTest {
     @BeforeEach
     void setUp() {
         openMocks(this);
-        myOrganizationDTO = MyOrganizationDTO.builder().id(id).build();
+        myOrganizationDTO = MyOrganizationDTO.builder().id(id).isDefault(true).build();
         myOrganization = new MyOrganization();
         myOrganization.setId(id);
+        myOrganization.setDefault(true);
     }
 
     @Test
@@ -181,5 +182,28 @@ class MyOrganizationServiceTest {
 
         assertThrows(DTONotFoundException.class, () -> service.deleteById(id));
         verify(repository).findById(id);
+    }
+
+    @Test
+    void findByIsDefaultTrue() throws Exception {
+        var myOrganizationOptional = Optional.of(myOrganization);
+        MyOrganizationDTOOnlyName myOrganizationDTOOnlyName = new MyOrganizationDTOOnlyName();
+
+        when(repository.findByIsDefaultTrue()).thenReturn(myOrganizationOptional);
+        when(mapper.mapEntityToMyOrganizationDTOOnlyName(myOrganizationOptional.get())).thenReturn(myOrganizationDTOOnlyName);
+
+        var resultedMyOrganizationDTO = service.findByIsDefaultTrue();
+
+        verify(repository).findByIsDefaultTrue();
+        verify(mapper).mapEntityToMyOrganizationDTOOnlyName(myOrganizationOptional.get());
+        assertNotNull(resultedMyOrganizationDTO);
+    }
+
+    @Test
+    void findByIsDefaultTrueWhenNotFound() throws Exception {
+        when(repository.findByIsDefaultTrue()).thenReturn(Optional.empty());
+
+        assertThrows(DTONotFoundException.class, () -> service.findByIsDefaultTrue());
+        verify(repository).findByIsDefaultTrue();
     }
 }

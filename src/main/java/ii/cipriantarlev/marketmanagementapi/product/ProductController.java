@@ -3,7 +3,6 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.product;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -14,7 +13,6 @@ import ii.cipriantarlev.marketmanagementapi.product.history.ProductHistory;
 import ii.cipriantarlev.marketmanagementapi.product.history.ProductHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -78,7 +76,7 @@ public class ProductController {
 		return new ResponseEntity<>(products, HttpStatus.OK);
 	}
 
-	@GetMapping(IS_CHECKED_PRODUCT)
+	@GetMapping(IS_CHECKED)
 	public ResponseEntity<List<ProductDTOForList>> getMarkedProducts() {
 		return new ResponseEntity<>(productService.findAllMarkedProduct(), HttpStatus.OK);
 	}
@@ -101,7 +99,7 @@ public class ProductController {
 		return new ResponseEntity<>(savedProduct, HttpStatus.OK);
 	}
 
-	@PutMapping(IS_CHECKED_PRODUCT)
+	@PutMapping(IS_CHECKED)
 	public ResponseEntity<Integer> updateIsCheckedMarker(@RequestBody Map<Boolean, List<Long>> productsToUpdate) {
 		var updatedRows = productService.updateIsCheckedMarker(productsToUpdate);
 		return new ResponseEntity<>(updatedRows, HttpStatus.OK);

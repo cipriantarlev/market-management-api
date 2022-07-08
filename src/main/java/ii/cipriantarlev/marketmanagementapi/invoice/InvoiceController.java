@@ -10,7 +10,6 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import ii.cipriantarlev.marketmanagementapi.documenttype.DocumentType;
 import ii.cipriantarlev.marketmanagementapi.utils.MarketManagementFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -100,7 +99,7 @@ public class InvoiceController {
 		return new ResponseEntity<>(savedInvoice, HttpStatus.OK);
 	}
 
-	@PutMapping(IS_APPROVED_INVOICE)
+	@PutMapping(IS_APPROVED)
 	public ResponseEntity<Integer> updateInvoiceIsApprovedMarker(@RequestBody Map<Boolean, List<Long>> invoicesToUpdate) {
 		var updatedRows = invoiceService.updateIsApprovedMarker(invoicesToUpdate);
 		return new ResponseEntity<>(updatedRows, HttpStatus.OK);

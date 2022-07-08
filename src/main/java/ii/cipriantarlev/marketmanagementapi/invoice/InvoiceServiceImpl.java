@@ -5,10 +5,14 @@ package ii.cipriantarlev.marketmanagementapi.invoice;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistoryService;
 import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
+import ii.cipriantarlev.marketmanagementapi.invoiceproduct.InvoiceProduct;
+import ii.cipriantarlev.marketmanagementapi.invoiceproduct.InvoiceProductRepository;
+import ii.cipriantarlev.marketmanagementapi.pricechangingact.PriceChangingActDTO;
+import ii.cipriantarlev.marketmanagementapi.pricechangingact.PriceChangingActService;
+import ii.cipriantarlev.marketmanagementapi.product.Product;
 import ii.cipriantarlev.marketmanagementapi.utils.MarketManagementFactory;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +38,12 @@ public class InvoiceServiceImpl implements InvoiceService {
 	@Autowired
 	private MarketManagementFactory factory;
 
+    @Autowired
+    private InvoiceProductRepository invoiceProductRepository;
+
+	@Autowired
+	private PriceChangingActService priceChangingActService;
+
 	@Setter
 	private int updatedRows;
 
@@ -41,8 +51,8 @@ public class InvoiceServiceImpl implements InvoiceService {
 	public List<InvoiceDTO> findAll() {
 		List<InvoiceDTO> invoices = invoiceRepository.findAll().stream()
 				.map(invoice -> invoiceMapper.mapEntityToDTO(invoice))
-				.collect(Collectors.toList());
-		
+				.toList();
+
 		if (invoices == null || invoices.isEmpty()) {
 			throw new DTOListNotFoundException("Invoice list not found");
 		}
@@ -71,7 +81,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 									invoiceDTO.getId()),
 					invoiceDTO.getId());
 		}
-		
+
 		var savedInvoice = invoiceRepository.save(invoiceMapper.mapDTOToEntity(invoiceDTO));
 		entitiesHistoryService.createEntityHistoryRecord(savedInvoice, null, HistoryAction.CREATE);
 		return invoiceMapper.mapEntityToDTO(savedInvoice);
@@ -88,6 +98,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 	@Override
 	public void deleteById(Long id) {
 		entitiesHistoryService.createEntityHistoryRecord(invoiceMapper.mapDTOToEntity(this.findById(id)), null, HistoryAction.DELETE);
+		deleteRelatedPriceChangingAct(id);
 		invoiceRepository.deleteById(id);
 	}
 
@@ -101,6 +112,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 			entitiesHistoryService.createEntityHistoryRecord(
 					foundInvoice, copyOfFoundInvoice, HistoryAction.UPDATE);
 			invoiceRepository.updateIsApprovedMarker(isApproved, id);
+			createPriceChangingActForApprovedInvoice(isApproved, id);
 			setUpdatedRows(idList.size());
 		}));
 
@@ -111,12 +123,35 @@ public class InvoiceServiceImpl implements InvoiceService {
 	public List<InvoiceDTO> findInvoicesByDocumentType(DocumentType documentType) {
 		List<InvoiceDTO> invoices = invoiceRepository
 				.findAllByDocumentType(documentType).stream()
-				.map(invoice -> invoiceMapper.mapEntityToDTO(invoice)).collect(Collectors.toList());
+				.map(invoice -> invoiceMapper.mapEntityToDTO(invoice)).toList();
 
 		if (invoices == null || invoices.isEmpty()) {
 			throw new DTOListNotFoundException("Invoice list not found");
 		}
 
 		return invoices;
+	}
+
+	private void createPriceChangingActForApprovedInvoice(boolean isApproved, long id) {
+		if(isApproved) {
+            List<InvoiceProduct> invoiceProducts = invoiceProductRepository.findAllByInvoiceId(id);
+            if(!invoiceProducts.isEmpty()) {
+                List<Product> productsWithRetailPriceChanged = invoiceProducts.stream()
+                        .map(InvoiceProduct::getProduct)
+                        .filter(Product::isRetailPriceChanged)
+                        .toList();
+
+				PriceChangingActDTO priceChangingAct =
+						factory.createPriceChangingActWhenProductPriceHasChanged(
+								invoiceProducts.get(0).getInvoice(), productsWithRetailPriceChanged);
+
+				factory.createPriceChangingActProductWhenProductPriceHasChanged(priceChangingAct, productsWithRetailPriceChanged);
+            }
+        }
+	}
+
+	private void deleteRelatedPriceChangingAct(long invoiceId) {
+		priceChangingActService.findByInvoiceId(invoiceId)
+				.forEach(priceChangingAct -> priceChangingActService.deleteById(priceChangingAct.getId()));
 	}
 }

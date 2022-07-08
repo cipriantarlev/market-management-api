@@ -100,7 +100,8 @@ CREATE TABLE IF NOT EXISTS my_organizations
     city VARCHAR(150) NOT NULL,
     phone_number VARCHAR(100),
     email VARCHAR(150),
-    note VARCHAR(500) 
+    note VARCHAR(500),
+    is_default boolean
 );
 
 DROP TABLE IF EXISTS vendors;
@@ -163,7 +164,9 @@ CREATE TABLE IF NOT EXISTS products
     product_code_id INT NOT NULL,
     stock numeric(8,4) DEFAULT 0.0000,
     default_vendor_id INT,
-    is_checked boolean
+    is_checked boolean,
+    is_retail_price_changed boolean,
+    old_retail_price numeric(7,2) DEFAULT 0.00
 );
 
 DROP TABLE IF EXISTS vat;
@@ -219,4 +222,31 @@ CREATE TABLE IF NOT EXISTS product_history
     discount_price numeric(7,2),
     retail_price numeric(7,2),
     created timestamp NOT NULL
+);
+
+DROP TABLE IF EXISTS price_changing_acts;
+
+CREATE TABLE IF NOT EXISTS price_changing_acts
+(
+    id UUID NOT NULL,
+    date_created date NOT NULL,
+    my_organization_id INT NOT NULL,
+    old_prices numeric(7,2),
+    new_prices numeric(7,2),
+    prices_difference numeric(7,2),
+    note VARCHAR(250),
+    is_approved boolean NOT NULL DEFAULT false,
+    is_sent boolean NOT NULL DEFAULT false,
+    invoice_id INT
+);
+
+DROP TABLE IF EXISTS price_changing_act_products;
+
+CREATE TABLE IF NOT EXISTS price_changing_act_products
+(
+    id UUID NOT NULL,
+    price_changing_act_id UUID NOT NULL,
+    product_id INT NOT NULL,
+    old_price numeric(7,2),
+    price_difference numeric(7,2)
 );
