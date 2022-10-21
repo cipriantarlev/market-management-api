@@ -97,4 +97,10 @@ public class Product {
 
 	@Column(name = "is_checked")
 	private boolean isChecked;
+
+	@Column(name = "is_retail_price_changed")
+	private boolean isRetailPriceChanged;
+
+	@Column(name = "old_retail_price")
+	private BigDecimal oldRetailPrice;
 }

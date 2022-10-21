@@ -292,4 +292,25 @@ class ProductDTOTest {
 				constraintViolationSet.iterator().next().getMessage());
 		assertEquals(1, constraintViolationSet.size());
 	}
+
+	@Test
+	void testWhenOldRetailPriceIsNegative() throws Exception {
+
+		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
+				.validate(TestDataDTOBuilder.getNegativeOldRetailPriceProductDTO());
+
+		assertEquals("Old Retail Price min value should be 0.0", constraintViolationSet.iterator().next().getMessage());
+		assertEquals(1, constraintViolationSet.size());
+	}
+
+	@Test
+	void testWhenOldRetailPriceWrongRange() throws Exception {
+
+		Set<ConstraintViolation<ProductDTO>> constraintViolationSet = validator
+				.validate(TestDataDTOBuilder.getWrongRangeOldRetailPriceProductDTO());
+
+		assertEquals("Old Retail Price format should have 5 integer digits and 2 digits",
+				constraintViolationSet.iterator().next().getMessage());
+		assertEquals(1, constraintViolationSet.size());
+	}
 }

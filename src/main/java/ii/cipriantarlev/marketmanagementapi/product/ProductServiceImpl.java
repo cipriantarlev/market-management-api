@@ -3,18 +3,17 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.product;
 
-import java.io.File;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import ii.cipriantarlev.marketmanagementapi.exceptions.PriceLabelGenerationException;
 import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
+import ii.cipriantarlev.marketmanagementapi.pricechangingact.PriceChangingActDTO;
 import ii.cipriantarlev.marketmanagementapi.product.history.ProductHistoryService;
 import ii.cipriantarlev.marketmanagementapi.utils.CreateLabel;
+import ii.cipriantarlev.marketmanagementapi.utils.MarketManagementFactory;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +40,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private CreateLabel createLabel;
+
+	@Autowired
+	private MarketManagementFactory marketManagementFactory;
 
 	@Setter
 	private int updatedRows;
@@ -135,7 +137,7 @@ public class ProductServiceImpl implements ProductService {
                     productDTOForList.setStock(BigDecimal.ONE);
                     return productDTOForList;
                 })
-                .collect(Collectors.toList());
+                .toList();
 
         if (!products.isEmpty()) {
             return products;
@@ -154,6 +156,11 @@ public class ProductServiceImpl implements ProductService {
 
         return createLabel.generatePriceLabel(markedProductsForPrint).orElseThrow(()
 				-> new PriceLabelGenerationException("Unable to generate price label. Please try again."));
+	}
+
+	@Override
+	public int updateRetailPrice(BigDecimal retailPrice, BigDecimal tradeMargin, BigDecimal oldRetailPrice, Long productId) {
+		return productRepository.updateRetailPrice(retailPrice, tradeMargin, oldRetailPrice, productId);
 	}
 
 	private ProductDTO saveProduct(ProductDTO productDTO, HistoryAction create) {

@@ -28,12 +28,12 @@ INSERT INTO document_types(id, name) VALUES
 (2, 'Outcome Invoice'),
 (3, 'Other Invoice');
 
-INSERT INTO my_organizations(id, name, bank, fiscal_code, bank_account, vat_code, city, phone_number, email, note)
+INSERT INTO my_organizations(id, name, bank, fiscal_code, bank_account, vat_code, city, phone_number, email, note, is_default)
 VALUES
 (1, 'II Ciprian Tarlev', 'BC Moldova-AgroindddBank fil. Basarabeasca', '2115684415156333',
-'1225622456333', '2146878333', 'Chisinau', '022-21-24-0643', 'test_test@email.com', null),
+'1225622456333', '2146878333', 'Chisinau', '022-21-24-0643', 'test_test@email.com', null, false),
 (2, 'SRL Ciprian Tarlev', 'BC Moldova-AgroindBank fil. Basarabeasca', '2115334415156333',
-'1225622456393', '2146878393', 'Chisinau', '022-21-24-0432', 'test_test@emailr.com', null);
+'1225622456393', '2146878393', 'Chisinau', '022-21-24-0432', 'test_test@emailr.com', null, true);
 
 INSERT INTO regions(id, region_name) VALUES
 (1, 'Chisinau'),
@@ -74,10 +74,11 @@ postal_code, business_address, vendor_type, vendor_legal_type, note) VALUES
  (3, 5, '5%');
 
  INSERT INTO products(id, name_rom, name_rus, category_id, subcategory_id, discount_price, retail_price,
- trade_margin, measuring_unit_id, vat_id, plu_id, product_code_id, stock, default_vendor_id, is_checked) VALUES
- (1, 'Naturalis 1L', 'Naturalis 1Л', 1, 3, '22.44', '22.44', '22.44', 2, 1, null, 1, 8, 1, false),
- (2, 'Tide Manual 1Kg', 'Tide Manual 1КГ', 2, 1, '22.44', '22.44', '22.44', 1, 2, null, 2, '7.540', 1, true),
- (3, 'Paste Barilla 400gr', 'Paste Barilla 400gr', 3, 2, '22.44', '22.44', '22.44', 2, 3, null, 3, 5, 1, true);
+ trade_margin, measuring_unit_id, vat_id, plu_id, product_code_id, stock, default_vendor_id, is_checked,
+ is_retail_price_changed, old_retail_price) VALUES
+ (1, 'Naturalis 1L', 'Naturalis 1Л', 1, 3, '22.44', '22.44', '22.44', 2, 1, null, 1, 8, 1, false, false, '22.44'),
+ (2, 'Tide Manual 1Kg', 'Tide Manual 1КГ', 2, 1, '22.44', '22.44', '22.44', 1, 2, null, 2, '7.540', 1, true, false, '22.44'),
+ (3, 'Paste Barilla 400gr', 'Paste Barilla 400gr', 3, 2, '22.44', '22.44', '22.44', 2, 3, null, 3, 5, 1, true, false, '22.44');
 
  INSERT INTO invoice_products(id, invoice_id, product_id, quantity, vat_sum, total_discount_price, total_retail_price)
  VALUES
@@ -94,3 +95,14 @@ postal_code, business_address, vendor_type, vendor_legal_type, note) VALUES
  ('0734a16b-0746-4a96-b55c-a2ea0e42c844', 'ciprian', 'update', JSON '{"id": 1}', 1, 12, 14, '2021-12-30 19:00:25.4324'),
  ('0b85d7b3-3ab0-48f7-8a50-1d542ccde4f6', 'ciprian', 'update', JSON '{"id": 1}', 1, 44, 66, '2021-12-30 19:00:55.3242'),
  ('1e623c30-a4d4-4f3b-b969-6e7a19286cf4', 'ciprian', 'update', JSON '{"id": 1}', 1, 33, 44, '2021-12-30 19:01:44.2342');
+
+INSERT INTO price_changing_acts(
+id, date_created, my_organization_id, old_prices, new_prices, prices_difference, note, is_approved, is_sent, invoice_id) VALUES
+('5fd843b1-f782-4134-bf94-112b3790ec7f', '2022-07-06', 1, '65.96', '65.96', '65.96', null, false, false, null),
+('5fd843b1-f782-4134-bf94-112b3790ecf4', '2022-07-06', 1, '65.96', '65.96', '65.96', null, false, false, 1),
+('5fd843b1-f782-4134-bf94-112b3790ec3f', '2022-07-06', 1, '65.96', '65.96', '65.96', null, false, false, null);
+
+INSERT INTO public.price_changing_act_products(id, price_changing_act_id, product_id, old_price, price_difference) VALUES
+('5fd843b1-f782-4de4-bf94-112b3790ec7f', '5fd843b1-f782-4134-bf94-112b3790ec7f', 2, '65.96', '65.96'),
+('5fd843b1-f782-4de4-bf94-11454790ec7f', '5fd843b1-f782-4134-bf94-112b3790ec7f', 2, '65.96', '65.96'),
+('5fd843b1-f782-4de4-bf94-112b4390ec7f', '5fd843b1-f782-4134-bf94-112b3790ec7f', 2, '65.96', '65.96');

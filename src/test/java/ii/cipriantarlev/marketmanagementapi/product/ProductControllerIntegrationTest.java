@@ -16,6 +16,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestClientException;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,6 +37,8 @@ class ProductControllerIntegrationTest extends IntegrationTestConfiguration {
                 .vat(VatDTO.builder().id(1L).value(2).name("2%").build())
                 .barcodes(Collections.singletonList(BarcodeDTO.builder().value("222").build()))
                 .productCode(ProductCodeDTO.builder().id(1L).value("MD000").build())
+                .retailPrice(BigDecimal.TEN)
+                .oldRetailPrice(BigDecimal.ONE)
                 .build();
     }
 
@@ -226,7 +229,7 @@ class ProductControllerIntegrationTest extends IntegrationTestConfiguration {
         HttpEntity<Map<Boolean, List<Long>>> entity = new HttpEntity<>(productsToUpdate, new HttpHeaders());
 
         var response = getRestTemplateWithAuth()
-                .exchange(createUri(PRODUCTS_ROOT_PATH.concat(IS_CHECKED_PRODUCT)),
+                .exchange(createUri(PRODUCTS_ROOT_PATH.concat(IS_CHECKED)),
                         HttpMethod.PUT,
                         entity,
                         Integer.class);
@@ -243,7 +246,7 @@ class ProductControllerIntegrationTest extends IntegrationTestConfiguration {
         assertThrows(RestClientException.class,
                 throwException(
                         entity,
-                        PRODUCTS_ROOT_PATH.concat(IS_CHECKED_PRODUCT),
+                        PRODUCTS_ROOT_PATH.concat(IS_CHECKED),
                         HttpMethod.PUT));
     }
 
@@ -252,7 +255,7 @@ class ProductControllerIntegrationTest extends IntegrationTestConfiguration {
         HttpEntity<List<ProductDTOForList>> entity = new HttpEntity<>(null, new HttpHeaders());
 
         var response = getRestTemplateWithAuth()
-                .exchange(createUri(PRODUCTS_ROOT_PATH.concat(IS_CHECKED_PRODUCT)),
+                .exchange(createUri(PRODUCTS_ROOT_PATH.concat(IS_CHECKED)),
                         HttpMethod.GET,
                         entity,
                         new ParameterizedTypeReference<List<ProductDTOForList>>() {

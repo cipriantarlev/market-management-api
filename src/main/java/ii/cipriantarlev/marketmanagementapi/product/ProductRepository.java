@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
@@ -22,7 +23,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	@Transactional
 	@Modifying
 	@Query("update Product u set u.isChecked = ?1 where u.id = ?2")
-	int updateIsCheckedMarker(boolean isChecked, Long invoiceId);
+	int updateIsCheckedMarker(boolean isChecked, Long productId);
+
+	@Transactional
+	@Modifying
+	@Query("update Product u set u.retailPrice = ?1, u.tradeMargin = ?2, u.oldRetailPrice = ?3 where u.id = ?4")
+	int updateRetailPrice(BigDecimal retailPrice, BigDecimal tradeMargin, BigDecimal oldRetailPrice, Long productId);
 
 	List<Product> findByIsCheckedTrue();
 }

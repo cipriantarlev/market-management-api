@@ -63,7 +63,7 @@ public class MyOrganizationServiceImpl implements MyOrganizationService {
 							myOrganizationDTO.getId()),
 					myOrganizationDTO.getId());
 		}
-
+		checkIfDefaultOrganizationHasChanged(myOrganizationDTO);
 		var myOrganization = myOrganizationRepository
 				.save(myOrganizationMapper.mapDTOToEntity(myOrganizationDTO));
 		entitiesHistoryService.createEntityHistoryRecord(myOrganization, null, HistoryAction.CREATE);
@@ -73,6 +73,7 @@ public class MyOrganizationServiceImpl implements MyOrganizationService {
 	@Override
 	public MyOrganizationDTO update(MyOrganizationDTO myOrganizationDTO) {
 		var foundMyOrganization = myOrganizationMapper.mapDTOToEntity(this.findById(myOrganizationDTO.getId()));
+		checkIfDefaultOrganizationHasChanged(myOrganizationDTO);
 		var myOrganization = myOrganizationRepository
 				.save(myOrganizationMapper.mapDTOToEntity(myOrganizationDTO));
 		entitiesHistoryService.createEntityHistoryRecord(myOrganization, foundMyOrganization, HistoryAction.UPDATE);
@@ -87,6 +88,17 @@ public class MyOrganizationServiceImpl implements MyOrganizationService {
 	}
 
 	@Override
+	public MyOrganizationDTOOnlyName findByIsDefaultTrue() {
+		Optional<MyOrganization> myOrganization = myOrganizationRepository.findByIsDefaultTrue();
+
+		if (myOrganization.isPresent()) {
+			return myOrganizationMapper.mapEntityToMyOrganizationDTOOnlyName(myOrganization.get());
+		}
+
+		throw new DTONotFoundException("My Organization with isDefault set to true not found", 0);
+	}
+
+	@Override
 	public List<MyOrganizationDTOOnlyName> findAllMyOrganizationDTOOnlyName() {
 		List<MyOrganizationDTOOnlyName> myOrganizationList = myOrganizationRepository.findAll().stream()
 				.map(myOrganization -> myOrganizationMapper.mapEntityToMyOrganizationDTOOnlyName(myOrganization))
@@ -97,5 +109,11 @@ public class MyOrganizationServiceImpl implements MyOrganizationService {
 		}
 
 		return myOrganizationList;
+	}
+
+	private void checkIfDefaultOrganizationHasChanged(MyOrganizationDTO myOrganizationDTO) {
+		if(myOrganizationDTO.isDefault()) {
+			myOrganizationRepository.updateIsDefaultToFalse();
+		}
 	}
 }

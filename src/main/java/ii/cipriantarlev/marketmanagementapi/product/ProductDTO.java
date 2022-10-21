@@ -94,4 +94,10 @@ public class ProductDTO {
 	private List<VendorDTOOnlyName> vendors;
 
 	private boolean isChecked;
+
+	private boolean isRetailPriceChanged;
+
+	@DecimalMin(value = "0.0", message = "Old Retail Price min value should be {value}")
+	@Digits(integer = 5, fraction = 2, message = "Old Retail Price format should have {integer} integer digits and {fraction} digits")
+	private BigDecimal oldRetailPrice;
 }

@@ -18,4 +18,6 @@ public interface MyOrganizationService {
 	MyOrganizationDTO update(MyOrganizationDTO userDTO);
 
 	void deleteById(Long id);
+
+	MyOrganizationDTOOnlyName findByIsDefaultTrue();
 }

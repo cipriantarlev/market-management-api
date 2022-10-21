@@ -64,4 +64,6 @@ public class MyOrganizationDTO {
 	@Pattern(regexp = "^[a-zA-Z0-9\\s.,:;-]+$", message = "Note should contain alphanumeric character, space, dot, comma, colons, semicolons and dash")
 	@Size(min = 1, max = 500, message = "Note length should be between {min} and {max}")
 	private String note;
+
+	private boolean isDefault;
 }

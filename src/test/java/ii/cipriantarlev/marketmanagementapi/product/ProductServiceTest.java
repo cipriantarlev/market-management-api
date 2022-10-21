@@ -7,11 +7,13 @@ import ii.cipriantarlev.marketmanagementapi.exceptions.PriceLabelGenerationExcep
 import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import ii.cipriantarlev.marketmanagementapi.product.history.ProductHistoryService;
 import ii.cipriantarlev.marketmanagementapi.utils.CreateLabel;
+import ii.cipriantarlev.marketmanagementapi.utils.MarketManagementFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,6 +40,9 @@ class ProductServiceTest {
     @Mock
     private CreateLabel createLabel;
 
+    @Mock
+    private MarketManagementFactory marketManagementFactory;
+
     private Product product;
     private ProductDTO productDTO;
     private final long id = 1L;
@@ -49,7 +54,13 @@ class ProductServiceTest {
         openMocks(this);
         product = new Product();
         product.setId(id);
-        productDTO = ProductDTO.builder().id(id).build();
+        product.setRetailPrice(BigDecimal.TEN);
+        product.setOldRetailPrice(BigDecimal.ONE);
+        productDTO = ProductDTO.builder()
+                .id(id)
+                .retailPrice(BigDecimal.TEN)
+                .oldRetailPrice(BigDecimal.ONE)
+                .build();
     }
 
     @Test
@@ -320,5 +331,19 @@ class ProductServiceTest {
         verify(repository).findById(id);
         verify(mapper).mapEntityToDTOForList(productOptional.get());
         verify(createLabel).generatePriceLabel(markedProductsForPrint);
+    }
+
+    @Test
+    void updateRetailPrice() throws Exception {
+        BigDecimal retailPrice = BigDecimal.TEN;
+        BigDecimal tradeMargin = BigDecimal.ONE;
+        BigDecimal oldRetailPrice = BigDecimal.ONE;
+        int updatedRows = 1;
+
+        when(repository.updateRetailPrice(retailPrice, tradeMargin, oldRetailPrice, id)).thenReturn(updatedRows);
+
+        int resultedUpdatedRows = service.updateRetailPrice(retailPrice, tradeMargin, oldRetailPrice, id);
+
+        assertEquals(updatedRows, resultedUpdatedRows);
     }
 }

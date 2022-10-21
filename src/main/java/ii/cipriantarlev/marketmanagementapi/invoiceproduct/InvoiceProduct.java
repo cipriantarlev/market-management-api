@@ -38,10 +38,12 @@ public class InvoiceProduct {
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH, CascadeType.MERGE })
 	@JoinColumn(name = "invoice_id")
+	@ToString.Exclude
 	private Invoice invoice;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH, CascadeType.MERGE })
 	@JoinColumn(name = "product_id")
+	@ToString.Exclude
 	private Product product;
 
 	@Column(name = "quantity")
@@ -56,12 +58,12 @@ public class InvoiceProduct {
 	@Column(name = "total_retail_price")
 	private BigDecimal totalRetailPrice;
 
-	public InvoiceProduct(Invoice invoice, Product product, BigDecimal quantity, BigDecimal vatSumt,
+	public InvoiceProduct(Invoice invoice, Product product, BigDecimal quantity, BigDecimal vatSum,
 			BigDecimal totalDiscountPrice, BigDecimal totalRetailPrice) {
 		this.invoice = invoice;
 		this.product = product;
 		this.quantity = quantity;
-		this.vatSum = vatSumt;
+		this.vatSum = vatSum;
 		this.totalDiscountPrice = totalDiscountPrice;
 		this.totalRetailPrice = totalRetailPrice;
 	}

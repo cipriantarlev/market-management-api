@@ -12,6 +12,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.util.UUID;
+
 @SpringBootTest(classes = MarketManagementApiApplication.class,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(
@@ -31,6 +33,11 @@ public class IntegrationTestConfiguration {
 
     protected static final String GOOD_ID_PATH = "/1";
     protected static final String BAD_ID_PATH = "/99";
+
+    protected static final UUID GOOD_UUID = UUID.fromString("5fd843b1-f782-4134-bf94-112b3790ec7f");
+    protected static final String GOOD_UUID_PATH = "/5fd843b1-f782-4134-bf94-112b3790ec7f";
+    protected static final UUID BAD_UUID = UUID.fromString("5fd843b1-0000-0000-0000-112b3790ec7f");
+    protected static final String BAD_UUID_PATH = "/5fd843b1-0000-0000-0000-112b3790ec7f";
 
     protected final String createUri(String path) {
         return "http://localhost:" + port + "/api" + path;

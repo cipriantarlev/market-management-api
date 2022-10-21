@@ -7,16 +7,15 @@ import ii.cipriantarlev.marketmanagementapi.exceptions.DTOListNotFoundException;
 import ii.cipriantarlev.marketmanagementapi.exceptions.DTONotFoundException;
 import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistoryService;
 import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
+import ii.cipriantarlev.marketmanagementapi.invoiceproduct.InvoiceProductRepository;
+import ii.cipriantarlev.marketmanagementapi.pricechangingact.PriceChangingActService;
 import ii.cipriantarlev.marketmanagementapi.utils.MarketManagementFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -38,6 +37,12 @@ class InvoiceServiceTest {
 
     @Mock
     private MarketManagementFactory factory;
+
+    @Mock
+    private InvoiceProductRepository invoiceProductRepository;
+
+    @Mock
+    private PriceChangingActService priceChangingActService;
 
     private InvoiceDTO invoiceDTO;
     private Invoice invoice;
@@ -213,6 +218,7 @@ class InvoiceServiceTest {
         when(repository.findById(id)).thenReturn(invoiceOptional);
         when(mapper.mapEntityToDTO(invoiceOptional.get())).thenReturn(invoiceDTO);
         when(mapper.mapDTOToEntity(invoiceDTO)).thenReturn(invoice);
+        when(priceChangingActService.findByInvoiceId(id)).thenReturn(new ArrayList<>());
         doNothing().when(entitiesHistoryService).createEntityHistoryRecord(invoice, null, HistoryAction.DELETE);
         doNothing().when(repository).deleteById(id);
 
@@ -221,6 +227,7 @@ class InvoiceServiceTest {
         verify(repository).findById(id);
         verify(mapper).mapEntityToDTO(invoiceOptional.get());
         verify(mapper).mapDTOToEntity(invoiceDTO);
+        verify(priceChangingActService).findByInvoiceId(id);
         verify(repository).deleteById(id);
         verify(entitiesHistoryService).createEntityHistoryRecord(invoice, null, HistoryAction.DELETE);
     }

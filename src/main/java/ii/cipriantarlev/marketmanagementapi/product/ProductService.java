@@ -3,7 +3,7 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.product;
 
-import java.io.File;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -30,4 +30,6 @@ public interface ProductService {
 	List<ProductDTOForList> findAllMarkedProduct();
 
 	byte[] printMarkedProducts(Map<Long, Integer> productsToPrint);
+
+	int updateRetailPrice(BigDecimal retailPrice, BigDecimal tradeMargin, BigDecimal oldRetailPrice, Long productId);
 }

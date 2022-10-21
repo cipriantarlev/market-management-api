@@ -142,7 +142,7 @@ class InvoiceProductControllerIntegrationTest extends IntegrationTestConfigurati
         HttpEntity<Map<Boolean, List<Long>>> entity = new HttpEntity<>(productsToUpdate, new HttpHeaders());
 
         var response = getRestTemplateWithAuth()
-                .exchange(createUri(INVOICE_PRODUCT_ROOT_PATH.concat(IS_CHECKED_PRODUCT)),
+                .exchange(createUri(INVOICE_PRODUCT_ROOT_PATH.concat(IS_CHECKED)),
                         HttpMethod.PUT,
                         entity,
                         Integer.class);
@@ -159,7 +159,7 @@ class InvoiceProductControllerIntegrationTest extends IntegrationTestConfigurati
         assertThrows(RestClientException.class,
                 throwException(
                         entity,
-                        INVOICE_PRODUCT_ROOT_PATH.concat(IS_CHECKED_PRODUCT),
+                        INVOICE_PRODUCT_ROOT_PATH.concat(IS_CHECKED),
                         HttpMethod.PUT));
     }
 
@@ -198,6 +198,8 @@ class InvoiceProductControllerIntegrationTest extends IntegrationTestConfigurati
                 .subcategory(SubcategoryDTONoCategory.builder().id(1L).name("Test").build())
                 .productCode(ProductCodeDTO.builder().id(1L).value("Test").build())
                 .vendors(new ArrayList<>())
+                .retailPrice(BigDecimal.TEN)
+                .oldRetailPrice(BigDecimal.ONE)
                 .build();
     }
 }
