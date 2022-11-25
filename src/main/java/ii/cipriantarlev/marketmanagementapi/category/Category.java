@@ -9,21 +9,22 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import ii.cipriantarlev.marketmanagementapi.core.SuperEntity;
+import ii.cipriantarlev.marketmanagementapi.product.Product;
 import ii.cipriantarlev.marketmanagementapi.subcategory.Subcategory;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * Class to hold values of {@link Product} category.
+ */
 @Entity
 @Table(name = "categories")
 @NoArgsConstructor
@@ -32,9 +33,15 @@ import lombok.ToString;
 @ToString
 public class Category extends SuperEntity {
 
+	/**
+	 * Category name.
+	 */
 	@Column(name = "name")
 	private String name;
-	
+
+	/**
+	 * List with all category's subcategories.
+	 */
 	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY,
 			   cascade = CascadeType.ALL,

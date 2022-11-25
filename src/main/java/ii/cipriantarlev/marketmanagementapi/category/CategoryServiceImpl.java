@@ -6,6 +6,7 @@ package ii.cipriantarlev.marketmanagementapi.category;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistory;
 import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistoryService;
 import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +16,28 @@ import ii.cipriantarlev.marketmanagementapi.exceptions.DTOFoundWhenSaveException
 import ii.cipriantarlev.marketmanagementapi.exceptions.DTOListNotFoundException;
 import ii.cipriantarlev.marketmanagementapi.exceptions.DTONotFoundException;
 
+/**
+ * Class to implement {@link CategoryService} interface.
+ */
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
+	/**
+	 * {@link CategoryRepository} used to connect with database.
+	 */
 	@Autowired
 	private CategoryRepository categoryRepository;
 
+	/**
+	 * {@link CategoryMapper} used to map entity to dto and vice-versa.
+	 */
 	@Autowired
 	private CategoryMapper categoryMapper;
 
+	/**
+	 * {@link EntitiesHistoryService} used to create {@link EntitiesHistory}
+	 * records in database based on action performed on {@link Category}.
+	 */
 	@Autowired
 	private EntitiesHistoryService entitiesHistoryService;
 

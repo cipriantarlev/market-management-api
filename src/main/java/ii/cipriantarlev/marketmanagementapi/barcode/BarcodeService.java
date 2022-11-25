@@ -3,6 +3,10 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.barcode;
 
+import ii.cipriantarlev.marketmanagementapi.exceptions.DTOListNotFoundException;
+import ii.cipriantarlev.marketmanagementapi.exceptions.DTONotFoundException;
+import ii.cipriantarlev.marketmanagementapi.product.Product;
+
 import java.util.List;
 
 /**
@@ -11,10 +15,10 @@ import java.util.List;
 public interface BarcodeService {
 
 	/**
-	 * Method to find all barcodes in database.
+	 * Method to find all {@link Barcode} in database.
 	 *
 	 * @return the list of found barcodes.
-	 * If the list is empty the {@link ii.cipriantarlev.marketmanagementapi.exceptions.DTOListNotFoundException}
+	 * If the list is empty the {@link DTOListNotFoundException}
 	 * will be thrown.
 	 */
 	List<BarcodeDTO> findAll();
@@ -24,7 +28,7 @@ public interface BarcodeService {
 	 *
 	 * @param id of barcode to found.
 	 * @return the found {@link Barcode}.
-	 * If the barcode is not found the {@link ii.cipriantarlev.marketmanagementapi.exceptions.DTONotFoundException}
+	 * If the barcode is not found the {@link DTONotFoundException}
 	 * will be thrown.
 	 */
 	BarcodeDTO findById(Long id);
@@ -33,7 +37,7 @@ public interface BarcodeService {
 	 * Generate new barcode based on value of the last found.
 	 * If the value is 21 or 22 the new barcode will be generated
 	 * based on last barcode value found in database, otherwise the current
-	 * value will be linked to {@link ii.cipriantarlev.marketmanagementapi.product.Product}
+	 * value will be linked to {@link Product}
 	 * and persisted to database.
 	 *
 	 * @param barcodeDTO sent from ui.
@@ -43,7 +47,7 @@ public interface BarcodeService {
 
 	/**
 	 * Method to delete a barcode based on provided id.
-	 * If the barcode is not found the {@link ii.cipriantarlev.marketmanagementapi.exceptions.DTONotFoundException}
+	 * If the barcode is not found the {@link DTONotFoundException}
 	 * will be thrown.
 	 *
 	 * @param id of barcode to be deleted.

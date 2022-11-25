@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistory;
 import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistoryService;
 import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class BarcodeServiceImpl implements BarcodeService {
 	private BarcodeMapper barcodeMapper;
 
 	/**
-	 * {@link EntitiesHistoryService} used to create {@link ii.cipriantarlev.marketmanagementapi.history.EntitiesHistory}
+	 * {@link EntitiesHistoryService} used to create {@link EntitiesHistory}
 	 * records in database based on action performed on {@link Barcode}.
 	 */
 	@Autowired

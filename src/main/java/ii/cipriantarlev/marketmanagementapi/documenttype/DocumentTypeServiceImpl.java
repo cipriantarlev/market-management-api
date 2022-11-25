@@ -6,6 +6,8 @@ package ii.cipriantarlev.marketmanagementapi.documenttype;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import ii.cipriantarlev.marketmanagementapi.category.CategoryMapper;
+import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistory;
 import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistoryService;
 import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +17,28 @@ import ii.cipriantarlev.marketmanagementapi.exceptions.DTOFoundWhenSaveException
 import ii.cipriantarlev.marketmanagementapi.exceptions.DTOListNotFoundException;
 import ii.cipriantarlev.marketmanagementapi.exceptions.DTONotFoundException;
 
+/**
+ * Class to implement {@link DocumentTypeService} interface.
+ */
 @Service
 public class DocumentTypeServiceImpl implements DocumentTypeService {
 
+	/**
+	 * {@link DocumentTypeRepository} used to connect with database.
+	 */
 	@Autowired
 	private DocumentTypeRepository documentTypeRepository;
 
+	/**
+	 * {@link CategoryMapper} used to map entity to dto and vice-versa.
+	 */
 	@Autowired
 	private DocumentTypeMapper documentTypeMapper;
 
+	/**
+	 * {@link EntitiesHistoryService} used to create {@link EntitiesHistory}
+	 * records in database based on action performed on {@link DocumentType}.
+	 */
 	@Autowired
 	private EntitiesHistoryService entitiesHistoryService;
 

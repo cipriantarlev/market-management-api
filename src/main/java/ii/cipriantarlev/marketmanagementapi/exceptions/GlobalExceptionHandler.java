@@ -107,7 +107,7 @@ public class GlobalExceptionHandler {
 
 		var errorResponse = new NotFoundErrorResponse();
 		errorResponse.setStatusCode(HttpStatus.NOT_FOUND.value());
-		errorResponse.setId(exception.getLongId());
+		errorResponse.setId(exception.getLongId() > 0 ? String.valueOf(exception.getLongId()) : exception.getUUIDId().toString());
 		errorResponse.setMessage(exception.getMessage());
 		errorResponse.setTimeStamp(LocalDateTime.now());
 
@@ -144,7 +144,7 @@ public class GlobalExceptionHandler {
 	 * A method to catch DTOFoundWhenSaveException when DTO with provided id is found
 	 * in the database during saving.
 	 * 
-	 * The message example: { "statusCode": 404, "message": "Category with id: '23' 
+	 * The message example: { "statusCode": 400, "message": "Category with id: '23'
 	 * already exists in database. Please use update in order to save the changes in database", 
 	 * "timeStamp": "2021-10-08T12:35:21.4593327", "id": 188888 }
 	 * 
@@ -156,8 +156,8 @@ public class GlobalExceptionHandler {
 			DTOFoundWhenSaveException exception) {
 
 		var errorResponse = new DTOFoundErrorResponse();
-		errorResponse.setStatusCode(HttpStatus.NOT_FOUND.value());
-		errorResponse.setId(exception.getLongId());
+		errorResponse.setStatusCode(HttpStatus.BAD_REQUEST.value());
+		errorResponse.setId(exception.getLongId() > 0 ? String.valueOf(exception.getLongId()) : exception.getUUIDId().toString());
 		errorResponse.setMessage(exception.getMessage());
 		errorResponse.setTimeStamp(LocalDateTime.now());
 

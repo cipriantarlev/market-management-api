@@ -52,7 +52,7 @@ public class BarcodeController {
 	 *
 	 * @param id of barcode to be found.
 	 * @return the found barcode and 200 status code.
-	 * If barcode was not found the 404 status code will be sent.
+	 * If {@link Barcode} was not found the 404 status code will be sent.
 	 */
 	@GetMapping(ID_PATH)
 	public ResponseEntity<BarcodeDTO> getBarcode(@PathVariable Long id) {
@@ -61,10 +61,10 @@ public class BarcodeController {
 	}
 
 	/**
-	 * Method to save the provided barcode or to generate a generic one based on provided value.
+	 * Method to save the provided {@link Barcode} or to generate a generic one based on provided value.
 	 *
 	 * @param barcodeDTO to checked and/or saved.
-	 * @return the saved or generated barcode and 200 status code.
+	 * @return the saved or generated {@link Barcode} and 200 status code.
 	 */
 	@PostMapping
 	public ResponseEntity<BarcodeDTO> saveOrGenerateBarcode(@Valid @RequestBody BarcodeDTO barcodeDTO) {
@@ -73,7 +73,7 @@ public class BarcodeController {
 	}
 
 	/**
-	 * Method to delete barcode with provided id
+	 * Method to delete {@link Barcode} with provided id
 	 *
 	 * @param id for barcode to be deleted.
 	 * @return 200 status code if barcode has been deleted.
@@ -86,7 +86,7 @@ public class BarcodeController {
 	}
 
 	/**
-	 * Method to check if the provided barcode value already exists in database.
+	 * Method to check if the provided {@link Barcode} value already exists in database.
 	 *
 	 * @param value value to be checked.
 	 * @return true if value exists, false if not and 200 status code.

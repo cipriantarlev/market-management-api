@@ -3,6 +3,7 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.core;
 
+import ii.cipriantarlev.marketmanagementapi.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,11 +16,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import ii.cipriantarlev.marketmanagementapi.user.DetailsService;
 
+/**
+ * Class that holds web security configuration
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+	/**
+	 * {@link DetailsService} used to manager {@link User}
+	 */
 	@Autowired
 	private DetailsService userDetailsService;
 
@@ -36,7 +43,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.httpBasic()
 		.and()
 		.authorizeRequests()
-		.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+		.antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
 		.anyRequest().authenticated();
 	}
 }
