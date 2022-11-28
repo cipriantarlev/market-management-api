@@ -23,6 +23,9 @@ import ii.cipriantarlev.marketmanagementapi.myorganization.MyOrganization;
 import ii.cipriantarlev.marketmanagementapi.vendor.Vendor;
 import lombok.*;
 
+/**
+ * Class that holds value invoice values.
+ */
 @Entity
 @Table(name = "invoices")
 @NoArgsConstructor
@@ -30,50 +33,92 @@ import lombok.*;
 @Setter
 public class Invoice extends SuperEntity {
 
+	/**
+	 * Invoice's {@link DocumentType}
+	 */
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "document_type_id")
 	private DocumentType documentType;
 
+	/**
+	 * {@link MyOrganization} for which invoice has been created.
+	 */
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "my_organization_id")
 	private MyOrganization myOrganization;
 
+	/**
+	 * {@link Vendor} for which invoice has been created.
+	 */
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "vendor_id")
 	private Vendor vendor;
 
+	/**
+	 * The date when invoice has been created.
+	 */
 	@Column(name = "date_created")
 	private LocalDate dateCreated;
 
+	/**
+	 * Value for invoice number.
+	 */
 	@Column(name = "invoice_number")
 	private String invoiceNumber;
 
+	/**
+	 * The invoice's date.
+	 */
 	@Column(name = "invoice_date")
 	private LocalDate invoiceDate;
 
+	/**
+	 * Note to hold additional details about invoice
+	 */
 	@Column(name = "note")
 	private String note;
 
+	/**
+	 * Total value for discount price on the invoice.
+	 */
 	@Column(name = "total_discount_price")
 	private BigDecimal totalDiscountPrice;
 
+	/**
+	 * Total value for retail price on the invoice.
+	 */
 	@Column(name = "total_retail_price")
 	private BigDecimal totalRetailPrice;
 
+	/**
+	 * Total value for trade margin on the invoice.
+	 */
 	@Column(name = "total_trade_margin")
 	private BigDecimal totalTradeMargin;
 
+	/**
+	 * Trade margin value in (%) percentage.
+	 */
 	@Column(name = "trade_margin")
 	private BigDecimal tradeMargin;
 
+	/**
+	 * Total value for vat on the invoice.
+	 */
 	@Column(name = "vat_sum")
 	private BigDecimal vatSum;
 
+	/**
+	 * List of {@link InvoiceProduct} associated with invoice.
+	 */
 	@OneToMany(fetch = FetchType.LAZY, 
 				cascade = CascadeType.ALL, 
 				mappedBy = "invoice")
 	private List<InvoiceProduct> invoiceProducts;
 
+	/**
+	 * Value used to determine whether the invoice is approved or not.
+	 */
 	@Column(name = "is_approved")
 	private boolean isApproved;
 

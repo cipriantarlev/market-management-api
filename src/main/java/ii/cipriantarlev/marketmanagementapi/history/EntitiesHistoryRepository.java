@@ -7,5 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
+/**
+ * Repository interface for {@link EntitiesHistory} entity.
+ */
 public interface EntitiesHistoryRepository extends JpaRepository<EntitiesHistory, UUID> {
 }

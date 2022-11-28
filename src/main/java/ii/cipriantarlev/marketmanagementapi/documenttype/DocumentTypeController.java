@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ii.cipriantarlev.marketmanagementapi.utils.RestControllerUtil;
 
 /**
- * RestController class for {@link DocumentType}
+ * RestController class for {@link DocumentType}.
  */
 @CrossOrigin(LOCAL_HOST)
 @RestController
@@ -38,19 +38,19 @@ import ii.cipriantarlev.marketmanagementapi.utils.RestControllerUtil;
 public class DocumentTypeController {
 
 	/**
-	 * {@link DocumentTypeService} used to manage {@link DocumentType}
+	 * {@link DocumentTypeService} used to manage {@link DocumentType}.
 	 */
 	@Autowired
 	private DocumentTypeService documentTypeService;
 
 	/**
-	 * Utility class used to create headers for Post method
+	 * Utility class used to create headers for Post method.
 	 */
 	@Autowired
 	private RestControllerUtil restControllerUtil;
 
 	/**
-	 * Method to expose all document types found in the database.
+	 * Method to expose all {@link DocumentType} found in the database.
 	 *
 	 * @return list of found document types and 200 status code.
 	 * If the list is empty the 404 status code will be sent.
@@ -123,7 +123,7 @@ public class DocumentTypeController {
 	 *
 	 * @param id of document type to be deleted.
 	 * @return 200 status code if the {@link DocumentType} was successfully deleted.
-	 * If the provided category was not found in the database, the {@link DTONotFoundException}
+	 * If the provided document type was not found in the database, the {@link DTONotFoundException}
 	 * will be thrown and http code 404 not found will be sent.
 	 * If user doesn't have ADMIN {@link Role}
 	 * he will receive Http code 401 Unauthorized request.

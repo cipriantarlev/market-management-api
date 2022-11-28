@@ -22,20 +22,20 @@ public class DocumentTypeMapper {
 	/**
 	 * Method used to map {@link DocumentType} to {@link DocumentTypeDTO}.
 	 *
-	 * @param docymentType entity to be mapped.
+	 * @param documentType entity to be mapped.
 	 * @return resulted dto.
 	 */
-	public DocumentTypeDTO mapEntityToDTO(DocumentType docymentType) {
-		return modelMapper.map(docymentType, DocumentTypeDTO.class);
+	public DocumentTypeDTO mapEntityToDTO(DocumentType documentType) {
+		return modelMapper.map(documentType, DocumentTypeDTO.class);
 	}
 
 	/**
 	 * Method used to map {@link DocumentTypeDTO} to {@link DocumentType}.
 	 *
-	 * @param docymentTypeDTO DTO to be mapped.
+	 * @param documentTypeDTO DTO to be mapped.
 	 * @return resulted entity.
 	 */
-	public DocumentType mapDTOToEntity(DocumentTypeDTO docymentTypeDTO) {
-		return modelMapper.map(docymentTypeDTO, DocumentType.class);
+	public DocumentType mapDTOToEntity(DocumentTypeDTO documentTypeDTO) {
+		return modelMapper.map(documentTypeDTO, DocumentType.class);
 	}
 }

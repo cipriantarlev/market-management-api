@@ -6,10 +6,12 @@ package ii.cipriantarlev.marketmanagementapi.invoice;
 import java.util.List;
 import java.util.Map;
 
+import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistory;
 import ii.cipriantarlev.marketmanagementapi.history.EntitiesHistoryService;
 import ii.cipriantarlev.marketmanagementapi.history.HistoryAction;
 import ii.cipriantarlev.marketmanagementapi.invoiceproduct.InvoiceProduct;
 import ii.cipriantarlev.marketmanagementapi.invoiceproduct.InvoiceProductRepository;
+import ii.cipriantarlev.marketmanagementapi.pricechangingact.PriceChangingAct;
 import ii.cipriantarlev.marketmanagementapi.pricechangingact.PriceChangingActDTO;
 import ii.cipriantarlev.marketmanagementapi.pricechangingact.PriceChangingActService;
 import ii.cipriantarlev.marketmanagementapi.product.Product;
@@ -23,27 +25,52 @@ import ii.cipriantarlev.marketmanagementapi.exceptions.DTOFoundWhenSaveException
 import ii.cipriantarlev.marketmanagementapi.exceptions.DTOListNotFoundException;
 import ii.cipriantarlev.marketmanagementapi.exceptions.DTONotFoundException;
 
+/**
+ * Class to implement {@link InvoiceService} interface.
+ */
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
 
+	/**
+	 * {@link InvoiceRepository} used to connect with database.
+	 */
 	@Autowired
 	private InvoiceRepository invoiceRepository;
 
+	/**
+	 * {@link InvoiceMapper} used to map entity to dto and vice-versa.
+	 */
 	@Autowired
 	private InvoiceMapper invoiceMapper;
 
+	/**
+	 * {@link EntitiesHistoryService} used to create {@link EntitiesHistory}
+	 * records in database based on action performed on {@link Invoice}.
+	 */
 	@Autowired
 	private EntitiesHistoryService entitiesHistoryService;
 
+	/**
+	 * Factory class used to create new instances based on input.
+	 */
 	@Autowired
 	private MarketManagementFactory factory;
 
+	/**
+	 * {@link InvoiceProductRepository} used to get {@link InvoiceProduct} from database.
+	 */
     @Autowired
     private InvoiceProductRepository invoiceProductRepository;
 
+	/**
+	 * {@link PriceChangingActService} used to manager {@link PriceChangingAct}.
+	 */
 	@Autowired
 	private PriceChangingActService priceChangingActService;
 
+	/**
+	 * Field to hold the number of updated rows.
+	 */
 	@Setter
 	private int updatedRows;
 
@@ -132,6 +159,12 @@ public class InvoiceServiceImpl implements InvoiceService {
 		return invoices;
 	}
 
+	/**
+	 * Method used to create a {@link PriceChangingAct} for approved {@link Invoice}.
+	 *
+	 * @param isApproved the value of {@link Invoice#isApproved()} marker.
+	 * @param id the id of approved {@link Invoice}.
+	 */
 	private void createPriceChangingActForApprovedInvoice(boolean isApproved, long id) {
 		if(isApproved) {
             List<InvoiceProduct> invoiceProducts = invoiceProductRepository.findAllByInvoiceId(id);
@@ -150,6 +183,11 @@ public class InvoiceServiceImpl implements InvoiceService {
         }
 	}
 
+	/**
+	 * Method used to delete the {@link Invoice} related {@link PriceChangingAct} based on invoice id.
+	 *
+	 * @param invoiceId the id of deleted {@link Invoice}.
+	 */
 	private void deleteRelatedPriceChangingAct(long invoiceId) {
 		priceChangingActService.findByInvoiceId(invoiceId)
 				.forEach(priceChangingAct -> priceChangingActService.deleteById(priceChangingAct.getId()));

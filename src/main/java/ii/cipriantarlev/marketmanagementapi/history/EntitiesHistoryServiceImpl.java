@@ -10,12 +10,21 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+/**
+ * Class to implement {@link EntitiesHistoryService} interface.
+ */
 @Service
 public class EntitiesHistoryServiceImpl implements EntitiesHistoryService {
 
+    /**
+     * {@link EntitiesHistoryRepository} used to connect with database.
+     */
     @Autowired
     private EntitiesHistoryRepository entitiesHistoryRepository;
 
+    /**
+     * {@link AuthenticationInformation} used to get details about authenticated user.
+     */
     @Autowired
     private AuthenticationInformation authenticationInformation;
 

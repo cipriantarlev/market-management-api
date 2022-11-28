@@ -15,6 +15,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+/**
+ * Class that holds additional to {@link History} attributes.
+ */
 @Entity
 @Table(name = "entities_history")
 @NoArgsConstructor
@@ -23,13 +26,22 @@ import javax.persistence.Table;
 @TypeDef(name = "json", typeClass = JsonType.class)
 public class EntitiesHistory extends History {
 
+    /**
+     * Entity's name
+     */
     @Column(name = "entity_name")
     private String entityName;
 
+    /**
+     * The updated entity in json format, saved as jsonb in database.
+     */
     @Type(type = "json")
     @Column(name = "new_entity", columnDefinition = "jsonb")
     private SuperEntity newEntity;
 
+    /**
+     * The old entity in json format, saved as jsonb in database.
+     */
     @Type(type = "json")
     @Column(name = "old_entity", columnDefinition = "jsonb")
     private SuperEntity oldEntity;
