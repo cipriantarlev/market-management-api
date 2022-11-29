@@ -9,7 +9,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import ii.cipriantarlev.marketmanagementapi.invoice.Invoice;
 import ii.cipriantarlev.marketmanagementapi.invoice.InvoiceService;
+import ii.cipriantarlev.marketmanagementapi.product.Product;
 import ii.cipriantarlev.marketmanagementapi.product.ProductDTO;
 import ii.cipriantarlev.marketmanagementapi.vendor.VendorDTOOnlyName;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +22,33 @@ import ii.cipriantarlev.marketmanagementapi.exceptions.DTOListNotFoundException;
 import ii.cipriantarlev.marketmanagementapi.exceptions.DTONotFoundException;
 import ii.cipriantarlev.marketmanagementapi.product.ProductService;
 
+/**
+ * Class to implement {@link InvoiceProductService} interface.
+ */
 @Service
 public class InvoiceProductServiceImpl implements InvoiceProductService {
 
+    /**
+     * {@link InvoiceProductRepository} used to connect with database.
+     */
     @Autowired
     private InvoiceProductRepository invoiceProductRepository;
 
+    /**
+     * {@link InvoiceProductMapper} used to map entity to dto and vice-versa.
+     */
     @Autowired
     private InvoiceProductMapper invoiceProductMapper;
 
+    /**
+     * {@link ProductService} used to manage {@link Product}.
+     */
     @Autowired
     private ProductService productService;
 
+    /**
+     * {@link InvoiceService} used to manager {@link Invoice}.
+     */
     @Autowired
     private InvoiceService invoiceService;
 
@@ -97,6 +114,13 @@ public class InvoiceProductServiceImpl implements InvoiceProductService {
         invoiceProductRepository.deleteById(id);
     }
 
+    /**
+     * Method used to roll back the old values for {@link Product#getStock()}, {@link Product#getRetailPrice()},
+     * {@link Product#getOldRetailPrice()} and {@link Product#isRetailPriceChanged()}.
+     *
+     * @param invoiceProduct {@link InvoiceProduct} which will provide the stock/quantity value
+     * @param product {@link Product} which will provide the rest values.
+     */
     private void resetDeletedProduct(InvoiceProductDTO invoiceProduct, ProductDTO product) {
         product.setStock(product.getStock().subtract(invoiceProduct.getQuantity()));
         if(product.isRetailPriceChanged()) {
@@ -106,6 +130,11 @@ public class InvoiceProductServiceImpl implements InvoiceProductService {
         }
     }
 
+    /**
+     * Method used to update {@link Product} based on values provided in {@link InvoiceProduct}.
+     *
+     * @param invoiceProductDTO {@link InvoiceProduct} used to update {@link Product}.
+     */
     private void updateProduct(InvoiceProductDTO invoiceProductDTO) {
         var invoiceDTO = invoiceService.findById(invoiceProductDTO.getInvoice().getId());
         var productDTO = invoiceProductDTO.getProduct();

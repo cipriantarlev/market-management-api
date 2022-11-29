@@ -3,16 +3,35 @@
  *******************************************************************************/
 package ii.cipriantarlev.marketmanagementapi.login;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Class that holds login details sent to UI.
+ */
 @Data
 @NoArgsConstructor
+@Builder(toBuilder = true)
 public class Login {
 
+	/**
+	 * Time stamp when the user was successfully authenticated.
+	 */
 	private String timestamp;
-	private Integer status;
-	private String message;
-	private String path;
 
+	/**
+	 * Status used when the user was successfully authenticated.
+	 */
+	private Integer status;
+
+	/**
+	 * The message used when the user was successfully authenticated.
+	 */
+	private String message;
+
+	/**
+	 * The path used when the user was successfully authenticated.
+	 */
+	private String path;
 }

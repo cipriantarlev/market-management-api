@@ -23,6 +23,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * Class that holds {@link Product} related to one {@link Invoice}.
+ */
 @Entity
 @Table(name = "invoice_products")
 @NoArgsConstructor
@@ -31,30 +34,51 @@ import lombok.ToString;
 @ToString
 public class InvoiceProduct {
 
+	/**
+	 * InvoiceProduct's id.
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 
+	/**
+	 * {@link Invoice} related to this InvoiceProduct.
+	 */
 	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH, CascadeType.MERGE })
 	@JoinColumn(name = "invoice_id")
 	@ToString.Exclude
 	private Invoice invoice;
 
+	/**
+	 * {@link Product} related to this InvoiceProduct.
+	 */
 	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH, CascadeType.MERGE })
 	@JoinColumn(name = "product_id")
 	@ToString.Exclude
 	private Product product;
 
+	/**
+	 * The quantity of the {@link Product} added in the {@link Invoice}.
+	 */
 	@Column(name = "quantity")
 	private BigDecimal quantity;
 
+	/**
+	 * Total vat's value of the {@link Product} added in the {@link Invoice}.
+	 */
 	@Column(name = "vat_sum")
 	private BigDecimal vatSum;
 
+	/**
+	 * Total discount price value of the {@link Product} added in the {@link Invoice}.
+	 */
 	@Column(name = "total_discount_price")
 	private BigDecimal totalDiscountPrice;
 
+	/**
+	 * Total retail price value of the {@link Product} added in the {@link Invoice}.
+	 */
 	@Column(name = "total_retail_price")
 	private BigDecimal totalRetailPrice;
 

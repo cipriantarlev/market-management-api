@@ -22,7 +22,7 @@ import ii.cipriantarlev.marketmanagementapi.vendor.VendorDTOOnlyName;
 import lombok.*;
 
 /**
- * DTO class of {@link Invoice}
+ * DTO class of {@link Invoice}.
  */
 @Getter
 @Setter

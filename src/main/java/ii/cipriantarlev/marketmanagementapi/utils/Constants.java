@@ -55,4 +55,7 @@ public class Constants {
 	public final String IS_CHECKED = "/isChecked";
 	public final String PRINT_PRODUCTS = "/printProducts";
 	public final String PRICE_CHANGING_ACT_ID = "/price-changing-act/{id}";
+	public final String LOGIN_PATH = "/login";
+	public final String API_LOGIN_PATH = "/api/login";
+
 }

@@ -41,7 +41,7 @@ public interface InvoiceService {
 	 *
 	 * @param id the id of invoice to be found.
 	 * @return the found {@link Invoice}.
-	 * If the document type is not found the {@link DTONotFoundException}
+	 * If the invoice is not found the {@link DTONotFoundException}
 	 * will be thrown.
 	 */
 	InvoiceDTO findById(Long id);
@@ -51,7 +51,7 @@ public interface InvoiceService {
 	 * in the database.
 	 *
 	 * @param invoiceDTO invoice that should be saved in the database.
-	 * @return the new created {@link InvoiceDTO}. If the invoice is not found the
+	 * @return the new created {@link InvoiceDTO}. If the invoice is found the
 	 * {@link DTOFoundWhenSaveException} will be thrown.
 	 */
 	InvoiceDTO save(InvoiceDTO invoiceDTO);
@@ -68,10 +68,10 @@ public interface InvoiceService {
 
 	/**
 	 * Method to delete an {@link InvoiceDTO} based on provided id.
-	 * If the document type is not found the {@link DTONotFoundException}
+	 * If the invoice is not found the {@link DTONotFoundException}
 	 * will be thrown.
 	 *
-	 * @param id the id of the {@link InvoiceDTO} to be deteled.
+	 * @param id the id of the {@link InvoiceDTO} to be deleted.
 	 */
 	void deleteById(Long id);
 

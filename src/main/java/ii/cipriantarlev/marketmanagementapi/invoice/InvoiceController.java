@@ -114,7 +114,6 @@ public class InvoiceController {
 	 * @param id the id of invoice to be found.
 	 * @return the found invoice and 200 status code.
 	 * If invoice was not found the 404 status code will be sent.
-	 *
 	 */
 	@GetMapping(ID_PATH)
 	public ResponseEntity<InvoiceDTO> getInvoice(@PathVariable Long id) {
